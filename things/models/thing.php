@@ -114,10 +114,7 @@
 						if (strlen ($val) > 0 &&
 						    substr ($val, 0, strlen (URL_PROP)) == URL_PROP) {
 							// detect URL-based property, and replace it with the property value
-							// $fn = substr ($val, strlen (URL_PROP));
 							$fn = $this->GetPropFile ($val);
-							// $fn = THINGS_PROPS_DIR . $fn;
-                            // var_dump ($fn);
 							if (file_exists ($fn)) {
     							$contents = implode('', file($fn));
 	    						$row['value'] = $contents;
@@ -144,7 +141,6 @@
               'type' => string '1' (length=1) */
             if (!isset ($this->cache['props']) || sizeof ($this->cache['props']) == 0) {
                 $props = $this->GetPropsRaw ();
-				// var_dump ($props);
                 if (is_null ($props)) {
                     return null;
                 } else {
@@ -256,7 +252,6 @@
                     $query = "SELECT `pid`, `value` FROM `properties` 
                                WHERE `oid`='$oid'
                                  AND `name`='$name'";
-					//var_dump ($query);
                     $sql = mysql_query ($query) or die (mysql_error ());
                     if (mysql_num_rows ($sql) == 0) { // no existing key
                         $query = "INSERT INTO `properties` (`oid`,`name`,`value`)

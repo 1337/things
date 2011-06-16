@@ -104,7 +104,6 @@
             $page_id = $_GET['id'];
             if ($page_id > 0 && GetObjectType ($page_id) == POST) {
                 $page = new Post ($page_id);
-                // var_dump ($page);
                 $authors = $page->GetParents(USER);
                 if (sizeof ($authors) > 0) {
                     $author = new User ($authors[0]); // first guy out always wins the jackpot

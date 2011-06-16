@@ -9,7 +9,6 @@
         var $key_cache;
         function GPVar () {
             $key_cache = array ();
-            // var_dump ($_COOKIE);
         }
     
         function Get ($index = false) {
@@ -105,16 +104,15 @@
                 }
             } catch (Exception $e) {}
             
-            var_dump ($_GET);
+            /*var_dump ($_GET);
             var_dump ($_POST);
             var_dump ($_COOKIE);
             var_dump ($_REQUEST);
-            die ();
+            die ();*/
             
             header ('location: ' . WEBROOT); // return to home page
         }
     }
     
     $gp = new GPVar (); // used globally
-    // var_dump ($gp->Get()); // remove on testing
 ?>

@@ -101,8 +101,7 @@
                 if (class_exists ('AjaxField') 
                     && sizeof ($tags) > 0
                     && is_object ($user)) {
-                    // var_dump ($tags);
-                    for ($i = 0; $i < sizeof ($tags[0]); $i++) {
+						for ($i = 0; $i < sizeof ($tags[0]); $i++) {
                         $a = new AjaxField ($user->oid);
                         $fn = "New". $tags[1][$i] . "Field"; // tags[1][0] = <!--controls.CONTROLNAME.prop .. >
                         if (method_exists ($a, $fn)) {
