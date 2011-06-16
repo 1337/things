@@ -20,12 +20,14 @@
             strlen ($gp->Get ('np1')) > 30) {                 //new pass too long
             println ("There was a problem with the passwords you 
                      entered. Please try again.",$fail);
-            echo ("<p>Possible causes:</p>
-                   <ul>
-                       <li>Your old password is incorrect.</li>
-                       <li>Password is less than six (6) characters long.</li>
-                       <li>Password is longer than thirty (30) characters.</li>
-                   </ul>");
+?>
+               <p>Possible causes:</p>
+               <ul>
+                   <li>Your old password is incorrect.</li>
+                   <li>Password is less than six (6) characters long.</li>
+                   <li>Password is longer than thirty (30) characters.</li>
+               </ul>
+<?php
         } else {                                            //password win
             if ($user->SetPassword ($gp->Get ('np1'))) {
                 println ("Password successfully changed! Please keep it safe.", $win);
