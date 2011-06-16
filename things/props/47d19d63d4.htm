@@ -1,0 +1,43 @@
+<pre>$import[] ="
+    lib.controllers.core, 
+    lib.models.mysql_connect, 
+    lib.models.mysql, 
+    lib.config.config,
+    lib.models.lib, 
+    lib.models.thing, 
+    lib.models.gpvar, 
+    lib.controllers.user,
+    lib.controllers.group,
+    lib.controllers.privilege,
+    lib.controllers.auth,
+    lib.controllers.post,
+    lib.controllers.tag,
+    lib.controllers.setting,
+    lib.controllers.page,
+    lib.controllers.validator,
+    lib.controllers.ticket,
+    lib.controllers.view,
+    lib.views.gallery,
+    lib.views.ajaxfield";
+    
+    if (isset ($import) &amp;&amp; sizeof ($import) &gt; 0) {
+        foreach ($import as $w) {
+            foreach (
+                explode (',', 
+                    implode (',', 
+                        array_map (
+                            create_function (
+                                '$z',
+                                'return implode(",",glob("$z.php"));'
+                            ), array_map ('trim',
+                                explode (',',
+                                    str_replace ('.', '/', $w)
+                                )
+                            )
+                        )
+                    )
+                ) as $x) {
+                    if ($x) require_once $x;
+            }
+        }
+    }</pre>

@@ -1,0 +1,21 @@
+<p>This website is powered by <strong>Things</strong>. Things is a collection of object-oriented PHP objects.</p>
+<p>&nbsp;</p>
+<p>Each <strong>Things</strong> object is called a Thing. A Thing has a name, a type, and various other properties. They also have parents and children.</p>
+<p>A group of <strong>Thing</strong>s is called <strong>Things</strong> (yet another object).</p>
+<p>&nbsp;</p>
+<h3>Specialities</h3>
+<ul>
+<li><strong>True Object-oriented programming</strong><br />No one means OOP more than Things. In fact, Things goes to extremes in terms of OOP - with the exception of function libraries, everything in Things is an object.</li>
+<li><strong>True Model-View-Controller design</strong><br />All objects in Things are models and controller hybrids. Some controllers process some information, and all interfaces are delivered by views.</li>
+<li><strong>Unlimited object properties</strong><br />Unlike traditional database-driven PHP applications, all table-equivalents in Things behave as if they have an unlimited number of columns. This means all objects in Things can have an unlimited number of attributes, called properties.</li>
+<li><strong>Unlimited property sizes</strong><br />Unlike traditional database-driven PHP applications, where table cells have size limits, objects in Things can have properties that are arbitarily large, as long as the hosted file system does not complain.</li>
+<li><strong>Not a FRAMEwork</strong><br />Unlike other self-proclaimed frameworks (I am looking at you, Drupal), Things does not impose any kind of mode of usage on the developer. Things is a framework, not a I-have-everything-done-for-you-now-do-as-I-say toolkit.</li>
+<li><strong>Built to extend, designed for speed</strong><br />All objects in Things are extendable classes, making plugin production extremely easy.<br />Smart caching and database offloading methods reduce costs of database server upgrades.</li>
+<li><strong>1-step setup</strong><br />Things comes with a setup wizard to help create the MySQL database.</li>
+<li><strong>Data-bound controls<br /></strong>Things comes with HTML form controls that automatically reflect database field changes. This allows for quick questionnaire creation.<strong><br /></strong></li>
+<li><strong>Remote-capable<br /></strong>Things supports local users, registrations and deletions. Simply swapping the authentication Thing allows Things to operate via remote login.</li>
+<li><strong>Bandwidth friendliest</strong><br />Things groups, caches, and compresses external files before sending to the user. Feel free to look at the source code for this page.</li>
+<li><strong>Search engine optimised</strong><br />If you use Things as a blogging platform (which is a trivial process), each post will gain a search engine-friendly URL, e.g. <em>how-to-eat-a-sock.html</em>.</li>
+<li><strong>Orphan janitors<br /></strong>Enterprises report that at least 20% of their information becomes invalid in a year. With Orphan janitors, Things can automatically clean up what it determines as an orphan (no one owns it, it owns nothing)<strong><br /></strong></li>
+<li><strong>Unit tests included</strong><br />For the paranoid.</li>
+</ul>

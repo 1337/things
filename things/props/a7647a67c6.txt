@@ -1,0 +1,35 @@
+<?php
+    require_once('.things.php');
+?>
+<p><a class="button" href="goodies/PostIt.zip">Download</a></p>
+<h3>Add colour to your life.</h3>
+<p>Put your family pictures wherever you want it. Stack them like albums. Make them 
+stay on top.</p>
+<p>Place funny photos on the desktop. Put reminder images wherever.</p>
+<p><a href="PostIt.zip">Download PPP</a></p>
+<h3>Changes</h3>
+<p>Version 1.50 (from 1.15)</p>
+<ul>
+    <li>Added system tray icon</li>
+    <li>Added post-its now have individual transparency settings.</li>
+    <li>Now you can bring all post-its to the front.</li>
+    <li>File size went down from 20kb to 18kb.</li>
+</ul>
+<h3>FAQ</h3>
+<ul>
+    <li>How do I change the picture?<br />
+&nbsp;&nbsp;&nbsp; Double click on a note, or right click on the note and select 
+    &quot;change...&quot;</li>
+    <li>Why the random name?<br />
+&nbsp;&nbsp;&nbsp; That's because I am not changing it.</li>
+    <li>It doesn't run / transparency doesn't work.<br />
+&nbsp;&nbsp;&nbsp; You need at least Windows 98 to run, and Windows 2000 to show 
+    the transparency.</li>
+    <li>I hate sandcastles.<br />
+&nbsp;&nbsp;&nbsp; I can't help you with this.</li>
+</ul>
+<h3>Support</h3>
+<p>You can submit a question <a href="admin.php">here</a>.</p>
+<?php
+    page_out(array('title' => 'Priscilla\'s Post-it Program.'));
+?> 
