@@ -1,6 +1,7 @@
 <?php
+    $import[] = 'things.lib.datetime';
     require_once ('.things.php');
-    
+
     /*  if no cookies set, make cookie, give 15 minutes, pass
         if cookie is set, check time
             if gte 15 mins, pass, set cookie time
@@ -11,7 +12,7 @@
     */
     
     $reset_period = 900; // seconds between each allowed load
-    
+
     function GetSiteHash ($site) {
         // code refactoring
         return substr (md5 ($site), 0, 8);
@@ -25,12 +26,11 @@
             ), 
             false
         ); // set cookie time
-        header ("location: $site"); // pass
+        header ("location: http://$site"); // pass
     }
     
     if ($gp->Has ('site')) { // check if site is registered
         $site = $gp->Get ('site');
-        // var_dump ($_COOKIE);
         if (array_key_exists (GetSiteHash ($site), $_COOKIE)) {
             $sid = GetSiteHash ($site);
             $last_accessed_time = intval ($_COOKIE[$sid]);
@@ -40,7 +40,8 @@
                 // reset period exceeded = allow page again
                 LoadSite ($site);
             } else {
-                die ("Wait for another " . ($reset_period - $time_waited) . " seconds to view the page.");
+                echo ("Wait for another " . human_time_diff ($reset_period, $time_waited, '') . " to view the page.");
+                page_out ();
             }
         } else {
             LoadSite ($site);

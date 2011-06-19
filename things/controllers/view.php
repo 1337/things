@@ -29,10 +29,10 @@
                     is_file (THINGS_TEMPLATE_DIR . $special)) {
                 // if user has no prefs, use special
                 $template = THINGS_TEMPLATE_DIR . $special;
-/*            } elseif (file_exists (THINGS_TEMPLATE_DIR . THINGS_SITE_TEMPLATE)) {
+            } elseif (file_exists (THINGS_TEMPLATE_DIR . THINGS_SITE_TEMPLATE)) {
                 // fall back to site-specific
                 $template = THINGS_TEMPLATE_DIR . THINGS_SITE_TEMPLATE;
-*/            } elseif (file_exists (THINGS_TEMPLATE_DIR . THINGS_DEFAULT_TEMPLATE)) {
+            } elseif (file_exists (THINGS_TEMPLATE_DIR . THINGS_DEFAULT_TEMPLATE)) {
                 // fall back to the only one included
                 $template = THINGS_TEMPLATE_DIR . THINGS_DEFAULT_TEMPLATE;
             } else {
