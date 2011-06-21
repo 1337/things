@@ -11,7 +11,7 @@
         must be md5 because $_COOKIE keys cannot have strange symbols
     */
     
-    $reset_period = 900; // seconds between each allowed load
+    $reset_period = 7200; // seconds between each allowed load
 
     function GetSiteHash ($site) {
         // code refactoring
