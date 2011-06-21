@@ -13,7 +13,7 @@
     class Auth {
         function SuperSecureHash ($what) {
             // returns a hash of $what. Feel free to modify this function
-            // PRIOR to deployment.
+            // prior to deployment.
             return sha1 ($what);
         }
         
@@ -82,14 +82,26 @@
         }
     }
     
-    function CheckAuth ($from = '', $to = '/login', $redirect = true) {
+
+
+
+
+
+
+    function CheckAuth ($required_privs = array (), $from = '', $to = '/login', $redirect = true) {
         // call CheckAuth () to provide login functionality for that specific page.
         // if user is not logged in, it will be redirected to the $to page if $redirect is true.
         // if user is logged in, privileges will be checked for this page's access.
         // returns true (logged in) and false (not logged in).
         $auth = new Auth ();
         $user = $auth->WhoIsLoggedIn ();
-        if (is_null ($user)) {
+		// $user = $this->WhoIsLoggedIn ();
+		
+		if (!is_array ($required_privs)) {
+			$required_privs = array ($required_privs); // convert to array if given just a name
+		}
+        
+		if (is_null ($user)) {
             // user is not logged in
             if (strlen ($to) > 0) {
                 if (strlen ($from) == 0) {
@@ -101,12 +113,22 @@
             }
             return false;
         } else { // user is not null == is logged in
-            $has_privs = $user->CheckPrivileges (array ());
-            return true; // for now, just pretend privilege checks all succeed
+		    $has_privs = true; // default
+		    if (sizeof ($required_privs) > 0) {
+				$has_privs = $user->CheckPrivileges ($required_privs);
+				if (!$has_privs) {
+					if ($redirect) {
+						// reject request
+						header ("location: $to?from=$from");
+					}
+					return false; // and give a false if no redirect.
+				}
+			}
+			return $has_privs; // by now, $has_privs must be true
         }
     }
     
-    function CheckPrivilege ($privnames) {
+    /*function CheckPrivilege ($privids = array ()) {
         // checks the user (required) for privileges.
         // $privnames can be both a string (the privilege name)
         // or an array (many privilege names)
@@ -114,27 +136,23 @@
         
         $allow = true; // default to allow
         
-        if (isset ($user) && sizeof ($privnames) > 0) {
-            foreach ($privnames as $privname) {
-                if (strlen ($privname) > 0) {
-                    $pid = FindObject ($privname, PRIVILEGE);
-                    if (!is_null ($pid) && $pid > 0) { // privilege found
-                        $icanhaspriv = $user->GetChildren (PRIVILEGE);
-                        if (in_array ($pid, $icanhaspriv)) {
-                            $allow = $allow && true;
-                        } else {
-                            // $allow = false; 
-                            return false; // priv not found as user's child? INSTANT FAIL
-                        }
-                    }
-                } else {
-                    // if you didn't ask for a privilege check, why did you call me?
-                    $allow = $allow && true;
-                }
+        if (isset ($user) && sizeof ($privids) > 0) {
+            foreach ($privids as $privid) {
+	    		if (!is_int ($privid)) {
+					$privid = FindObject ($privid, PRIVILEGE); // find the ID for the name
+			    }
+				if (!is_null ($privid)) {
+				    $has_priv = $user->CheckPrivilege ($privid);
+					if (!$has_priv) {
+						return false;
+					} else {
+						$allow = $allow && true;
+					}
+				}
             }
         }
         return $allow;
-    }
+    }*/
     
     $auth = new Auth ();
     $auth->IsLoggedIn (); // this just logs the user in (if form was sent)

@@ -19,6 +19,11 @@
     ob_start();
     
     define ('PROOT', dirname (__FILE__) . '/'); // the things path is there
+	define ('WEBROOT', 
+	    "http://" . $_SERVER['SERVER_NAME'] . 
+		substr (dirname (dirname (realpath (__FILE__))), strlen ($_SERVER['DOCUMENT_ROOT'])) . 
+		'/'
+	);
 	require_once (PROOT . 'config/config.php'); // import configurations immediately
     
     // Stuff you'll be loading. sort by time of use.

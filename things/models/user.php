@@ -1,6 +1,4 @@
 <?php
-    require_once (PROOT . 'models/thing.php');
-    
     class User extends Thing {
         
         function SetProps ($what) {
@@ -19,13 +17,36 @@
 			// back-compatibility
             // supply a privilege ID, tells you if the user owns this ID.
             $owned_ids = $this->GetChildren (PRIVILEGE);
-            return array_key_exists ($priv_id, $owned_ids);
+            if (in_array ($priv_id, $owned_ids)) {
+				return true; // if the user has its privileges, then it's true!
+			} else {
+			    $user_groups = $this->GetParents (GROUP); // get groups associated with this user.
+				// policy: if any group with this user has required privilege, then make true.
+				if (sizeof ($user_groups) > 0) {
+					foreach ($user_groups as $gid) {
+						$grp = new Group ($gid);
+					    if ($grp->CheckPrivilege ($priv_id)) {
+							return true; // if group has it, then it's true for all users too!
+						}
+					}
+				}
+			}
+			return false;
         }
 
         function CheckPrivileges ($priv_ids) {
             // supply an array of privilege IDs, and tells you if they all meet.
-            $owned_ids = $this->GetChildren (PRIVILEGE);
-            return (sizeof (array_intersect ($priv_ids, $owned_ids)) >= $priv_ids);
+            // $owned_ids = $this->GetChildren (PRIVILEGE);
+            // return (sizeof (array_intersect ($priv_ids, $owned_ids)) >= $priv_ids);
+			$good = true;
+			
+			if (sizeof ($priv_ids) > 0) {
+				foreach ($priv_ids as $priv_id) {
+        			$good = $good && $this->CheckPrivilege ($priv_id);
+				}
+			}
+			
+			return $good;
         }
 		
 		function CheckPassword ($pw) {

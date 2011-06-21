@@ -175,6 +175,36 @@
                 }
             }
         }
+		
+		function FilterByProps ($props, $any = false) {
+			// given an array ('prop_name' => 'val'), remove all objects
+			// in this class that does not meet the criteria, depending on 
+			// $any = false: if ALL properties match, the object is removed
+			// $any = true: if ANY property matches, the object is removed
+			if (sizeof ($props) > 0) {
+				if ($any) { // if ANY property matches, remove it
+					foreach ($props as $prop => $val) {
+						$this->FilterByProp ($prop, $val);
+	    			}
+				} else { // if ALL properties match, remove it
+				    foreach ($this->GetObjects () as $oid) {
+						$keep = true;
+						$obj = new Thing ($oid);
+						foreach ($props as $prop => $val) {
+							if ($obj->GetProp ($prop) == $val) {
+							    $keep = true;
+							} else {
+								$keep = $keep && false;
+							}
+						}
+						if (!$keep) {		
+							// difference = this object
+							$this->objs = array_diff ($this->objs, array ($oid));
+						}
+					}
+				}
+			}
+		}
         
         function FilterByPreg ($prop, $preg) {
             // retains only those objects whose prop[$prop] matches preg.

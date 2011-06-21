@@ -102,31 +102,36 @@
             return "s";
         }
     }
-	
-    function human_time_diff ($datetime) {
+		
+    function human_time_diff ($datetime, $datetime2 = -1, $suffix = ' ago') {
         // mod of http://snipplr.com/view/4912/relative-time/
-        $diff = time_diff_from_now ($datetime);
+        // $diff = time_diff_from_now ($datetime);
+        if ($datetime2 == -1) {
+            $datetime2 = time ();
+        }
+        $diff = abs ($datetime2 - $datetime);
         if ($diff<60) {
-            return $diff . " second" . plural($diff) . " ago";
+            return $diff . " second" . plural($diff) . $suffix;
         }
         $diff = round($diff/60);
         if ($diff<60) {
-            return $diff . " minute" . plural($diff) . " ago";
+            return $diff . " minute" . plural($diff) . $suffix;
         }
         $diff = round($diff/60);
         if ($diff<24) {
-            return $diff . " hour" . plural($diff) . " ago";
+            return $diff . " hour" . plural($diff) . $suffix;
         }
         $diff = round($diff/24);
         if ($diff<7) {
-            return $diff . " day" . plural($diff) . " ago";
+            return $diff . " day" . plural($diff) . $suffix;
         }
         $diff = round($diff/7);
         if ($diff<4) {
-            return $diff . " week" . plural($diff) . " ago";
+            return $diff . " week" . plural($diff) . $suffix;
         }
         if ($datetime > 0) { // it'll return the epoch if not
             return "on " . date("F j, Y", strtotime($datetime));
         }
     }
-    
+
+?>

@@ -1,3 +1,17 @@
-[12-Jun-2011 19:18:14] PHP Fatal error:  Class 'AjaxField' not found in /home/blland/public_html/ohai/things/controllers/menu.php on line 8
-[12-Jun-2011 19:18:16] PHP Fatal error:  Class 'AjaxField' not found in /home/blland/public_html/ohai/things/controllers/menu.php on line 8
-[12-Jun-2011 20:40:52] PHP Fatal error:  Class 'AjaxField' not found in /home/blland/public_html/ohai/things/controllers/menu.php on line 8
+[21-Jun-2011 13:03:05] PHP Notice:  Undefined index:  submit in /home/blland/public_html/ohai/things/controllers/gexec.php on line 5
+[21-Jun-2011 13:03:11] PHP Notice:  Undefined index:  submit in /home/blland/public_html/ohai/things/controllers/gexec.php on line 5
+[21-Jun-2011 13:03:18] PHP Notice:  Undefined index:  submit in /home/blland/public_html/ohai/things/controllers/gexec.php on line 5
+[21-Jun-2011 13:09:18] PHP Fatal error:  Using $this when not in object context in /home/blland/public_html/ohai/things/controllers/auth.php on line 92
+[21-Jun-2011 13:09:20] PHP Fatal error:  Using $this when not in object context in /home/blland/public_html/ohai/things/controllers/auth.php on line 92
+[21-Jun-2011 13:10:06] PHP Notice:  Undefined index:  submit in /home/blland/public_html/ohai/things/controllers/gexec.php on line 5
+[21-Jun-2011 13:10:21] PHP Notice:  Undefined index:  submit in /home/blland/public_html/ohai/things/controllers/gexec.php on line 5
+[21-Jun-2011 13:14:47] PHP Notice:  Undefined index:  submit in /home/blland/public_html/ohai/things/controllers/gexec.php on line 5
+[21-Jun-2011 13:16:11] PHP Notice:  Undefined index:  submit in /home/blland/public_html/ohai/things/controllers/gexec.php on line 5
+[21-Jun-2011 13:16:48] PHP Notice:  Undefined index:  submit in /home/blland/public_html/ohai/things/controllers/gexec.php on line 5
+[21-Jun-2011 13:29:34] PHP Notice:  Undefined index:  submit in /home/blland/public_html/ohai/things/controllers/gexec.php on line 5
+[21-Jun-2011 13:34:59] PHP Notice:  Undefined index:  submit in /home/blland/public_html/ohai/things/controllers/gexec.php on line 5
+[21-Jun-2011 13:36:18] PHP Notice:  Undefined index:  submit in /home/blland/public_html/ohai/things/controllers/gexec.php on line 5
+[21-Jun-2011 13:58:13] PHP Notice:  Undefined index:  submit in /home/blland/public_html/ohai/things/controllers/gexec.php on line 5
+[21-Jun-2011 14:04:53] PHP Notice:  Undefined index:  submit in /home/blland/public_html/ohai/things/controllers/gexec.php on line 5
+[21-Jun-2011 14:05:59] PHP Notice:  Trying to get property of non-object in /home/blland/public_html/ohai/things/controllers/menu.php on line 8
+[21-Jun-2011 14:06:08] PHP Notice:  Trying to get property of non-object in /home/blland/public_html/ohai/things/controllers/menu.php on line 8

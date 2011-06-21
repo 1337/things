@@ -1,8 +1,8 @@
 <?php
     require_once('.things.php');
-    CheckAuth ();
+    CheckAuth (3);
     
-    if(($_POST && $_POST['submit'] && isset ($_POST['q'])) || isset ($_GET['q'])) {
+    if(($_POST && isset ($_POST['submit']) && isset ($_POST['q'])) || isset ($_GET['q'])) {
         
         $q1 = isset ($_POST['q']) ? $_POST['q'] : $_GET['q'];
         $q1 = stripslashes($q1); //causing problems before

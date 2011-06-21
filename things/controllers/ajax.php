@@ -14,11 +14,11 @@
            does not give a rat's buttock about that.
     */
     
+	$import[] = "things.config.mysql_connect,
+	             things.models.thing,
+				 things.lib.core";
+	
     require_once ('.things.php');
-    require_once (PROOT . 'models/mysql_connect.php');
-    
-    require_once (PROOT . 'models/thing.php');
-    require_once (PROOT . 'lib/core.php');
     
     /* if (isset ($_GET)) {
         $args = $_GET; // heh, just giving it a name

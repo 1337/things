@@ -60,6 +60,8 @@
         /*  VALIDATION HELPERS
             Inputs: test string, test criterion
             Outputs: boolean
+			
+			You can also call these separately from outside the class
         */
         
         function _required ($str, $param) {

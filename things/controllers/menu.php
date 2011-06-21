@@ -1,5 +1,5 @@
 <?php
-    require_once ('../../.things.php');
+    require_once ('.things.php');
     CheckAuth (); // require a login. --> $user is available to you.
     
     $headers = '';
@@ -14,22 +14,13 @@
     <!-- controls.Text.website, name="Web site" -->
     <br />
     <!-- controls.Text.age, name="Age" -->
-    <!-- controls.Text.picture, name="Profile picture" -->
+    <!-- controls.Text.picture, name="Profile picture" -->    
     <hr />
     
 <?php
-    /*$a->NewTextField ('email', 'Email');
-    echo ("<br />");
-    $a->NewTextField ('realname', 'Real name');
-    $a->NewTextField ('website', 'Web site');
-    echo ("<br />");
-    $a->NewTextField ('age');
-    $a->NewTextField ('picture', 'Profile picture');
-    echo ("<hr />");*/
     println ("More about you", 2);
     $a->NewTextareaField ('aboutme', 'Introduce yourself', false, 'width:100%;max-width:450px;height:100px;');
     echo ("<hr />");
-
     println ("Your Posts (blog entries)", 2);
     $posts = $user->GetChildren (POST, "`child_oid` DESC LIMIT 10");
     if (sizeof ($posts) > 0) {
@@ -46,6 +37,10 @@
     } else {
         println ("You have no posts yet. <a href='/new'>Write one?</a>");
     }
-    
+?>
+    <hr />
+    <h2>Options</h2>
+    <!-- controls.Text.template, name="Custom template" -->
+<?php    
     page_out (array ('headers'=>$headers));
 ?>

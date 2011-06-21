@@ -41,7 +41,7 @@
         
         function init_vars ($prop, $friendlyname = '', $readonly = false) {
             // put here to avoid namespace collision with __construct ()
-            $this->url = "/things/views/ajax.php";
+            $this->url = "/things/controllers/ajax.php";
             $this->prop = $prop;
             if (strlen ($friendlyname) > 0) {
                 $this->fn = $friendlyname;
@@ -86,11 +86,11 @@
 						'friendlyname' => ...
 					));
 			    */
-				$friendlyname = DefaultTo ($prop['friendlyname'], '');
-				$readonly = DefaultTo ($prop['readonly'], false);
-				$style = DefaultTo ($prop['style'], '');
-				$type = DefaultTo ($prop['type'], 'text');
-				$prop = DefaultTo ($prop['prop']); // must be last (notice change of $prop)
+				$friendlyname = @DefaultTo ($prop['friendlyname'], '');
+				$readonly = @DefaultTo ($prop['readonly'], false);
+				$style = @DefaultTo ($prop['style'], '');
+				$type = @DefaultTo ($prop['type'], 'text');
+				$prop = @DefaultTo ($prop['prop']); // must be last (notice change of $prop)
 			}
 			
             $this->init_vars($prop, $friendlyname, $readonly);
@@ -134,10 +134,10 @@
 					));
 			    */
 				
-				$friendlyname = DefaultTo ($prop['friendlyname'], '');
-				$readonly = DefaultTo ($prop['readonly'], false);
-				$style = DefaultTo ($prop['style'], '');
-				$prop = DefaultTo ($prop['prop']); // must be last (notice change of $prop)
+				$friendlyname = @DefaultTo ($prop['friendlyname'], '');
+				$readonly = @DefaultTo ($prop['readonly'], false);
+				$style = @DefaultTo ($prop['style'], '');
+				$prop = @DefaultTo ($prop['prop']); // must be last (notice change of $prop)
 			}
 
             $this->init_vars($prop, $friendlyname, $readonly);

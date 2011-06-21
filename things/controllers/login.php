@@ -2,17 +2,11 @@
     require_once ('.things.php');
     
     if ($auth->IsLoggedIn()) {
-        // echo ('You are logged in!');
-        // if ($gp->Has ('from') && strlen ($gp->Get ('from')) > 0) { // directive to return to a page - see CheckAuth in auth.php
-        if (!$gp->Has ('from') || strlen ($gp->Get ('from')) == 0) {
+        if (!$gp->Has ('from') || strlen ($gp->Get ('from')) == 0) { // directive to return to a page - see CheckAuth in auth.php
             $gp->Set (array ('from'=> WEBROOT . 'menu'));
         }
-            // echo ('location: ' . $gp->Get ('from'));
-            header ('location: ' . $gp->Get ('from'));
-            exit ();
-        //}
-    } else {
-        // echo ('fail');
+		header ('location: ' . $gp->Get ('from'));
+		exit ();
     }
 ?>
 

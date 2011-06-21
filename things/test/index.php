@@ -111,6 +111,11 @@
 			);
 			$b->Destroy ();
 		}
+		
+		function test_filter () {
+			$this->things = new Things (POST);
+		}
+		
 	} $b = new ThingsTest ();
 
     class CoreTest extends UnitTestClass {
@@ -138,6 +143,44 @@
 		}
 	} $c = new CoreTest ();
 	
-	showResults (array ($a, $b, $c, $d));
+    class PrivTest extends UnitTestClass {
+		
+		public $usr;
+		public $priv;
+		
+		function setup () {
+			$grp = new Things (USER);
+			$usrs = $grp->GetObjects ();
+			$this->usr = new User ($usrs[0]); // pick a user
+
+			$grp = new Things (PRIVILEGE);
+			$privs = $grp->GetObjects ();
+			$this->priv = new Privilege ($privs[0]); // pick a privilege
+		}
+		
+        function test_setup_succeeded () {
+            $this->assertIsA($this->usr, 'User');
+            $this->assertIsA($this->priv, 'Privilege');
+		}
+		
+		function test_give_priv () {
+		    $this->usr->SetChildren (array ($this->priv->oid)); // give user this priv
+			$this->assertTrue (in_array ($this->priv->oid, $this->usr->GetChildren (PRIVILEGE)));
+		}
+		
+		function test_test_priv () {
+			$this->assertTrue ($this->usr->CheckPrivilege ($this->priv->oid));
+		    $this->assertTrue ($this->usr->CheckPrivileges (array ($this->priv->oid)));
+			$priv_name = $this->priv->GetProp ('name');
+			// supposed to fail, CheckPrivilege does not handle type string
+			$this->assertTrue ($this->usr->CheckPrivilege ($priv_name));
+		}
+		
+		function test_auth () {
+			// CheckAuth uses local $user and can't be tested
+		}
+				
+	} $d = new PrivTest ();	
 	
+	showResults (array ($a, $b, $c, $d));
 ?>

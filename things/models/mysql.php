@@ -3,10 +3,11 @@
 	// In practice, we don't use it much.
     
 	require_once (PROOT . "config/config.php");
-	    
+	
     class MySQL { // implements DAO {
 		public $query; // will be used by BuildQuery
-			
+		public $rs; // query identifier (might as well make it public)
+		
 		function __construct ($host, $user, $pass, $db = '') {
 			// MySQL class must connect on initialization.
 			if (@!mysql_connect($host, $user, $pass)) {
@@ -36,8 +37,8 @@
 			if (strlen ($query) == 0) {
 				$query = $this->query;
 			}
-			$rs = mysql_query ($query);
-			switch ($rs) {
+			$this->rs = mysql_query ($query);
+			switch ($this->rs) {
 			    case false:
 				    // whatever it was, the query failed.
     				die ("Query failed: " . mysql_error());
@@ -48,7 +49,7 @@
 					break;
 				default:
 				    // all others.
-					while ($row = mysql_fetch_assoc ($rs)) {
+					while ($row = mysql_fetch_assoc ($this->rs)) {
 						$return [] = $row;
 					}
 					return $return;
@@ -64,5 +65,5 @@
 		}
 	}
 	
-    $mysql = new MySQL (SERVER_SERVER, SERVER_USER, SERVER_PASS, SERVER_DB); // <-- use this
+    $db = new MySQL (SERVER_SERVER, SERVER_USER, SERVER_PASS, SERVER_DB); // <-- use this
 ?>
