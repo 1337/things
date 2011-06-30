@@ -27,7 +27,7 @@
             // no url_prop found for any files found in props path
         }
 
-        function purge_error_logs ($path = '.') {
+        function purge_error_logs ($path = '.', $verbose = false) {
             // delete all files named error_log in the specified folder.
             require_once (dirname (__FILE__) . '/../controllers/filesearch.class.php'); // local import
             $a = new FileSearch ();
@@ -35,7 +35,9 @@
             if (sizeof ($files) > 0) {
                 foreach ($files as $file) {
                     unlink ($file);
-                    // echo ("unlinked $file\n");
+                    if ($verbose) {
+                        echo ("unlinked $file\n");
+                    }
                 }
             }
         }

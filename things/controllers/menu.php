@@ -28,14 +28,14 @@
         foreach ($posts as $post_id) {
             $post = new Post ($post_id);
             printf ("<li>
-                <a href='/edit/%s'>%s</a>
+                <a href='/edit/post/%s'>%s</a>
             </li>",
             $post->oid,
             $post->GetTitle ());
         }
         echo ('</ul>');
     } else {
-        println ("You have no posts yet. <a href='/new'>Write one?</a>");
+        println ("You have no posts yet. <a href='/new/post/'>Write one?</a>");
     }
 ?>
     <hr />

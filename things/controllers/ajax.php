@@ -56,7 +56,7 @@
         } else {
             // get list of avaiable properties
             if (ObjectExists ($oid)) {
-                $the_obj = new Obj ($oid);
+                $the_obj = new Thing ($oid);
                 $props = $the_obj->GetProps ();
                 if (sizeof ($props) > 0) {
                     echo '{["' . implode (array_map('htmlentities', array_keys ($props), array_fill(0, sizeof ($props), ENT_QUOTES)), '","') . '"]}';

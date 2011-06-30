@@ -327,7 +327,7 @@
                                WHERE `parent_oid` = '$oid'
                             ORDER BY $order_by";
                 }
-                $sql = mysql_query ($query) or die (mysql_error ());
+                $sql = mysql_query ($query) or die ("Error 330: " . mysql_error ());
                 if ($sql && mysql_num_rows ($sql) > 0) {
                     $roller = array ();
                     while ($tmp = mysql_fetch_assoc ($sql)) {
@@ -359,7 +359,7 @@
                         if (mysql_num_rows ($sql) == 0) { // no existing key
                             $query = "INSERT INTO `hierarchy` (`parent_oid`,`child_oid`)
                                                          VALUES ('$oid','$child')";
-                            $sql = mysql_query ($query) or die (mysql_error ());
+                            $sql = mysql_query ($query) or die ("Error 362: " . mysql_error ());
                         } // else: already there, do nothing
                     }
                     return $sql;
@@ -373,7 +373,7 @@
             // removes hierarchical data of some of this object's children.
             // accepts (parent1id, parent2id, ...)
             $oid = $this->oid;
-            if ($oid > 0) {
+            if ($oid > 0 && sizeof ($child_ids) > 0) {
                 $query = "DELETE FROM `hierarchy`
                                  WHERE `parent_oid`='$oid'
                                   AND `child_oid` IN (";
@@ -381,8 +381,8 @@
                     $eh = escape_data ($eh);
                     $query .= "'$eh',";
                 }
-                $query = substr ($query, 0, strlen ($query) -1) . ')';
-                $sql = mysql_query ($query) or die (mysql_error ());
+                $query = substr ($query, 0, strlen ($query) -1) . ')'; // remove last comma, then add )
+                $sql = mysql_query ($query) or die ("Error 385: " . mysql_error () . " | " . $query);
                 return $sql;
             }
         }        

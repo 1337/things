@@ -9,6 +9,7 @@
         $tag = 'home'; // default
     }
     $tp = new Tag (FindObject ($tag, TAG));
+	$counter = 0;
     foreach ($tp->GetPosts () as $post_id) {
         $counter++;
         $post = new Post ($post_id);
