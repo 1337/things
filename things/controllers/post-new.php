@@ -1,5 +1,9 @@
 <?php
-    // this file must be called by post-ui.php
+    if (count(get_included_files()) <= 1) {
+        // this file must be called by post-ui.php.
+        // it uses variables only available from post-ui.php.
+        die ();
+    }
 	    
 	// someone posted something
 	$tags = explode (',', $tagstr);
@@ -42,6 +46,8 @@
 			$tag_id = FindObject ($tag_name, TAG);
 			if ($tag_id) {
 				$post->SetChildren (array ($tag_id));
+			} else {
+			    println ("Cannot find a tag called $tag_name.", $fail);
 			}
 		}
 	}
