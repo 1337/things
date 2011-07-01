@@ -37,7 +37,7 @@
                 })();
             </script>
 <?php
-            page_out (array('title'=>$page->GetTitle()));
+            render (array('title'=>$page->GetTitle()));
             exit ();
         } else {
             echo ("You evil child...");

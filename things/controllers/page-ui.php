@@ -43,7 +43,7 @@
                         <textarea name='body' id='body' style='width:100%;height: 400px;'>$bodystr</textarea>
                     </fieldset>
                 </form>");
-        page_out ();
+        render ();
         exit();
     } else {
         $path = $_SERVER['REQUEST_URI']; // this seems to work 99% of the time

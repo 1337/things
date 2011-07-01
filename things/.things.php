@@ -18,6 +18,7 @@
     $epoch = microtime ();
     ob_start();
     
+	
     define ('PROOT', dirname (__FILE__) . '/'); // the things path is there
 	define ('WEBROOT', 
 	    "http://" . $_SERVER['SERVER_NAME'] . 
@@ -27,7 +28,8 @@
 	require_once (PROOT . 'config/config.php'); // import configurations immediately
     
     // Stuff you'll be loading. sort by time of use.
-    $import[] ="things.controllers.core, 
+    $import[] ="things.models.superglobal, 
+                things.controllers.core, 
                 things.config.mysql_connect, 
                 things.models.mysql, 
                 things.models.things, 

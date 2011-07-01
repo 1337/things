@@ -30,6 +30,6 @@
         echo("</td></tr></table>");
     }
 
-    page_out(array('title' => 'Graphical database viewer',
+    render (array('title' => 'Graphical database viewer',
                   'titleextras' => "<a href='$admin_page'>Menu</a>"));
 ?>

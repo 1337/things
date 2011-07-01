@@ -41,7 +41,7 @@
                 LoadSite ($site);
             } else {
                 echo ("Wait for another " . human_time_diff ($reset_period, $time_waited, '') . " to view the page.");
-                page_out ();
+                render ();
             }
         } else {
             LoadSite ($site);

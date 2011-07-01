@@ -174,5 +174,5 @@
         </div>
     </div>
 <?php
-    page_out(array('title' => 'Account settings'));
+    render (array('title' => 'Account settings'));
 ?>

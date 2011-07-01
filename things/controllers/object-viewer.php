@@ -27,5 +27,5 @@
 		}
 	}
 	
-	page_out ();
+	render ();
 ?>

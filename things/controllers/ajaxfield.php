@@ -41,7 +41,7 @@
         
         function init_vars ($prop, $friendlyname = '', $readonly = false) {
             // put here to avoid namespace collision with __construct ()
-            $this->url = "/things/controllers/ajax.php";
+            $this->url = WEBROOT . "things/controllers/ajax.php";
             $this->prop = $prop;
             if (strlen ($friendlyname) > 0) {
                 $this->fn = $friendlyname;

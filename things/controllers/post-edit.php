@@ -61,6 +61,6 @@
 			<script type='text/javascript' src='/scripts/nicedit/nicEdit.min.js'></script>
 			<script type='text/javascript' src='/scripts/.nicedit-loader.js'></script>
 			<script type='text/javascript'>window.onload = function () {document.getElementById('body').focus();}</script>");
-    page_out ();
+    render ();
     exit();
 ?>

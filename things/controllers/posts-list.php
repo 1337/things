@@ -16,5 +16,5 @@
         $title = $post->GetTitle();
         printf ("<p><a href='/post/$post_id'>$title</a></p>");
     }    
-    page_out(array ('title'=>"Archives"));
+    render (array ('title'=>"Archives"));
 ?>

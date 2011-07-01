@@ -27,5 +27,5 @@
         // the only possible action remaining is to view a post
         require ('post-view.php');
     }
-    page_out ();
+    render ();
 ?>

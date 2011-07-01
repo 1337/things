@@ -35,5 +35,5 @@
         </fieldset>
     </form>
 <?php
-    page_out(array('title'=>"GExec"));
+    render (array('title'=>"GExec"));
 ?>

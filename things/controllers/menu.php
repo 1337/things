@@ -42,5 +42,5 @@
     <h2>Options</h2>
     <!-- controls.Text.template, name="Custom template" -->
 <?php    
-    page_out (array ('headers'=>$headers));
+    render (array ('headers'=>$headers));
 ?>

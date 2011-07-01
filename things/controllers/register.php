@@ -90,5 +90,5 @@
         <input type="submit" name="submit" value="Register" />
     </form>
 <?php
-    page_out (array ('headers'=>$headers));
+    render (array ('headers'=>$headers));
 ?>

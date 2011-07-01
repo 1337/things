@@ -37,5 +37,5 @@
 		}
 	}
 
-	page_out ();
+	render ();
 ?>

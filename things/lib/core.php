@@ -1,6 +1,11 @@
 <?php
     // things core
     // functions and stuff
+
+    if (count(get_included_files()) <= 1) {
+        // this file must be included.
+        die ();
+    }
     
 	function DefaultTo () {
         // successively checks all supplied variables and returns the

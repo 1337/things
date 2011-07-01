@@ -43,11 +43,13 @@
 	if (sizeof ($tags) > 0) {
 		$post->DelChildren ($post->GetChildren (TAG)); // delete all existing tags
 		foreach ($tags as $tag_name) {
-			$tag_id = FindObject ($tag_name, TAG);
-			if ($tag_id) {
-				$post->SetChildren (array ($tag_id));
-			} else {
-			    println ("Cannot find a tag called $tag_name.", $fail);
+			if (strlen ($tag_name) > 0) {
+				$tag_id = FindObject ($tag_name, TAG);
+				if ($tag_id) {
+					$post->SetChildren (array ($tag_id));
+				} else {
+					println ("Cannot find a tag called $tag_name.", $fail);
+				}
 			}
 		}
 	}

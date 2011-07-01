@@ -212,5 +212,5 @@
 ?>
     </table>
 <?php
-    page_out (array ('headers'=>$headers));
+    render (array ('headers'=>$headers));
 ?>
