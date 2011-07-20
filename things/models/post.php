@@ -3,13 +3,13 @@
         private $body;
         
         function GetBody () {
-			// function deprecated.
-			return $this->GetProp ('body');
+            // function deprecated.
+            return $this->GetProp ('body');
         }
         
         function SetBody ($what) {
             // function deprecated.
-			return $this->SetProp ('body', $what);
+            return $this->SetProp ('body', $what);
         }
         
         function GetTitle () {
@@ -36,6 +36,8 @@
             $file = $this->GetProp ('bodyhref');
             if (!is_null ($file) && file_exists ($file)) {
                 return filemtime ($file); // file's modified time
+            } elseif (!is_null ($this->GetProp ('db_time'))) {
+                return $this->GetProp ('db_time'); // if recorded in DB, use it
             } else {
                 return 0; // epoch?
             }

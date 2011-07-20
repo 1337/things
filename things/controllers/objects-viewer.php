@@ -1,7 +1,7 @@
 <?php
     require_once ('.things.php');
     require_once (PROOT . 'lib/strings.php');
-    CheckAuth (); // require a login. --> $user is available to you.
+    CheckAuth ("Administrative privilege"); // require a login. --> $user is available to you.
                                        // $gp   is available to you.
     $headers = '
     <style type="text/css">

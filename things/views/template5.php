@@ -2,13 +2,13 @@
 <html>
     <head>
         <base href="<!--root-->" />
-        <link rel='stylesheet' href='/css/reset,default5,dde,mce' type='text/css' />
+        <link rel='stylesheet' href='<!--root-->css/reset,default5,dde,mce' type='text/css' />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="keywords" content="Brian Lai, Waterloo, KGV" />
         <meta name="description" content="Ohai: Brian Lai from the University of Waterloo." />
         <title><!--self.title--> | ohai.ca</title>
         <!--base href="http://ohai.ca" /-->
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ohai.ca/rss">
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="<!--root-->rss">
         <!--self.headers-->
         <!--self.userheaders-->
     </head>
@@ -17,29 +17,29 @@
         <div id="container">
             <div id="header">
                 <div id="logo">
-                    <a href="/">
-                        <img src="/styles/logo100.png" alt="" />
+                    <a href="<!--root-->">
+                        <img src="<!--root-->styles/logo100.png" alt="" />
                     </a>
                 </div>
                 <div id="headermore">
                     <div class="col4">
                         <ul>
-                            <li><a href="menu/">Menu</a></li>
+                            <li><a href="<!--root-->menu/">Menu</a></li>
                         </ul>
                     </div>
                     <div class="col4">
                         <ul>
-                            <li><a href="/new/post">New post</a></li>
+                            <li><a href="<!--root-->new/post">New post</a></li>
                         </ul>
                     </div>
                     <div class="col4">
                         <ul>
-                            <li><a href="/new/page">New page</a></li>
+                            <li><a href="<!--root-->new/page">New page</a></li>
                         </ul>
                     </div>
                     <div class="col4">
                         <ul>
-                            <li><a href="/logout">Logout</a></li>
+                            <li><a href="<!--root-->logout">Logout</a></li>
                         </ul>
                     </div>
                 </div>

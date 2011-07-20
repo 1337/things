@@ -29,9 +29,9 @@
                             <li><b>Brian Lai</b><br />
                                 brian.lai@uwaterloo.ca<br />
                                 tel: 519-888-4567</li>
-                            <li><a href="http://ca.linkedin.com/in/goodtogo">LinkedIn</a></li>
+                            <!--li><a href="http://ca.linkedin.com/in/goodtogo">LinkedIn</a></li>
                             <li><a href="http://facebook.com/fristpsot">Facebook</a></li>
-                            <li><a href="http://twitter.com/type_boy">Twitter</a></li>
+                            <li><a href="http://twitter.com/type_boy">Twitter</a></li-->
                         </ul>
                     </div>
                     <div class="col4">
@@ -52,7 +52,7 @@
                     <div class="col4">
                         <ul>
                             <li><a href="/login">Login</a></li>
-                            <li><a href="/register">Register</a></li>
+                            <!--li><a href="/register">Register</a></li-->
                         </ul>
                     </div>
                 </div>
