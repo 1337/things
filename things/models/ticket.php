@@ -7,7 +7,7 @@
             // suggesting "please see me".
         
             $old_ticket = new Ticket ($ticket_id);
-            $old_ticket->SetChildren ($this->oid);
+            $old_ticket->SetChildren (array ($this->oid));
         }
     }
 ?>

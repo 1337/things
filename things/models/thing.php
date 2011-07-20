@@ -6,20 +6,20 @@
         private $cache;
         
         function __construct ($oid) {
-			// if negative, a new object will be created for you automatically, 
+            // if negative, a new object will be created for you automatically, 
             // with the type being the absolute value of $oid (-1 = 1 -> user, -2 = 2 -> group, ...)
             // parent::__construct ($oid);
-			
-			$this->oid = $oid;
-			$this->cache = array ();
-			
-			if ($oid <= 0 && $oid != 0) {
-				$oid = $this->Create (); // if object is sure not to exist, create it and update ID
-			} elseif ($oid == 0) { // invalid - there is no object type 0
-				die ('Error: cannot create Thing of index 0');
-			}
-			
-			$thing_stack[$oid] = $this;
+            
+            $this->oid = $oid;
+            $this->cache = array ();
+            
+            if ($oid <= 0 && $oid != 0) {
+                $oid = $this->Create (); // if object is sure not to exist, create it and update ID
+            } elseif ($oid == 0) { // invalid - there is no object type 0
+                die ('Error: cannot create Thing of index 0');
+            }
+            
+            $thing_stack[$oid] = $this;
         }
         
         function __destruct () {
@@ -76,16 +76,16 @@
             
         function SetTypeHelper ($type_id) {
             global $mysql;
-			if (ObjectTypeExists ($type_id)) {
-				$oid = $this->oid;
-				$sql = mysql_query ("UPDATE `objects` SET `type`='$type_id' WHERE `oid`='$oid'");
-				// $mysql->Query ("UPDATE `objects` SET `type`='$type_id' WHERE `oid`='$oid'");
-				if ($sql) {
-					$this->cache['type'] = $type_id; // update cache
-					return $sql;
-				}
-			}
-			return null;
+            if (ObjectTypeExists ($type_id)) {
+                $oid = $this->oid;
+                $sql = mysql_query ("UPDATE `objects` SET `type`='$type_id' WHERE `oid`='$oid'");
+                // $mysql->Query ("UPDATE `objects` SET `type`='$type_id' WHERE `oid`='$oid'");
+                if ($sql) {
+                    $this->cache['type'] = $type_id; // update cache
+                    return $sql;
+                }
+            }
+            return null;
         }
 
         function GetPropsRaw () {
@@ -108,22 +108,22 @@
                     or die (mysql_error ());
             if ($sql && mysql_num_rows ($sql) > 0) {
                 $roller = array ();
-				$recon = array ();
+                $recon = array ();
                 while ($row = mysql_fetch_assoc ($sql)) {
-						$val = $row['value'];
-						if (strlen ($val) > 0 &&
-						    substr ($val, 0, strlen (URL_PROP)) == URL_PROP) {
-							// detect URL-based property, and replace it with the property value
-							$fn = $this->GetPropFile ($val);
-							if (file_exists ($fn)) {
-    							$contents = implode('', file($fn));
-	    						$row['value'] = $contents;
-							} else {
-								$row['value'] = "$val"; // if file not found, property is nothing
-							}
-						} else {
-							// retain original value
-						}
+                        $val = $row['value'];
+                        if (strlen ($val) > 0 &&
+                            substr ($val, 0, strlen (URL_PROP)) == URL_PROP) {
+                            // detect URL-based property, and replace it with the property value
+                            $fn = $this->GetPropFile ($val);
+                            if (file_exists ($fn)) {
+                                $contents = implode('', file($fn));
+                                $row['value'] = $contents;
+                            } else {
+                                $row['value'] = "$val"; // if file not found, property is nothing
+                            }
+                        } else {
+                            // retain original value
+                        }
                     $roller[] = $row;
                 }
                 return $roller;
@@ -167,27 +167,27 @@
                 return null;
             }
         }
-		
-		function GetPropFile ($propurl = '', $ext = 'txt') {
-			// if no propurl is provided, find an available, writable file.
-			//     it will not come with prop://.
-			// if a propurl is provided (e.g. prop://ddsdads), 
-			//     resolve it and turn it into a full file name.
-			
-			// does not check if file actually exists.
-			$was_at = getcwd ();
-			chdir (THINGS_PROPS_DIR); // change to the props folder
-			
-			if (strlen ($propurl) == 0) {
-				do {
-					$randchars = substr (md5(time().rand()), 0, 10); // pick random string
-					$filename = "$randchars.$ext";
-				} while (file_exists ($filename) == true);
-				return $filename; // '' => prop://dcea2b9e04.txt
-			} else {
-				return THINGS_PROPS_DIR . substr ($propurl, strlen (URL_PROP)); // prop://dcea2b9e04.txt => '/var/www/things/props/dcea2b9e04.txt
-			}
-		}
+        
+        function GetPropFile ($propurl = '', $ext = 'txt') {
+            // if no propurl is provided, find an available, writable file.
+            //     it will not come with prop://.
+            // if a propurl is provided (e.g. prop://ddsdads), 
+            //     resolve it and turn it into a full file name.
+            
+            // does not check if file actually exists.
+            $was_at = getcwd ();
+            chdir (THINGS_PROPS_DIR); // change to the props folder
+            
+            if (strlen ($propurl) == 0) {
+                do {
+                    $randchars = substr (md5(time().rand()), 0, 10); // pick random string
+                    $filename = "$randchars.$ext";
+                } while (file_exists ($filename) == true);
+                return $filename; // '' => prop://dcea2b9e04.txt
+            } else {
+                return THINGS_PROPS_DIR . substr ($propurl, strlen (URL_PROP)); // prop://dcea2b9e04.txt => '/var/www/things/props/dcea2b9e04.txt
+            }
+        }
         
         function DelPropFiles ($prop = '') {
             // deletes property files associated with this object.
@@ -203,14 +203,14 @@
             }
             $sql = mysql_query ($query) or die (mysql_error ());
             if (mysql_num_rows ($sql) > 0) { // at least one row represents existing property
-				while ($temp_row = mysql_fetch_assoc ($sql)) {
-				    if (substr ($temp_row['value'], 0, strlen (URL_PROP)) == URL_PROP) {
-					    $filename = $this->GetPropFile ($temp_row['value']);
-					    if (strlen ($filename) > 0 && file_exists (THINGS_PROPS_DIR . $filename)) {
-					        unlink (THINGS_PROPS_DIR . $filename); // try to remove expired property files for this property
-					    }
-					}
-				}
+                while ($temp_row = mysql_fetch_assoc ($sql)) {
+                    if (substr ($temp_row['value'], 0, strlen (URL_PROP)) == URL_PROP) {
+                        $filename = $this->GetPropFile ($temp_row['value']);
+                        if (strlen ($filename) > 0 && file_exists (THINGS_PROPS_DIR . $filename)) {
+                            unlink (THINGS_PROPS_DIR . $filename); // try to remove expired property files for this property
+                        }
+                    }
+                }
             }
         }
         
@@ -232,23 +232,23 @@
 
                 foreach ($what as $name => $value) {
                     $name = escape_data ($name);    
-					// value is escaped later if prop is written into db				
-					if (strlen ($value) > 256) { // 256 is the URL threshold
-					    // delete previous property file
-						$this->DelPropFiles ($name);
-						// store this inside a text file instead...
-						$filename = $this->GetPropFile (); // 14b8f2791e.txt
-						try {
-							$fh = fopen (THINGS_PROPS_DIR . '/' . $filename, 'w');
-							fwrite ($fh, $value);
-							fclose ($fh);
-							$value = URL_PROP . $filename; // swap out the value for this. prop://14b8f2791e.txt
-	    				} catch (Exception $e) {
-    	                    $value = escape_data ($value); // failed, pretend nothing happened
-						}
-					} else {
-	                    $value = escape_data ($value);
-					}
+                    // value is escaped later if prop is written into db                
+                    if (strlen ($value) > 256) { // 256 is the URL threshold
+                        // delete previous property file
+                        $this->DelPropFiles ($name);
+                        // store this inside a text file instead...
+                        $filename = $this->GetPropFile (); // 14b8f2791e.txt
+                        try {
+                            $fh = fopen (THINGS_PROPS_DIR . '/' . $filename, 'w');
+                            fwrite ($fh, $value);
+                            fclose ($fh);
+                            $value = URL_PROP . $filename; // swap out the value for this. prop://14b8f2791e.txt
+                        } catch (Exception $e) {
+                            $value = escape_data ($value); // failed, pretend nothing happened
+                        }
+                    } else {
+                        $value = escape_data ($value);
+                    }
                     $query = "SELECT `pid`, `value` FROM `properties` 
                                WHERE `oid`='$oid'
                                  AND `name`='$name'";
@@ -278,10 +278,10 @@
             
                 $query = "DELETE FROM `properties` WHERE `oid`='$oid' AND `name` IN (";
                 foreach ($what as $eh) {
-					
+                    
                     $this->DelPropFiles ($eh); // delete all property files associated with this property
     
-	                $eh = escape_data ($eh);
+                    $eh = escape_data ($eh);
                     $query .= "'$eh',";
                     
                     // clear entry in cache
@@ -303,7 +303,7 @@
                 $query = "DELETE FROM `properties`
                                  WHERE `oid`='$oid'";
                 $sql = mysql_query ($query) or die (mysql_error ());
-				
+                
                 $this->cache['props'] = null;
                 return $sql;
             }
@@ -342,11 +342,11 @@
         function SetChildren ($what) {
             // appends a new parent-child relationship into the hierarchy table.
             // accepts array ('child1ID','child2ID',...)
-			
-			if (!is_array ($what)) {
-				$what = array ($what); // a string / int, convert it to string.
-			}
-			
+            
+            if (!is_array ($what)) {
+                $what = array ($what); // a string / int, convert it to string.
+            }
+            
             if (sizeof ($what) > 0) {
                 $oid = $this->oid;
                 if ($oid > 0) {
@@ -386,6 +386,11 @@
                 return $sql;
             }
         }        
+		
+		function DelChild ($child_id) {
+	        // might as well
+			$this->DelChildren (array ($child_id));
+		}
         
         function GetParents ($type_id = 0, $order = "ORDER BY `parent_oid` ASC") {
             // there are no limits to the number of parents.
@@ -464,6 +469,11 @@
                 return $sql;
             }
         }
+		
+		function DelParent ($parent_id) {
+			// might as well
+			$this->DelParents (array ($parent_id));
+		}
         
         function DelParentsAll () {
             // removes hierarchical data where this object is someone's child.
@@ -495,10 +505,44 @@
             }
         }
         
+        function ChangeID ($nid) {
+            // attempt to change the ID of this object to the new ID.
+            // attempt to resolve all references to this object.
+			
+			$query = "SELECT * FROM `objects` WHERE `oid` = '$nid'";
+		    $sql = mysql_query ($query) or die (mysql_error ());
+			if (mysql_num_rows ($sql) == 0) { // target ID does not exist
+				$pid = $this->oid;
+				$query = "UPDATE `objects` 
+							 SET `oid` = '$nid' 
+						   WHERE `oid` = '$pid'";
+				$sql = mysql_query ($query) or die (mysql_error ());
+		
+				$query = "UPDATE `hierarchy` 
+							 SET `parent_oid` = '$nid' 
+						   WHERE `parent_oid` = '$pid'";
+				$sql = mysql_query ($query) or die (mysql_error ());
+	
+				$query = "UPDATE `hierarchy` 
+							 SET `child_oid` = '$nid' 
+						   WHERE `child_oid` = '$pid'";
+				$sql = mysql_query ($query) or die (mysql_error ());
+	
+				$query = "UPDATE `properties` 
+							 SET `oid` = '$nid' 
+						   WHERE `oid` = '$pid'";
+				$sql = mysql_query ($query) or die (mysql_error ());
+				
+				return true;
+			} else {
+				die ("Failed to reallocate object");
+			}
+        }
+        
         function Duplicate () {
             // creates a data-identical twin of this object.
             // the new twin will have the same parents and have the same children (!!)
-			// the new twin WILL inherit URL_PROPs, but not duplicates of their values
+            // the new twin WILL inherit URL_PROPs, but not duplicates of their values
             $new_object = new Thing (0 - $this->GetType ()); // create the object.
             
             $props = $this->GetProps ();
@@ -524,6 +568,6 @@
             $this->DelParentsAll (); // then the properties and stuff (no orphaning on crash)
             $this->DelPropsAll ();
         }
-		
+        
     }
 ?>

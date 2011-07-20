@@ -137,23 +137,25 @@
             var_dump ($aobj);
         }
     }
-    
+	
     $a = new Things ();
-    $a->SetType (all_objects);
-    foreach ($a->SetObjects ('ORDER BY `oid` DESC') as $b) {
+    $a->SetType (ALL_OBJECTS);
+	$stuff = $a->SetObjects ('ORDER BY `oid` DESC');
+	
+	$page = new Paginate (array (
+		'objects' => $stuff,
+		'page_size' => 50
+	));
+    
+	echo ($page->Bar ()); // throw the bar out
+		
+    foreach ($page->GetObjects () as $b) {
         $bobj = new Thing ($b);
         $btype = GetTypeName ($bobj->GetType ());
         echo ("<tr>
                 <td>
-                    <a name='$bobj->oid'>#$bobj->oid</a>
+                    <a name='$bobj->oid' href='../object/$bobj->oid'>#$bobj->oid</a>
                     <br />
-                    <!--form method='post'>
-                        <fieldset>
-                            <input type='hidden' name='delete_object' value='1' />
-                            <input type='hidden' name='oid' value='$b' />
-                            <input type='submit' value='x' />
-                        </fieldset>
-                    </form-->
                 </td>
                 <td>$btype</td>");
         $p = $bobj->GetProps ();
@@ -189,19 +191,6 @@
             }
         }
 ?>
-                <br />
-                <br />
-                <!--form method="post">
-                    <fieldset>
-                        <input type="hidden" name="hierarchy_add" value="1" />
-                        <input type="hidden" name="parent_oid" value="<?php echo($b); ?>"/>
-                        Add child:
-                        <input type="checkbox" name="delete" value="1" /> Delete
-                        <br />
-                        <input type="text" name="child_oid" value="<?php echo($gp->Get('child_oid')); ?>" style="width: 50px;" />
-                        <input type="submit" value="Go" />
-                    </fieldset>
-                </form-->
             </td>
         </tr>
 <?php

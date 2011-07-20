@@ -213,7 +213,7 @@
     }
     
     function ObjectExists ($oid) {
-        $query = "SELECT `oid` FROM `objects`";
+        $query = "SELECT `oid` FROM `objects` WHERE `oid`='$oid'";
         $sql = mysql_query ($query) or die (mysql_error ());
         return (mysql_num_rows ($sql) >= 1);
     }

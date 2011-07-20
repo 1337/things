@@ -16,11 +16,12 @@
 	}
 	if (strlen ($title) == 0) {
 		// automatic title
-		$max_len = (strlen ($body) < 100) ? strlen ($body) : 100;
+		/* $max_len = (strlen ($body) < 100) ? strlen ($body) : 100;
 		$title = substr ($body, 0, $max_len);
 		if ($max_len == 100) {
-			$title .= "..."; // indicating "too long"
-		}
+			$title .= '...'; // indicating "too long"
+		} */
+		$title = first ($body, 100);
 	}
 	$post->SetProps (
 		array ('name'=>$title, 

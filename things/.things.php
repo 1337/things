@@ -28,7 +28,11 @@
 	require_once (PROOT . 'config/config.php'); // import configurations immediately
     
     // Stuff you'll be loading. sort by time of use.
-    $import[] ="things.models.superglobal, 
+    $import[] ="things.lib.strings,
+	            things.lib.datetime,
+	            things.lib.json,
+	            things.lib.compressor,
+	            things.models.superglobal, 
                 things.controllers.core, 
                 things.config.mysql_connect, 
                 things.models.mysql, 
@@ -47,7 +51,8 @@
                 things.models.ticket,
                 things.controllers.view,
                 things.models.gallery,
-                things.controllers.ajaxfield";
+                things.controllers.ajaxfield,
+				things.controllers.paginate";
     
     /*  IMPORT HELPER
         USE LIKE THIS:

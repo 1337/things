@@ -1,6 +1,6 @@
 <?php
     require_once ('.things.php');
-    require_once (PROOT . 'models/things.php');
+    // require_once (PROOT . 'models/things.php');
     
     class Tickets extends Things {
         /* functions available as of 2011-06-16

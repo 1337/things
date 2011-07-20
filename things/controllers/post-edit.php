@@ -12,9 +12,10 @@
     $tags     = '';
     if ($id > 0 && strlen ($edit) > 0) { // existing post
         $post = new Post ($id);
-        $titlestr = "value='" . htmlentities ($post->GetTitle (), ENT_QUOTES) . "'";
-        $aliasstr = "value='" . htmlentities ($post->GetProp ('alias'), ENT_QUOTES) . "'";
-		$bodystr = htmlentities ($post->GetProp ('body'), ENT_QUOTES);
+		$titlestr = "value='" . htmlspecialchars ($post->GetTitle (), ENT_QUOTES) . "'";
+        $aliasstr = "value='" . htmlspecialchars ($post->GetProp ('alias'), ENT_QUOTES) . "'";
+		$bodystr = htmlspecialchars ($post->GetProp ('body'), ENT_QUOTES);
+		
         $idstr = "<input type='hidden' name='id' value='$id' />";
         $tags = array ();
         $tag_ids = $post->GetChildren (TAG);
@@ -59,8 +60,7 @@
                 <input type='submit' name='submit' value='submit' />
             </form>
 			<script type='text/javascript' src='/scripts/nicedit/nicEdit.min.js'></script>
-			<script type='text/javascript' src='/scripts/.nicedit-loader.js'></script>
-			<script type='text/javascript'>window.onload = function () {document.getElementById('body').focus();}</script>");
+			<script type='text/javascript' src='/scripts/.nicedit-loader.js'></script>");
     render ();
     exit();
 ?>

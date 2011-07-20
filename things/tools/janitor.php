@@ -2,7 +2,8 @@
     class Janitor extends Things {
         function purge_objects_with_no_properties () {
             // straightforward.
-            foreach ($this->objs as $obj) {
+            foreach ($this->objs as $obj_id) {
+                $obj = new Thing ($obj_id);
                 if (sizeof ($obj->GetProps ()) == 0) {
                     $obj->Destroy ();
                 }
@@ -17,6 +18,26 @@
         
         function purge_properties_with_no_objects () {
             // props with null owner
+            foreach ($this->objs as $obj_id) {
+                $obj = new Thing ($obj_id);
+                $children = $obj->GetChildren (); // remove incorrect child references
+                foreach ($children as $child_id) {
+                    if (!ObjectExists ($child_id)) {
+                        $obj->DelChildren (array (
+                            $child_id
+                        ));
+                    }
+                }
+
+                $parents = $obj->GetParents (); // remove incorrect parent references
+                foreach ($parents as $parent_id) {
+                    if (!ObjectExists ($parent_id)) {
+                        $obj->DelParents (array (
+                            $parent_id
+                        ));
+                    }
+                }
+            }
         }
         
         function purge_orphaned_relations () {
@@ -29,7 +50,7 @@
 
         function purge_error_logs ($path = '.', $verbose = false) {
             // delete all files named error_log in the specified folder.
-            require_once (dirname (__FILE__) . '/../controllers/filesearch.class.php'); // local import
+            require_once (dirname (dirname (__FILE__)) . '/controllers/filesearch.class.php'); // local import
             $a = new FileSearch ();
             $files = $a->FileNameSearch ('error_log', $path);
             if (sizeof ($files) > 0) {
