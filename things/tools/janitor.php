@@ -1,4 +1,6 @@
-<?php    
+<?php
+    require_once ('.things.php');
+
     class Janitor extends Things {
         function purge_objects_with_no_properties () {
             // straightforward.
@@ -18,7 +20,7 @@
         
         function purge_properties_with_no_objects () {
             // props with null owner
-            foreach ($this->objs as $obj_id) {
+            foreach ((array) $this->SetObjects () as $obj_id) {
                 $obj = new Thing ($obj_id);
                 $children = $obj->GetChildren (); // remove incorrect child references
                 foreach ($children as $child_id) {
@@ -62,5 +64,31 @@
                 }
             }
         }
+		
+        function purge_backup_files ($path = '.', $verbose = false) {
+            // delete all files named error_log in the specified folder.
+            require_once (dirname (dirname (__FILE__)) . '/controllers/filesearch.class.php'); // local import
+            $a = new FileSearch ();
+            $files = $a->FileNameSearch ('.+\.b\d+\.bak', $path);
+            if (sizeof ($files) > 0) {
+                foreach ($files as $file) {
+                    unlink ($file);
+                    if ($verbose) {
+                        echo ("unlinked $file\n");
+                    }
+                }
+            }
+        }
+		
+		function dummy ($string) {
+		    echo ($string);
+		}
     }
+	
+    if (isset ($_GET['func'])) {
+		// call any function using ?func=purge_error_logs
+		$a = new Janitor ();
+		$b = @explode ('|', $_GET['params']);
+		call_user_func_array (array ($a, $_GET['func']), $b);
+	}
 ?>

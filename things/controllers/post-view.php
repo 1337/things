@@ -21,7 +21,7 @@
                      <p>Last edited %s by %s</p>",
                      $page->GetTitle(),
 					 $page->GetProp ('body'),
-                     date("l \\t\h\e jS", $page->GetPostTime ()),
+                     date("F j, Y", $page->GetPostTime ()),
                      $author);
 ?>
             <div id="disqus_thread"></div>

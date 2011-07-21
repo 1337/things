@@ -1,8 +1,8 @@
 <?php
+    $import[] = "things.lib.core,
+	             things.models.thing";
     require_once ('.things.php');
-    require_once (PROOT . 'lib/core.php');
-    require_once (PROOT . 'models/thing.php');
-    
+	    
     /* 
         Recommended stylesheet for this object
         
@@ -95,10 +95,12 @@
 			
             $this->init_vars($prop, $friendlyname, $readonly);
             
-            if (!$readonly) { // if writable ?>
-                <label for="df_<?php echo ($this->fn); ?>_<?php echo ($this->oid); ?>" class="datafield-label">
-                    <?php echo ($this->fn); ?>:
-                </label>
+            if (!$readonly) { // if writable 
+			    if ($friendlyname != NULL) { ?>
+                    <label for="df_<?php echo ($this->fn); ?>_<?php echo ($this->oid); ?>" class="datafield-label">
+                        <?php echo ($this->fn); ?>:
+                    </label>
+                <?php } ?>
                 <input id="df_<?php echo ($this->fn); ?>_<?php echo ($this->oid); ?>" 
                     class="datafield" 
                     style="<?php echo ($style); ?>"
@@ -118,6 +120,67 @@
                     type="text"
                     disabled="disabled"
                     value="<?php echo ($this->val); ?>" />
+            <?php
+            }
+        }
+        
+        function NewDropdownField ($prop, $friendlyname = '', $readonly = false, $style='', $choices = array (), $items = 1) {
+            // $friendlyname (optional) would be the field label.
+			// this function supports variable arguments (read code for details).
+			// $items is the number of visible items. If 1, dropdown. if 2+, list.
+			
+			if (func_num_args () == 1 && is_array ($prop)) {
+				/*  this means NewTextField is being called with parameters like
+				    NewTextField (array (
+					    'prop' => ...,
+						'friendlyname' => ...
+					));
+			    */
+				$friendlyname = @DefaultTo ($prop['friendlyname'], '');
+				$readonly = @DefaultTo ($prop['readonly'], false);
+				$style = @DefaultTo ($prop['style'], '');
+				$choices = @DefaultTo ($prop['choices'], array ());
+				$items = @DefaultTo ($prop['items'], 1);
+				$prop = @DefaultTo ($prop['prop']); // must be last (notice change of $prop)
+			}
+			
+            $this->init_vars($prop, $friendlyname, $readonly);
+            
+            if (!$readonly) { // if writable 
+		    ?>
+                <label for="df_<?php echo ($this->fn); ?>_<?php echo ($this->oid); ?>" class="datafield-label">
+                    <?php echo ($this->fn); ?>:
+                </label>
+                <select id="df_<?php echo ($this->fn); ?>_<?php echo ($this->oid); ?>" 
+                    class="datafield" 
+                    style="<?php echo ($style); ?>"
+                    onFocus="this.select ();"
+                    onBlur="<? echo ($this->GetAjaxFn ()); ?>"
+                    rel="<?php echo ($this->node); ?>" 
+                    key="<?php echo ($this->key); ?>">
+                    <?php 
+					    foreach ((array) $choices as $key => $val) {
+							// key is stored; val is shown
+							if (!is_assoc ($choices)) {
+							    $key = $val;
+							}
+							if ($key == $this->val) {
+								echo ("<option value='$key' selected='selected'>$val</option>"); 
+							} else {
+        					    echo ("<option value='$key'>$val</option>"); 
+							}
+						}
+					?>
+                </select>
+            <?php } else { // if read-only ?>
+                <label for="df_<?php echo ($this->fn); ?>" class="datafield-label">
+                    <?php echo ($this->fn); ?>:
+                </label>
+                <select id="df_<?php echo ($this->fn); ?>" 
+                    class="datafield" 
+                    disabled="disabled">
+                    <option><?php echo ($this->val); ?></option>
+                </select>
             <?php
             }
         }

@@ -18,6 +18,12 @@
     if (isset ($_POST['submit'])) {
         require ('post-new.php');
     }
+
+    if (isset ($_POST['delete'])) { // well
+        $post = new Post ($id);
+		$post->Destroy ();	
+		header ("location: " . WEBROOT . "menu");
+    }
     
     if (strlen ($new)  > 0 || 
        (strlen ($edit) > 0 && $id > 0 && GetObjectType ($id) == POST)) {

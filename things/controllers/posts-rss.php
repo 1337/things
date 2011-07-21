@@ -18,9 +18,9 @@
         </> */
 
     header("Content-type: application/rss+xml"); // @IMPORTANT
-	$import[] = "things.controllers.postcontroller";
-    require_once('../../.things.php');
-    require_once('../../.strings.php');
+	$import[] = "things.controllers.postcontroller,
+	             things.lib.strings";
+    require_once('.things.php');
 
     echo("<?xml version='1.0'?><rss version='2.0' xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:content='http://purl.org/rss/1.0/modules/content/' xmlns:admin='http://webns.net/mvcb/' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:atom='http://www.w3.org/2005/Atom'>
             <channel>

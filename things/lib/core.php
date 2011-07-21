@@ -24,6 +24,13 @@
 		return (!isset ($wat) || $wat == '' || $wat == null) ? $wut : $wat;
 	}
 	
+	function is_assoc ($array) {
+		// http://php.net/manual/en/function.is-array.php
+    	return ((array) $arr !== $arr);	
+	} function IsAssoc ($array) {
+		return is_assoc ($array);
+	}
+	
     function WriteAccessHash () {
         // this is actually a generic hashing algorithm.
         // add as many arguments as you like, and we will add them to the game.

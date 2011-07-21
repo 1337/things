@@ -22,10 +22,13 @@
     $a->NewTextareaField ('aboutme', 'Introduce yourself', false, 'width:100%;max-width:450px;height:100px;');
     echo ("<hr />");
     println ("Your Posts (blog entries)", 2);
-    $posts = $user->GetChildren (POST, "`child_oid` DESC LIMIT 10");
+    $posts = $user->GetChildren (POST, "`child_oid` DESC");
     if (sizeof ($posts) > 0) {
         echo ('<ul>');
-        foreach ($posts as $post_id) {
+		$posts = new Paginate (array (
+		    'objects' => $posts
+		));
+        foreach ($posts->GetObjects () as $post_id) {
             $post = new Post ($post_id);
             printf ("<li>
                 <a href='/edit/post/%s'>%s</a>
@@ -34,6 +37,8 @@
             $post->GetTitle ());
         }
         echo ('</ul>');
+		echo ($posts->Bar ());
+		
     } else {
         println ("You have no posts yet. <a href='/new/post/'>Write one?</a>");
     }

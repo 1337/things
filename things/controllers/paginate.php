@@ -97,8 +97,8 @@
                     );
                 }
             }
-			$buffer .= "</div>";
-			
+            $buffer .= "</div>";
+            
             return $buffer;
         }
     }
