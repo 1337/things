@@ -386,11 +386,11 @@
                 return $sql;
             }
         }        
-		
-		function DelChild ($child_id) {
-	        // might as well
-			$this->DelChildren (array ($child_id));
-		}
+        
+        function DelChild ($child_id) {
+            // might as well
+            $this->DelChildren (array ($child_id));
+        }
         
         function GetParents ($type_id = 0, $order = "ORDER BY `parent_oid` ASC") {
             // there are no limits to the number of parents.
@@ -469,11 +469,11 @@
                 return $sql;
             }
         }
-		
-		function DelParent ($parent_id) {
-			// might as well
-			$this->DelParents (array ($parent_id));
-		}
+        
+        function DelParent ($parent_id) {
+            // might as well
+            $this->DelParents (array ($parent_id));
+        }
         
         function DelParentsAll () {
             // removes hierarchical data where this object is someone's child.
@@ -508,35 +508,35 @@
         function ChangeID ($nid) {
             // attempt to change the ID of this object to the new ID.
             // attempt to resolve all references to this object.
-			
-			$query = "SELECT * FROM `objects` WHERE `oid` = '$nid'";
-		    $sql = mysql_query ($query) or die (mysql_error ());
-			if (mysql_num_rows ($sql) == 0) { // target ID does not exist
-				$pid = $this->oid;
-				$query = "UPDATE `objects` 
-							 SET `oid` = '$nid' 
-						   WHERE `oid` = '$pid'";
-				$sql = mysql_query ($query) or die (mysql_error ());
-		
-				$query = "UPDATE `hierarchy` 
-							 SET `parent_oid` = '$nid' 
-						   WHERE `parent_oid` = '$pid'";
-				$sql = mysql_query ($query) or die (mysql_error ());
-	
-				$query = "UPDATE `hierarchy` 
-							 SET `child_oid` = '$nid' 
-						   WHERE `child_oid` = '$pid'";
-				$sql = mysql_query ($query) or die (mysql_error ());
-	
-				$query = "UPDATE `properties` 
-							 SET `oid` = '$nid' 
-						   WHERE `oid` = '$pid'";
-				$sql = mysql_query ($query) or die (mysql_error ());
-				
-				return true;
-			} else {
-				die ("Failed to reallocate object");
-			}
+            
+            $query = "SELECT * FROM `objects` WHERE `oid` = '$nid'";
+            $sql = mysql_query ($query) or die (mysql_error ());
+            if (mysql_num_rows ($sql) == 0) { // target ID does not exist
+                $pid = $this->oid;
+                $query = "UPDATE `objects` 
+                             SET `oid` = '$nid' 
+                           WHERE `oid` = '$pid'";
+                $sql = mysql_query ($query) or die (mysql_error ());
+        
+                $query = "UPDATE `hierarchy` 
+                             SET `parent_oid` = '$nid' 
+                           WHERE `parent_oid` = '$pid'";
+                $sql = mysql_query ($query) or die (mysql_error ());
+    
+                $query = "UPDATE `hierarchy` 
+                             SET `child_oid` = '$nid' 
+                           WHERE `child_oid` = '$pid'";
+                $sql = mysql_query ($query) or die (mysql_error ());
+    
+                $query = "UPDATE `properties` 
+                             SET `oid` = '$nid' 
+                           WHERE `oid` = '$pid'";
+                $sql = mysql_query ($query) or die (mysql_error ());
+                
+                return true;
+            } else {
+                die ("Failed to reallocate object");
+            }
         }
         
         function Duplicate () {

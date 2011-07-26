@@ -9,7 +9,7 @@
 	$alias = $gp->Get ('alias');
 	$tagstr = $gp->Has ('tags') ? $gp->Get ('tags') : '';
     
-	if (isset ($_POST['submit']) || $new || $edit) {
+	if (isset ($_POST['submit']) || $new == 1 || $edit == 1) {
 		CheckAuth (); // require a login. --> $user is available to you.
 	} else {
 		// view doesn't require privileges.

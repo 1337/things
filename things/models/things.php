@@ -249,5 +249,9 @@
             }
         }
 
+        function Sort ($field, $direction = "ASC") {
+			// sorts all available objects by a given 'field' name
+			
+		}
     }
 ?>

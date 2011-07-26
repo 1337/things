@@ -8,7 +8,6 @@
         <meta name="description" content="Ohai: Brian Lai from the University of Waterloo." />
         <title><!--self.title--> | ohai.ca</title>
         <!--base href="http://ohai.ca" /-->
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="<!--root-->rss">
         <!--self.headers-->
         <!--self.userheaders-->
     </head>

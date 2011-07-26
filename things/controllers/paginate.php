@@ -3,6 +3,9 @@
     
         Calculates the min/max/current/start/other things for you, so you
         can easily put up a pagable list on any html.
+		
+		The page with this class will be affected by $_GET['start'] and $_GET['size'].
+		page.php?start=70&size=60
         
         Example:
         say $array contains a list
@@ -67,28 +70,31 @@
             $links = array ();
             $link_prefix = $_SERVER['SCRIPT_NAME'] . '?start' . $this->control_suffix . '=';
             
-            if ($num_pages > 6) { // no point showing if all pages are visible
-                $links['<<'] = $link_prefix . '0';
-                $links['<']  = $link_prefix . max (0, $this->start - $this->page_size);
-            }
-            
-            for ($i = 0; $i < $num_pages; $i++) {
-                if ($i < 3 || $i > $num_pages - 4) {
-                    // index + 1 because humans read pages from page 1, not 0
-                    $links[$i+1] = $link_prefix . $i * $this->page_size;
-                } else {
-                    $links['coke_block'] = "...";
+            if ($num_pages ==1) {
+                return ''; // only one page? show nothing at all.
+            } else {
+				if ($num_pages > 6) { // no point showing if all pages are visible
+					$links['<<'] = $link_prefix . '0';
+					$links['<']  = $link_prefix . max (0, $this->start - $this->page_size);
                 }
-            }
-            
-            if ($num_pages > 6) { // no point showing these if all pages are visible
-                $links['>'] = $link_prefix . min (sizeof ($this->objects) - $this->page_size, $this->start + $this->page_size);
-                $links['>>'] = $link_prefix . (sizeof ($this->objects) - $this->page_size);
-            }
-            
+
+				for ($i = 0; $i < $num_pages; $i++) {
+					if ($i < 3 || $i > $num_pages - 4) {
+						// index + 1 because humans read pages from page 1, not 0
+						$links[$i+1] = $link_prefix . $i * $this->page_size;
+					} else {
+						$links['coke_block'] = "..."; // "coke block" has no link to it
+					}
+				}
+				
+				if ($num_pages > 6) { // no point showing these if all pages are visible
+					$links['>'] = $link_prefix . min (sizeof ($this->objects) - $this->page_size, $this->start + $this->page_size);
+					$links['>>'] = $link_prefix . (sizeof ($this->objects) - $this->page_size);
+				}
+			}
             foreach ($links as $text => $link) {
                 if ($text == 'coke_block') {
-                    $buffer .= '&nbsp;&nbsp;...&nbsp;&nbsp;';    
+                    $buffer .= '&nbsp;&nbsp;...&nbsp;&nbsp;';
                 } else {
                     $buffer .= sprintf (
                         "<a href='%s' class='paginate_button " . $this->control_suffix . "'>%s</a> ", 
