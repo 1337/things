@@ -79,6 +79,32 @@
                 }
             }
         }
+        
+        function compress_ids ($start = 1, $end = 2) {
+            // compresses IDs from $start to $end.
+            // for example, if DB object IDs go like 1,2,5,1000000, then
+            // new IDs will be 1,2,3,4.
+            
+            // !! will make like a billion database calls.
+            $i = $start;
+            while (true) {
+                if (ObjectExists ($i) && !ObjectExists ($i - 1)) {
+                    $object_i = new Thing ($i);
+                    $object_i->ChangeID ($i - 1);
+                    echo ("Changed object #$i to #" . ($i - 1) . "\n");
+                    $i -= 1; // because current object ID decreased by 1, we will move the pointer with it
+                    ob_flush ();
+                } else {
+                    // happens when
+                    // - object $i does not exist.
+                    // - both objects $i and $i - 1 exist.
+                    $i += 1;
+                }
+                if ($i > $end) {
+                    break;
+                }
+            }
+        }
 		
 		function dummy ($string) {
 		    echo ($string);

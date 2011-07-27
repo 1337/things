@@ -332,6 +332,8 @@
 		if (sizeof ($objects) <= 1) {
 			return $objects; // if there is 0 or 1 objects, 
 		}
+		usort ($objects, 'ObjectCompare');
+		return $objects;
 	}
     
     
