@@ -27,7 +27,7 @@
 			    // doing this because I don't want a bigass list of tasks that are actually subtasks
 ?>
                 <div class="ticket">
-                    <p><?php 
+                    <p class='task'><?php 
                         switch ($tobj->GetProp ('priority')) {
                             case 1: // 1 = highest priority
                                 $icon = $styles_dir . 'red.png';
@@ -63,15 +63,17 @@
 							'items' => 1
 						));*/
 						
-						// list subtasks
-						echo ("<ul>");
-						foreach ((array) $tobj->GetChildren (TICKET) as $child_ticket_oid) {
-							$child_ticket = new Ticket ($child_ticket_oid);
-							// defaults have already been set when they were Tobjs
-							echo ("<li><a href='../ticket/" . $child_ticket->oid . "'>" . htmlspecialchars ($child_ticket->GetProp ('name')) . "</a>
-							 (" . $ticket_statuses[$child_ticket->GetProp ('status')] . ")</li>");
+						// list subtasks (provided that there are subtasks
+						if (sizeof ($tobj->GetChildren (TICKET)) > 0) {
+							echo ("<ul class='subtasks'>");
+							foreach ((array) $tobj->GetChildren (TICKET) as $child_ticket_oid) {
+								$child_ticket = new Ticket ($child_ticket_oid);
+								// defaults have already been set when they were Tobjs
+								echo ("<li><a href='../ticket/" . $child_ticket->oid . "'>" . htmlspecialchars ($child_ticket->GetProp ('name')) . "</a>
+								 (" . $ticket_statuses[$child_ticket->GetProp ('status')] . ")</li>");
+							}
+							echo ("</ul>");
 						}
-						echo ("<ul>");
                     ?>
                     </p>
                 </div>

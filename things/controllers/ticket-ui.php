@@ -30,14 +30,15 @@
 		));
 		// created the ticket, now go to it
 		header ("location: " . WEBROOT . "ticket/" . $nid);
-    } elseif (isset ($_POST['delete'])) { // delete
+    } elseif ($gp->Has ('delete') && $gp->Get ('delete') == 1) { // delete
         $ticket = new Ticket ($id);
-        $ticket->Destroy ();    
+        $ticket->Destroy ();
         header ("location: " . WEBROOT . "tickets");
     } elseif (GetObjectType ($id) == TICKET) {
 		echo ("
 		    <p><a href='../tickets'>Back to all tickets</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-			    <a href='" . WEBROOT . "new/ticket/" . $id . "'>New &quot;See also&quot; Ticket</a></p>
+			    <a href='" . WEBROOT . "new/ticket/" . $id . "'>New &quot;See also&quot; ticket</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			    <a href='" . WEBROOT . "delete/ticket/" . $id . "'>Delete ticket</a></p>
 		");
 
         $a = new AjaxField ($id);
@@ -69,7 +70,17 @@
                     $a->NewTextField ('name', null, false, 'font-size:20px;border:0;width: 90%;', 'text');
             ?></h2>
             <?php
-                
+                echo ("<p><b>See also:</b></p><ul>");
+                foreach ((array) $a->GetParents (TICKET) as $parent_oid) {
+					$parent = new Ticket ($parent_oid);
+					echo ('<li><a href="../ticket/' . $parent->oid . '">' . $parent->GetProp ('name') . '</a></li>');
+				}
+                foreach ((array) $a->GetChildren (TICKET) as $child_oid) {
+					$child = new Ticket ($child_oid);
+					echo ('<li><a href="../ticket/' . $child->oid . '">' . $child->GetProp ('name') . '</a></li>');
+				}
+                echo ("</ul><hr />");
+				
                 $a->NewDropdownField (array (
                     'prop' => 'priority',
                     'friendlyname' => 'Priority (1~5)', 
@@ -104,16 +115,7 @@
                 echo ("<br />");
 				
                 $a->NewTextField ('time_needed', 'Time tracker', false, '', 'number');
-                echo (" hours <br /><hr /><h2>See also</h2><ul>");
-                foreach ((array) $a->GetParents (TICKET) as $parent_oid) {
-					$parent = new Ticket ($parent_oid);
-					echo ('<li><a href="../ticket/' . $parent->oid . '">' . $parent->GetProp ('name') . '</a></li>');
-				}
-                foreach ((array) $a->GetChildren (TICKET) as $child_oid) {
-					$child = new Ticket ($child_oid);
-					echo ('<li><a href="../ticket/' . $child->oid . '">' . $child->GetProp ('name') . '</a></li>');
-				}
-                echo ("</ul>");
+                echo (" hours");
             ?>      
         </div>
 <?php

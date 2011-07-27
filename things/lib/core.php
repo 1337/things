@@ -7,30 +7,30 @@
         die ();
     }
     
-	function DefaultTo () {
+    function DefaultTo () {
         // successively checks all supplied variables and returns the
-		// first one that isn't null or empty or false or not set
-		// (but 0 is valid and will be returned)
-		$args = func_get_args ();
-		$argv = func_num_args ();
-		for ($i = 0; $i < $argv; $i ++) {
-			if (! (is_null ($args[$i]) ||
-			       $args[$i] === '' ||
-				   $args[$i] === false ||
-				   !isset ($args[$i]))) {
-			    return $args[$i];
-		    }
-		}
-		return (!isset ($wat) || $wat == '' || $wat == null) ? $wut : $wat;
-	}
-	
-	function is_assoc ($array) {
-		// http://php.net/manual/en/function.is-array.php
-    	return ((array) $arr !== $arr);	
-	} function IsAssoc ($array) {
-		return is_assoc ($array);
-	}
-	
+        // first one that isn't null or empty or false or not set
+        // (but 0 is valid and will be returned)
+        $args = func_get_args ();
+        $argv = func_num_args ();
+        for ($i = 0; $i < $argv; $i ++) {
+            if (! (is_null ($args[$i]) ||
+                   $args[$i] === '' ||
+                   $args[$i] === false ||
+                   !isset ($args[$i]))) {
+                return $args[$i];
+            }
+        }
+        return (!isset ($wat) || $wat == '' || $wat == null) ? $wut : $wat;
+    }
+    
+    function is_assoc ($array) {
+        // http://php.net/manual/en/function.is-array.php
+        return ((array) $arr !== $arr);    
+    } function IsAssoc ($array) {
+        return is_assoc ($array);
+    }
+    
     function WriteAccessHash () {
         // this is actually a generic hashing algorithm.
         // add as many arguments as you like, and we will add them to the game.
@@ -107,23 +107,23 @@
             col[2]=9, ...
             
             => [1,4,9]
-			
-			if $key is given, values from that row will be used as key.
-			
-			col[john] = 1
-			col[...
-			
-			
-			 */
+            
+            if $key is given, values from that row will be used as key.
+            
+            col[john] = 1
+            col[...
+            
+            
+             */
         $sql = mysql_query ($query) or die (mysql_error ());
         if ($sql && mysql_num_rows ($sql) > 0) {
             $buffer = array ();
             while ($tmp = mysql_fetch_assoc ($sql)) {
-				if (array_key_exists ($key, $tmp)) {
+                if (array_key_exists ($key, $tmp)) {
                     $buffer[$tmp[$key]] = $tmp[$column];
-				} else {
-					$buffer[] = $tmp[$column];
-				}
+                } else {
+                    $buffer[] = $tmp[$column];
+                }
             }
             return $buffer;
         } else {
@@ -227,9 +227,9 @@
     
     function ObjectTypeExists ($tid) {
         // enter a type ID to see if it is a valid Things type.
-		// requires this script to get past the last line.
+        // requires this script to get past the last line.
         global $things_types;
-		return in_array ($tid, $things_types);
+        return in_array ($tid, $things_types);
     }
 
     function CustomException ($what = 'Something terrible happened.') {
@@ -267,7 +267,7 @@
                     <h1>Oops.</h1>
                     <div id="flexfield">' . $what . '</div>
                     <hr />
-                    <div>Report this problem to the site administrator.</div>
+                    <div>If in doubt, describe this problem to the site administrator.</div>
                 </div>
             </body>
         </html>');
@@ -275,7 +275,7 @@
 
     // define types. before this, no Things objects can be initiated.
     $things_types = ColumnFetch ("SELECT * FROM `types`", 'tid', 'name');
-	$things_types['all_objects'] = 9001;
+    $things_types['all_objects'] = 9001;
     foreach ($things_types as $name=>$value) {
         define ($name, $value);        // positive
         define ("NEW_$name", -$value); // new constants, negative
@@ -283,4 +283,63 @@
         define ($name, $value);        // positive
         define ("NEW_$name", -$value); // new constants, negative
     }
+    
+    function ObjectCompare () {
+        // mod of http://stackoverflow.com/questions/124266/sort-object-in-php
+        // in: object 1, object 2, property 1, property 2, ... property n
+		//     property comparisons have cascading precedence.
+		//     if an object has no such property, it is automatically compared
+		//         as smaller than the other.
+        // out: 1 if object 1 > object 2
+        //      0 if object 1 = object 2
+        //     -1 if object 1 < object 2
+        $argv = func_get_args ();
+        $argc = func_num_args ();
+        $object_1 = $argv[0];
+		$object_2 = $argv[1];
+		for ($i = 2; $i < $argc; $i++) {
+			$arg = $argv[$i]; // property_$i
+			if (!property_exists ($object_1, $arg)) {
+				// object 1 does not have property --> object 2 is larger
+				return -1;
+			} elseif (!property_exists ($object_2, $arg)) {
+				// object 2 does not have property --> object 1 is larger
+				return 1;
+			} else {
+				if ($object_1->$arg !== $object_2->$arg) {
+        			if ($object_1->$arg > $object_2 ->$arg) {
+						return 1;
+					} elseif ($object_1->$arg > $object_2 ->$arg) {
+						return -1;
+					}
+				} else {
+					// continue looking until you get an unequal property
+				}
+			}
+		}
+		return 0; // if ultimately no match, declare the two objects equal 
+		          // (in terms of specified criteria)
+    }
+    
+    function SortObjects () {
+        // mod of http://stackoverflow.com/questions/124266/sort-object-in-php
+        // in: array_of_objects, property 1, property 2, ... property n
+		//     property comparisons have cascading precedence.
+        // out: array_of_sorted_objects
+        $argv = func_get_args ();
+        $argc = func_num_args ();
+        $objects = $argv[0];
+		if (sizeof ($objects) <= 1) {
+			return $objects; // if there is 0 or 1 objects, 
+		}
+	}
+    
+    
+    
+    
+    
+    
+    
+    
+    
 ?>

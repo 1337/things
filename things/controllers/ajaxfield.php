@@ -214,7 +214,7 @@
                     style="<?php echo ($style); ?>"
                     onFocus="this.select ();"
                     onBlur="<? echo ($this->GetAjaxFn ()); ?>"
-                    onKeyPress="event.returnValue = (event.keyCode != 13);"
+                    onKeyPress="if (event.keyCode == 13) {this.value += String.fromCharCode (13);event.returnValue = false;}"
                     rel="<?php echo ($this->node); ?>" 
                     key="<?php echo ($this->key); ?>"
                     ><?php echo ($this->val); ?></textarea>

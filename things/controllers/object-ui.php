@@ -1,6 +1,6 @@
 <?php
     require_once ('.things.php');
-	CheckAuth ();
+	CheckAuth ("administrative privilege"); // because nobody wants everyone to see what everything is
 	
 	if ($gp->Has ('id')) {
 		$oid = $gp->Get ('id');
