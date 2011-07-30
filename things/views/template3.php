@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <base href="http://ohai.ca" />
-        <link rel='stylesheet' href='/css/reset,default3,dde,mce' type='text/css' />
+        <link rel='stylesheet' href='/css/reset,core,default3,dde,mce' type='text/css' />
         <title><!--self.title--></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="keywords" content="Brian Lai, Waterloo, KGV" />

@@ -58,11 +58,14 @@
                 <br />
                 <input type='submit' name='submit' value='Save' />");
 	if ($id > 0) {
-        echo (" <input type='submit' name='delete' value='Delete Post (!)' />");
+        echo (" <input type='button' value='Discard changes' onclick='window.location=\"/post/" . $id . "\";' />
+                 <input type='submit' name='delete' value='Delete Post (!)' />");
 	}
 	echo (" </form>
             <script type='text/javascript' src='/scripts/nicedit/nicEdit.min.js'></script>
             <script type='text/javascript' src='/scripts/.nicedit-loader.js'></script>");
-    render ();
+    render (array (
+	    'title' => 'Post editor'
+	));
     exit();
 ?>

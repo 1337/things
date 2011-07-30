@@ -2,7 +2,8 @@
     class View {
         /*  View handles page templates (Views). put them inside THINGS_TEMPLATE_DIR.
             Normal priority schema:
-                 If user-specific template found, use it
+                 If $_REQUEST[theme_override] exists, use it
+            Else If user-specific template found, use it
             Else If page-specific template found (as param $special), use it
             Else If site-specific template found, use it
             Else If site default template found, use it
@@ -30,20 +31,29 @@
         }
         
 		function ResolveTemplateName ($special = '') {
-			global $user;
+			global $user, $gp;
 			
 			// if one is specified, use it
 			if (strlen ($special) > 0 &&
 			    is_file (THINGS_TEMPLATE_DIR . $special)) {
 				return THINGS_TEMPLATE_DIR . $special;
-			} 
+			}
+			
+			// if $_REQUEST contains a special sauce, use it
+			if (isset ($gp) && strtolower (get_class ($gp)) == "gpvar") {
+				$t = $gp->Get ('theme_override');
+				if (!is_null ($t) && strlen ($t) > 0 && 
+                    file_exists (THINGS_TEMPLATE_DIR . $t) && is_good_path ($t)) {
+                    return THINGS_TEMPLATE_DIR . $t;
+				}
+			}
 		    
 			// if user has a preference, use it
 			if (isset ($user) && strtolower (get_class ($user)) == "user") {
 				$t = $user->GetProp ('template');
 				if (!is_null ($t) && strlen ($t) > 0 && 
-                    file_exists (THINGS_TEMPLATE_DIR . $t) && strpos ($t, '..') === false) {
-                    return THINGS_TEMPLATE_DIR . $user->GetProp ('template');
+                    file_exists (THINGS_TEMPLATE_DIR . $t) && is_good_path ($t)) {
+                    return THINGS_TEMPLATE_DIR . $t;
 				}
 			}
 			
@@ -176,7 +186,7 @@
         // that's why you ob_start at the beginning of Things.
         $content = ob_get_contents (); ob_end_clean ();
         $options = array_merge ($options, array ('content'=>$content));
-        $pj = new View ();
+        $pj = new View ($template);
         $pj->ReplaceTags ($options);
         $pj->output ();
     }

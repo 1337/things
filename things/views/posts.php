@@ -34,5 +34,8 @@
     }
 	echo ("</tr></table>");	
 	echo ($posts->Bar ());
-    render (array ('title'=>"Archives"));
+    
+	render (array (
+	    'title'=>"Posts"
+	));
 ?>

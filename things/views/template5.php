@@ -2,7 +2,7 @@
 <html>
     <head>
         <base href="<!--root-->" />
-        <link rel='stylesheet' href='<!--root-->css/reset,default5,dde,mce' type='text/css' />
+        <link rel='stylesheet' href='<!--root-->css/reset,core,default5,dde,mce' type='text/css' />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="keywords" content="Brian Lai, Waterloo, KGV" />
         <meta name="description" content="Ohai: Brian Lai from the University of Waterloo." />

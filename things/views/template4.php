@@ -2,14 +2,17 @@
 <html>
     <head>
         <base href="<!--root-->" />
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
-        <link rel='stylesheet' href='/css/reset,default4,dde,mce' type='text/css' />
+        <!--script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script-->
+        <link rel='stylesheet' href='/css/reset,core,default4,dde,mce' type='text/css' />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="keywords" content="Brian Lai, Waterloo, KGV" />
         <meta name="description" content="Ohai: Brian Lai from the University of Waterloo." />
         <title><!--self.title--> | ohai.ca</title>
         <!--base href="http://ohai.ca" /-->
         <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ohai.ca/rss">
+        <style type="text/css">
+            #header:hover { height: 190px; }
+        </style>
         <!--self.headers-->
         <!--self.userheaders-->
     </head>
@@ -69,14 +72,8 @@
             </div>
         </div> <!--! end of #container -->
         <script type="text/javascript">
-            $('#header').mouseenter(function(){$(this).animate({'height':'210px'},{queue:false});}).mouseleave(function(){$(this).animate({'height':'70px'},{queue:false});});
             var sc_project=4446854;var sc_invisible=1;var sc_partition=55;var sc_click_stat=1;var sc_security="74785e80";
         </script>
         <script type="text/javascript" src="http://www.statcounter.com/counter/counter_xhtml.js"></script>
-        <noscript>
-            <style type="text/css">
-                #header:hover { height: 210px; }
-            </style>
-        </noscript>
     </body>
 </html>

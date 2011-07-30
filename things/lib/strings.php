@@ -99,4 +99,13 @@
         }
         return preg_match_all ($m, $w, $a);
     }
+    
+    function is_good_path ($path) {
+        // returns false if the path tries to traverse.
+        $t = ltrim ($path); // remove spaces in front (injection)
+        return strpos ($t, '..') === false && // no traversal
+               (strpos ($t, '/') === false ||  // no back to root OR
+                strpos ($t, '/') > 0) &&        // somewhere else, other than the beginning
+                strpos ($t, '~') === false;    // really shouldn't matter
+    }
 ?>

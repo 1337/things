@@ -9,6 +9,7 @@
         $page_id = $_GET['id'];
         if ($page_id > 0 && GetObjectType ($page_id) == POST) {
             $page = new Post ($page_id);
+			$page->SetProp ('views', $page->GetProp ('views') + 1); // what do you think that means?
             $authors = $page->GetParents(USER);
             if (sizeof ($authors) > 0) {
                 $author = new User ($authors[0]); // first guy out always wins the jackpot
@@ -18,11 +19,12 @@
             }
             printf ("<h1>%s</h1>
                      <div>%s</div>
-                     <p>Last edited %s by %s</p>",
+                     <p>Last edited %s by %s%s</p>",
                      $page->GetTitle(),
 					 $page->GetProp ('body'),
                      date("F j, Y", $page->GetPostTime ()),
-                     $author);
+                     $author,
+                     $auth->IsLoggedIn () ? " [<a href='" . WEBROOT . "edit/post/" . $page_id . "'>Edit</a>]": '');
 ?>
             <div id="disqus_thread"></div>
             <script type="text/javascript">
@@ -40,9 +42,9 @@
             render (array('title'=>$page->GetTitle()));
             exit ();
         } else {
-            echo ("You evil child...");
+            println ("This ID specified is not a post.", $fail);
         }
     } else {
-        echo ("You. Get off my lawn.");
+        println ("Which post are you looking for?", $fail);
     }
 ?>
