@@ -31,7 +31,11 @@
         if (is_null (FindObject ($name, PAGE))) {
             // make sure the URL isn't already used by a fellow page
             //     (not necessarily other objects, sadly)    
-            $page->SetProps (array ('name'=>$name, 'body'=>$body));
+            $page->SetProps (array (
+			    'name'=>$name, 
+				'permalink'=>$name, 
+				'body'=>$body
+			));
             $edit = 1; // flag to read later (at around line 50)
             println ("Saved as #$id", $win);
         } else {

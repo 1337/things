@@ -211,6 +211,14 @@
         function test_filter () {
             $this->things = new Things (POST);
         }
+		
+		function test_sort () {
+			$b = new Things (TICKET);
+			$orio = sizeof ($b->GetObjects ());
+			$b->SetObjectsRaw ($b->Sort ($b->GetObjects (), 'time_needed'));
+			$orin = sizeof ($b->GetObjects ());
+			$this->assertEqual ($orio, $orin);
+		}
         
     } $b = new ThingsTest ();
 

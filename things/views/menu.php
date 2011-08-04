@@ -20,9 +20,9 @@
     $a->NewTextareaField ('aboutme', 'Introduce yourself', false, 'width:100%;max-width:450px;height:100px;');
 ?>
     <hr />
-    <table>
+    <table style="width:100%">
         <tr>
-            <td>
+            <td style="width:50%">
 <?php
 				println ("Your Posts", 2);
 				println ('<a href="' . WEBROOT . 'new/post">Write a new post</a>');
@@ -48,14 +48,14 @@
 				}
 ?>
             </td>
-            <td>
+            <td style="width:50%">
                 <h2><a href='<!--root-->tickets'>Your Tasks</a></h2>
                 <p><a href="<!--root-->new/ticket">File a new task</a> | 
                    <a href="<!--root-->tickets">View all</a></p>
 <?php
 				$tickets = new Paginate (array (
 					'objects' => $user->GetChildren (TICKET, "`child_oid` DESC"),
-					'page_size' => 5,
+					// 'page_size' => 5,
 					'control_suffix' => '_ticket'
 				));
 				if (sizeof ($tickets) > 0) {

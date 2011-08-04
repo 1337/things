@@ -48,7 +48,7 @@
             } else {
                 $this->fn = $this->prop; // default to just the property name
             }
-            $this->val = htmlspecialchars ($this->GetProp ($this->prop));
+            $this->val = htmlspecialchars ($this->GetProp ($this->prop), ENT_NOQUOTES);
             $this->node = $this->oid . '/' . $this->prop;
             $this->key = WriteAccessHash ($this->oid, $this->prop); // variable arguments
             $this->successclr = "#dfd";

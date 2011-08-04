@@ -45,12 +45,16 @@
 				}
 				printf ("<h1>%s</h1>
 						 <div>%s</div>
-						 <p>Last edited %s by %s%s</p>",
+						 <p>&nbsp;</p>
+						 <p>Last edited %s by %s%s<br />
+						    Permalink: <a href='%s'>%s</a></p>",
 						 $post->GetTitle(),
 						 $post->GetProp ('body'),
 						 date("F j, Y", $post->GetPostTime ()),
 						 $author,
-						 $auth->IsLoggedIn () ? " [<a href='" . WEBROOT . "edit/post/" . $id . "'>Edit</a>]": '');
+						 $auth->IsLoggedIn () ? " [<a href='" . WEBROOT . "edit/post/" . $id . "'>Edit</a>]": '',
+						 $post->GetProp ('permalink'),
+						 $post->GetProp ('permalink'));
 	?>
 				<div id="disqus_thread"></div>
 				<script type="text/javascript">
@@ -73,7 +77,7 @@
 				println ("This ID specified is not a post.", $fail);
 			}
 		} else {
-			println ("Which post are you looking for?", $fail);
+			println ("For which post are you looking?", $fail);
 		}
     }
     render (array (

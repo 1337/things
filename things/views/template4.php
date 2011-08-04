@@ -11,7 +11,7 @@
         <!--base href="http://ohai.ca" /-->
         <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ohai.ca/rss">
         <style type="text/css">
-            #header:hover { height: 190px; }
+            #header:hover { height: 200px; }
         </style>
         <!--self.headers-->
         <!--self.userheaders-->
@@ -26,7 +26,7 @@
                     </a>
                 </div>
                 <div id="headermore">
-                    <div class="col4">
+                    <div class="col3">
                         <ul>
                             <li><a href="about/">About me</a></li>
                             <li><b>Brian Lai</b><br />
@@ -37,7 +37,7 @@
                             <li><a href="http://twitter.com/type_boy">Twitter</a></li-->
                         </ul>
                     </div>
-                    <div class="col4">
+                    <div class="col3">
                         <ul>
                             <li><a href="/goodies">Freeware</a></li>
                             <li><a href="http://github.com/1337">Github</a></li>
@@ -45,17 +45,13 @@
                             <li><a href="http://planet-source-code.com/vb/authors/ShowBio.asp?lngAuthorId=22110576871&amp;lngWId=1">Planet Source Code</a></li>
                         </ul>
                     </div>
-                    <div class="col4">
+                    <div class="col3">
                         <ul>
                             <li><a href="/blog">Blog</a></li>
                             <li><a href="/archives">Archives</a></li>
                             <li><a href="/search">Search</a></li>
-                        </ul>
-                    </div>
-                    <div class="col4">
-                        <ul>
+                            <li>&nbsp;</li>
                             <li><a href="/login">Login</a></li>
-                            <!--li><a href="/register">Register</a></li-->
                         </ul>
                     </div>
                 </div>

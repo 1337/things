@@ -35,7 +35,7 @@
             <!-- header -->
             <div id="header">
                 <div id="clfbar">
-                    <div id="uw_wordmark"><a href="<!--root-->/menu"><img src="http://uwaterloo.ca/images/template/uw_wordmark.gif" alt="Link to the University of Waterloo home page" height="40" width="120" /> </a> </div>
+                    <div id="uw_wordmark"><a href="<!--root-->menu"><img src="http://uwaterloo.ca/images/template/uw_wordmark.gif" alt="Link to the University of Waterloo home page" height="40" width="120" /> </a> </div>
                     <!-- end #uw_wordmark -->
                     
                     <div id="searchbox">

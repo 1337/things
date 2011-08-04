@@ -430,6 +430,16 @@
         function SetParents ($what) {
             // appends a new parent-child relationship into the hierarchy table.
             // accepts array ('parent1::ID','parent2::ID',...)
+            /*global $user;
+			if (isset ($user) && get_class ($user) == 'User' && 
+			    class_exists ('Auth') && function_exists ('CheckAuth')) {
+				// stop applies only if the auth library is used
+				if (!($user->GetChildren ($this->oid) || 
+				    CheckAuth ('administrative privilege', true))) {
+					// CustomException ("You just tried to move parentage of something you do not own.");
+					return false;
+				}
+			}*/
             if (sizeof ($what) > 0) {
                 $oid = $this->oid;
                 $this->cache['parents'] = array (); // flush cache
@@ -563,26 +573,19 @@
 			global $user;
 			if (isset ($user) && get_class ($user) == 'User' && 
 			    class_exists ('Auth') && function_exists ('CheckAuth')) {
-				
-				if ($user->GetChildren ($this->oid) || 
-				    CheckAuth ('administrative privilege')) {
-					// ^-- CheckAuth redirects on failure by default
-					// if admin OR owner, let user delete the object
-					$oid = $this->oid;
-					$query = "DELETE FROM `objects`
-									 WHERE `oid`='$oid'";
-					$sql = mysql_query ($query) or die (mysql_error ()); // delete object first
-					$this->DelParentsAll (); // then the properties and stuff (no orphaning on crash)
-					$this->DelPropsAll ();
-				} else {
-					// not enough auth. DYING.
-					// Since CheckAuth redirects, this might never run
-					CustomException ("Cannot find enough authorisation for you to delete the object.");
+				// stop applies only if the auth library is used
+				if (!($user->GetChildren ($this->oid) || 
+				    CheckAuth ('administrative privilege', true))) {
+					// CustomException ("You just tried to delete something you do not own.");
+					return false;
 				}
-			} else {
-				// cannot find auth module. DYING.
-				CustomException ("Objects cannot be deleted unless a user is logged in.");
 			}
+			$oid = $this->oid;
+			$query = "DELETE FROM `objects`
+							 WHERE `oid`='$oid'";
+			$sql = mysql_query ($query) or die (mysql_error ()); // delete object first
+			$this->DelParentsAll (); // then the properties and stuff (no orphaning on crash)
+			$this->DelPropsAll ();
         }
         
     }

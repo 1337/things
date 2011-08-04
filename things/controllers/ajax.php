@@ -25,12 +25,17 @@
     } else { 
         $args = $_POST; // POST-compatible?
     }*/
-    $args = array_merge ($_GET, $_POST);
+    /* $args = array_merge ($_GET, $_POST);
     
     $oid  = (isset ($args['oid']))  ? $args['oid']  : ''; // object id
     $prop = (isset ($args['prop'])) ? $args['prop'] : ''; // what the client is requesting
     $val  = (isset ($args['val']))  ? $args['val']  : ''; // anything the client wants to specify
     $key  = (isset ($args['key']))  ? $args['key']  : ''; // access key (currently used for writes)
+    */
+	$oid  = $gp->Get('oid'); // object id
+    $prop = $gp->Get('prop'); // what the client is requesting
+    $val  = $gp->Get('val'); // anything the client wants to specify
+    $key  = $gp->Get('key'); // access key (currently used for writes)
     
     header('Content-Type: text/html; charset=UTF-8'); 
     header('Cache-Control: no-cache, must-revalidate');

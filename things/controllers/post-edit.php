@@ -13,7 +13,7 @@
     if ($id > 0 && strlen ($edit) > 0) { // existing post
         $post = new Post ($id);
         $titlestr = "value='" . htmlspecialchars ($post->GetTitle (), ENT_QUOTES) . "'";
-        $aliasstr = "value='" . htmlspecialchars ($post->GetProp ('alias'), ENT_QUOTES) . "'";
+        $aliasstr = "value='" . htmlspecialchars ($post->GetProp ('permalink'), ENT_QUOTES) . "'";
         $bodystr = htmlspecialchars ($post->GetProp ('body'), ENT_QUOTES);
         
         $idstr = "<input type='hidden' name='id' value='$id' />";
@@ -37,12 +37,6 @@
                 $idstr
                 <br />
                 
-                <!--fieldset>
-                    <legend>Posting type</legend>
-                    <input type='radio' name='pubtype' value='post' /><label for='pubtype'>Post (for blogs)</label><br />
-                    <input type='radio' name='pubtype' value='page' /><label for='pubtype'>Page (allows any content)</label><br />
-                    <input type='radio' name='pubtype' value='html' /><label for='pubtype'>Pure HTML</label><br />
-                </fieldset-->
                 <fieldset>
                     <legend>Post options</legend>
                     
@@ -62,10 +56,13 @@
                  <input type='submit' name='delete' value='Delete Post (!)' />");
 	}
 	echo (" </form>
-            <script type='text/javascript' src='/scripts/nicedit/nicEdit.min.js'></script>
-            <script type='text/javascript' src='/scripts/.nicedit-loader.js'></script>");
+            <!--script type='text/javascript' src='/scripts/nicedit/nicEdit.min.js'></script>
+            <script type='text/javascript' src='/scripts/.nicedit-loader.js'></script-->
+			<script type='text/javascript' src='<!--root-->scripts/tiny_mce/jquery.tinymce.js'></script>
+            <script type='text/javascript' src='<!--root-->scripts/.tinymce-loader.js'></script>");
     render (array (
-	    'title' => 'Post editor'
+	    'title' => 'Post editor',
+		'headers' => '<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>'
 	));
     exit();
 ?>

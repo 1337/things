@@ -41,6 +41,14 @@
 			}
             return $this->objs;
         }
+		
+		function GetRealObjects ($refresh = false) {
+			// converts all those IDs to REAL objects. Takes some time.
+			foreach ((array) $this->GetObjects($refresh) as $oid) {
+				$buffer[] = new Thing ($oid);
+			}
+			return $buffer;
+        }
         
         function GetObjectsTypes () {
             // collects the types and associated objects in the format
@@ -161,7 +169,7 @@
                             FROM `objects` AS ua,
                                  `properties` AS uc
                            WHERE ua.`oid` = uc.`oid`
-                             AMD uc.`name`='$prop'
+                             AND uc.`name`='$prop'
                              AND uc.`value`='$propval'";
                 $sql = mysql_query ($query) or die (mysql_error ());
                 $roller = array ();
@@ -249,9 +257,39 @@
             }
         }
 
-        function Sort ($field, $direction = "ASC") {
-			// sorts all available objects by a given 'field' name
-			
+        private function SortMerge ($left, $right, $field) {
+			// http://en.wikipedia.org/wiki/Merge_sort
+	        $result = array ();
+			while (sizeof ($left) > 0 || sizeof ($right) > 0) {
+				if (sizeof ($left) > 0 && sizeof ($right) > 0) {
+					$left_object = new Thing ($left[0]);
+					$right_object = new Thing ($right[0]);
+					if ($left_object->GetProp ($field) <= $right_object->GetProp ($field)) {
+						$result[] = array_shift ($left);
+					} else {
+						$result[] = array_shift ($right);
+					}
+				} elseif (sizeof ($left) > 0) {
+					$result[] = array_shift ($left);
+			    } elseif (sizeof ($right) > 0) {
+					$result[] = array_shift ($right);
+				}
+			}
+			return $result;
+		}
+
+        function Sort ($oids, $field) {
+			// http://en.wikipedia.org/wiki/Merge_sort
+			// $things = $this->GetRealObjects ();
+			if (sizeof ($oids) <= 1) {
+				return $oids; // 1 or less items = already sorted
+			}
+			$oids_left = array_slice ($oids, 0, sizeof ($oids) / 2);
+			$oids_right = array_slice ($oids, sizeof ($oids) / 2);
+            $oids_left = $this->Sort ($oids_left, $field);
+			$oids_right = $this->Sort ($oids_right, $field);
+            $result = $this->SortMerge ($oids_left, $oids_right, $field);
+            return $result;
 		}
     }
 ?>

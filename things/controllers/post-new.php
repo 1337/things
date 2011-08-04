@@ -23,12 +23,7 @@
 		} */
 		$title = first ($body, 100);
 	}
-	$post->SetProps (
-		array ('name'=>$title, 
-			   'db_time'=>time (),
-			   'body' => $body
-	));
-	
+		
 	if (isset ($alias) && strlen ($alias) > 0) {
 		if (substr ($alias, 0, 1) != '/') {
 			$alias = '/' . $alias;
@@ -36,7 +31,13 @@
 	} else {
 		$alias = '/' . $post->MakeSEO ($title);
 	}
-	$post->SetProps (array ('alias'=>$alias));
+
+    $post->SetProps (array (
+	    'name'=>$title, 
+		'db_time'=>time (),
+		'body' => $body,
+		'permalink' => $alias
+	));
 
 	if (!is_null ($user)) {
 		$user->SetChildren (array ($post->oid));
