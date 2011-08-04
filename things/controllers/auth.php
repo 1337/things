@@ -16,12 +16,12 @@
             // prior to deployment.
             return sha1 ($what);
         }
-        
+     
         function RemoteWriteHash ($user) {
             // $user can represent both the name of a site or a user.
-            
+         
         }
-        
+     
         function IsLoggedIn () {
             // checks if user is logged in.
             global $gp, $user;
@@ -63,7 +63,7 @@
             }
             return false; // all other cases = flop
         }
-        
+     
         function WhoIsLoggedIn () {
             // returns the active $user object.
             global $gp;
@@ -75,17 +75,13 @@
             }
             return null;
         }
-        
+     
         function Logout () {
             global $gp;
             $gp->Flush ();
         }
     }
-    
-
-
-
-
+ 
 
 
     function CheckAuth ($required_privs = array (), $from = '', $to = '/login', $redirect = true) {
@@ -95,13 +91,13 @@
         // returns true (logged in) and false (not logged in).
         $auth = new Auth ();
         $user = $auth->WhoIsLoggedIn ();
-		// $user = $this->WhoIsLoggedIn ();
-		
-		if (!is_array ($required_privs)) {
-			$required_privs = array ($required_privs); // convert to array if given just a name
-		}
-        
-		if (is_null ($user)) {
+        // $user = $this->WhoIsLoggedIn ();
+     
+        if (!is_array ($required_privs)) {
+            $required_privs = array ($required_privs); // convert to array if given just a name
+        }
+     
+        if (is_null ($user)) {
             // user is not logged in
             if (strlen ($to) > 0) {
                 if (strlen ($from) == 0) {
@@ -113,47 +109,47 @@
             }
             return false;
         } else { // user is not null == is logged in
-		    $has_privs = true; // default
-		    if (sizeof ($required_privs) > 0) {
-				$has_privs = $user->CheckPrivileges ($required_privs);
-				if (!$has_privs) {
-					if ($redirect) {
-						// reject request
-						header ("location: $to?from=$from");
-					}
-					return false; // and give a false if no redirect.
-				}
-			}
-			return $has_privs; // by now, $has_privs must be true
+            $has_privs = true; // default
+            if (sizeof ($required_privs) > 0) {
+                $has_privs = $user->CheckPrivileges ($required_privs);
+                if (!$has_privs) {
+                    if ($redirect) {
+                        // reject request
+                        header ("location: $to?from=$from");
+                    }
+                    return false; // and give a false if no redirect.
+                }
+            }
+            return $has_privs; // by now, $has_privs must be true
         }
     }
-    
+ 
     /*function CheckPrivilege ($privids = array ()) {
         // checks the user (required) for privileges.
         // $privnames can be both a string (the privilege name)
         // or an array (many privilege names)
         global $user;
-        
+     
         $allow = true; // default to allow
-        
+     
         if (isset ($user) && sizeof ($privids) > 0) {
             foreach ($privids as $privid) {
-	    		if (!is_int ($privid)) {
-					$privid = FindObject ($privid, PRIVILEGE); // find the ID for the name
-			    }
-				if (!is_null ($privid)) {
-				    $has_priv = $user->CheckPrivilege ($privid);
-					if (!$has_priv) {
-						return false;
-					} else {
-						$allow = $allow && true;
-					}
-				}
+                if (!is_int ($privid)) {
+                    $privid = FindObject ($privid, PRIVILEGE); // find the ID for the name
+                }
+                if (!is_null ($privid)) {
+                    $has_priv = $user->CheckPrivilege ($privid);
+                    if (!$has_priv) {
+                        return false;
+                    } else {
+                        $allow = $allow && true;
+                    }
+                }
             }
         }
         return $allow;
     }*/
-    
+ 
     $auth = new Auth ();
     $auth->IsLoggedIn (); // this just logs the user in (if form was sent)
 

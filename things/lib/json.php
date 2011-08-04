@@ -7,10 +7,10 @@
         function parse_json () {
             // turn an array into a json string.
         }
-        
+     
         function parse_array () {
             // turn a json string into an array.
         }
-    }    
+    } 
 
 ?>

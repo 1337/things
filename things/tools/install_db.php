@@ -17,7 +17,7 @@
     <?php
         require_once ('../config/config.php');
         require_once ('../config/mysql_connect.php'); // or any other linking
-        
+     
         // add queries to the array
         $sqs = array (
 "CREATE TABLE IF NOT EXISTS `objects` (

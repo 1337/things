@@ -6,7 +6,7 @@
         // returns unix timestamp
         return mktime(0, 0, 0, $mo, $day, $year);
     }
-    
+ 
     function alt_date($date, $sec, $min, $ho, $mon, $day, $year) {
         // returns unix timestamp
         $newdate = mktime(date('H', $date) + $ho, 
@@ -17,13 +17,13 @@
                           date('Y', $date) + $year);
         return $newdate;
     }
-    
+ 
     function salt_date($date, $mon, $day, $year) {
         // another shorthand, sir
         // returns unix timestamp.
         return alt_date($date, 0, 0, 0, $mon, $day, $year);
     }
-    
+ 
     function second ($date) {
         return date('s', $date);
     }
@@ -39,26 +39,26 @@
     function day($date) {
         return date('d', $date);
     }
-    
+ 
     function month($date) {
         return date('m', $date);
     }
-    
+ 
     function month_name($date) {
         return date('F', $date);
     }
-    
+ 
     function year($date) {
         return date ('Y', $date);
     }
-    
+ 
     function break_date ($date) {
         // date breakdown.
         return array ('year' => year ($date),
                       'month' => month ($date),
                       'day' => day ($date));
     }
-    
+ 
     function last_day_of_month($month, $year) {
         for ($i = 1; $i < 32; $i++) {
             // loop until the day number decreases ("new month")
@@ -70,20 +70,20 @@
         }
         return $i - 1;
     }
-    
+ 
     // for public good
     function php_date_to_mysql_datetime ($date) {
         return date('Y-m-d H:i:s',$date);
     }
-    
+ 
     function mysql_datetime_to_php_date ($datetime) {
         return strtotime($datetime);
     }
-    
+ 
     function time_diff_from_now ($datetime) {
         // accepts php date.
         // returns some relative time from now.
-        
+     
         // get time now in unix seconds since epoch.
         $now_u = date ("U");
         // get time (datetime) in unix seconds since epoch.
@@ -95,14 +95,14 @@
                               year ($datetime));
         return $now_u - $datetime_u;
     }
-    
-	function plural ($num) {
+ 
+    function plural ($num) {
         // helper for adding "s"s to the end of "hour" , "day", etc.
         if ($num != 1) {
             return "s";
         }
     }
-		
+     
     function human_time_diff ($datetime, $datetime2 = -1, $suffix = ' ago') {
         // mod of http://snipplr.com/view/4912/relative-time/
         // $diff = time_diff_from_now ($datetime);

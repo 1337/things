@@ -6,18 +6,18 @@
         if cookie is set, check time
             if gte 15 mins, pass, set cookie time
             if lt 15 mins, block
-        
+     
         cookie name format $_COOKIE['site_name_md5'] = last time
         must be md5 because $_COOKIE keys cannot have strange symbols
     */
-    
+ 
     $reset_period = 7200; // seconds between each allowed load
 
     function GetSiteHash ($site) {
         // code refactoring
         return substr (md5 ($site), 0, 8);
     }
-    
+ 
     function LoadSite ($site) {
         global $gp;
         $gp->Set (
@@ -28,7 +28,7 @@
         ); // set cookie time
         header ("location: http://$site"); // pass
     }
-    
+ 
     if ($gp->Has ('site')) { // check if site is registered
         $site = $gp->Get ('site');
         if (array_key_exists (GetSiteHash ($site), $_COOKIE)) {

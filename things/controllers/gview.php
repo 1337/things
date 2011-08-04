@@ -1,16 +1,16 @@
 <?php
     require_once(".things.php"); // "require login" implementation
     CheckAuth ();
-    
+ 
     $dbn="blland_canadensis";
     $q2 = "SHOW TABLES FROM " . $dbn;
-    $qx2= mysql_query($q2) or die(mysql_error());       
+    $qx2= mysql_query($q2) or die(mysql_error());    
     while ($qr2 = mysql_fetch_row($qx2)) {
         echo "<table><tr><td><h4><a href='.gexec.php?q=SELECT * FROM " . $qr2[0] . "'>$dbn/" . $qr2[0] . "</a></h4>";
         $tbn=$qr2[0];
-    
+ 
         $qx3 = mysql_query("SHOW COLUMNS FROM $tbn") or die(mysql_error());
-        
+     
         if (mysql_num_rows($qx3) > 0) {
             echo("<table style='font-size:11px;width:600px;'>
                  <tr>
@@ -23,7 +23,7 @@
             }
             echo("<tr><th>&nbsp;</th></tr><tr><th>Num Fields</th><td>" . mysql_num_rows($qx3) . "</td></tr>");
             echo("<tr><th>Num Records</th><td>" . mysql_num_rows(mysql_query("SELECT * FROM $tbn")) . "</td></tr>");
-            
+         
             mysql_free_result($qx3);
             echo("</table>");
         }

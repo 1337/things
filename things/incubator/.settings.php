@@ -13,7 +13,7 @@
             user name
             user id
             the value that got written */
-                    
+                 
         global $user; // limit saving to only current user
         global $users_table, $options_table;
         if (isset($user) && $ss_uid<0) { //no uid presupplied
@@ -25,16 +25,16 @@
         } elseif (!$user && $ss_uid<0) {
             die("Attempting to save settings to no one");
         }
-        
+     
         $value=escape_data($value);
         $default=escape_data($default);
         if (!isset($value) || !$value) $value=$default; // writing defaults
-        
+     
         // why the hell do I need to use "backticks" here?!
         /* $q984="INSERT INTO $options_table (`userid`, `option`, `value`)
                     VALUES ('$ss_uid', '$optionname', '$value')";
         $qx984=mysql_query($q984); */
-        
+     
         // updated to INSERT IF NOT EXISTS type query for mysql 4+
         $qx984 = mysql_query("UPDATE $options_table
                               SET `value`= '$value'
@@ -44,7 +44,7 @@
             $qx984 = mysql_query("INSERT INTO $options_table (`userid`, `option`, `value`)
                                   VALUES ('$ss_uid', '$optionname', '$value')");
         }
-        
+     
         if($qx984) { //success
             return array('username' => $user->prop('username'), 
                          'userid' => $ss_uid, 
@@ -53,7 +53,7 @@
             die("Cannot save settings: " . mysql_error());
         }
     }
-    
+ 
     function getsetting($optionname,$default='',$ss_uid=-1) {
         /*  This function returns a triplet
             user name
@@ -62,14 +62,14 @@
 
         global $user; // limit saving to only current user
         global $users_table, $options_table;
-		
+     
         if ($ss_uid < 0) { //no uid presupplied
             //DO NOT MOVE THIS LINE OUT OF THE FUNCTION.
             // (you'll crash htmlout)
             require_once ('.auth.php'); //because $user is used later
-			getAuth ();
+            getAuth ();
             $ss_uid=$user->prop('uid');
-        }        
+        }     
         // why the hell do I need to use "backticks" here?!
         $q984="SELECT value FROM $options_table
                 WHERE userid='$ss_uid' 
@@ -87,7 +87,7 @@
             die("Cannot save settings: " . mysql_error());
         }
     }
-    
+ 
     function getusersettings($ss_uid=-1) {
         global $user; // limit saving to only current user
         global $users_table, $options_table;

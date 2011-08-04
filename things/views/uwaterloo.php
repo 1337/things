@@ -20,7 +20,7 @@
         <!-- this print will work in W3 Standard compliant browsers -->
         <style type="text/css">
             @import url("http://www.uwaterloo.ca/css/UWprint.css") print;
-            
+         
         </style>
         <link rel='stylesheet' href='<!--root-->css/uwaterloo' type='text/css' />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -37,7 +37,7 @@
                 <div id="clfbar">
                     <div id="uw_wordmark"><a href="<!--root-->menu"><img src="http://uwaterloo.ca/images/template/uw_wordmark.gif" alt="Link to the University of Waterloo home page" height="40" width="120" /> </a> </div>
                     <!-- end #uw_wordmark -->
-                    
+                 
                     <div id="searchbox">
                         <form action="http://search.uwaterloo.ca" method="get" id="search" title="search" dir="ltr" lang="en" xml:lang="en">
                             <fieldset>
@@ -49,16 +49,16 @@
                         </form>
                     </div>
                     <!-- end #searchbox --> 
-                    
+                 
                 </div>
-                
+             
                 <!-- end #clfbar -->
-                
+             
                 <div id="wordmark">
                     <h1><a href="/menu"><!--self.title--></a></h1>
                 </div>
                 <!-- end #wordmark --> 
-                
+             
             </div>
             <!-- end #header --> 
             <div id="main" role="main">

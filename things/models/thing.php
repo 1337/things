@@ -4,39 +4,39 @@
         // generic Things object.
         public $oid;
         private $cache;
-        
+     
         function __construct ($oid) {
             // if negative, a new object will be created for you automatically, 
             // with the type being the absolute value of $oid (-1 = 1 -> user, -2 = 2 -> group, ...)
             // parent::__construct ($oid);
-            
+         
             $this->oid = $oid;
             $this->cache = array ();
-            
+         
             if ($oid <= 0 && $oid != 0) {
                 $oid = $this->Create (); // if object is sure not to exist, create it and update ID
             } elseif ($oid == 0) { // invalid - there is no object type 0
                 die ('Error: cannot create Thing of index 0');
             }
-            
+         
             $thing_stack[$oid] = $this;
         }
-        
+     
         function __destruct () {
-            
+         
         }
-        
+     
         function Thing ($oid) {
             // PHP4 compat.
             $this->__construct();
             register_shutdown_function(array($this,"__destruct"));
         }
-        
+     
         function Create () {
             // an extendable function.
             return $this->CreateHelper ();
         }
-        
+     
         function CreateHelper () {
             // global $mysql;
             $type = abs ($this->oid); // convert to TYPE.
@@ -50,9 +50,9 @@
                 // $mysql->Query ("DELETE FROM `hierarchy` WHERE `parent_oid`='$oid' OR `child_oid`='$oid'");
                 $this->oid = $oid; // update ID for this object.
                 return $oid;
-            }    
+            } 
         }
-        
+     
         function Type ($type_id = 0) { // gsetter
             if ($type_id == 0) { // no type ID is supplied
                 return $this->GetType ();
@@ -60,7 +60,7 @@
                 return $this->SetType ($type_id);
             }
         }
-        
+     
         function GetType () {
             $oid = $this->oid;
             if (!isset ($this->cache['type']) || $this->cache['type'] <= 0) {
@@ -68,12 +68,12 @@
             }
             return $this->cache['type'];
         }
-        
+     
         function SetType ($type_id) {
             // an extendable function.
             return $this->SetTypeHelper ($type_id);
         }
-            
+         
         function SetTypeHelper ($type_id) {
             global $mysql;
             if (ObjectTypeExists ($type_id)) {
@@ -131,7 +131,7 @@
                 return null;
             }
         }
-        
+     
         function GetProps () {
             // transform GetPropsRaw output to PHP array format;
             /* array
@@ -157,7 +157,7 @@
                 return $this->cache['props'];
             }
         }
-        
+     
         function GetProp ($name) {
             // retrieve a single value off the Props array. no speed advantage.
             $results = $this->GetProps ();
@@ -167,17 +167,17 @@
                 return null;
             }
         }
-        
+     
         function GetPropFile ($propurl = '', $ext = 'txt') {
             // if no propurl is provided, find an available, writable file.
             //     it will not come with prop://.
             // if a propurl is provided (e.g. prop://ddsdads), 
             //     resolve it and turn it into a full file name.
-            
+         
             // does not check if file actually exists.
             $was_at = getcwd ();
             chdir (THINGS_PROPS_DIR); // change to the props folder
-            
+         
             if (strlen ($propurl) == 0) {
                 do {
                     $randchars = substr (md5(time().rand()), 0, 10); // pick random string
@@ -188,7 +188,7 @@
                 return THINGS_PROPS_DIR . substr ($propurl, strlen (URL_PROP)); // prop://dcea2b9e04.txt => '/var/www/things/props/dcea2b9e04.txt
             }
         }
-        
+     
         function DelPropFiles ($prop = '') {
             // deletes property files associated with this object.
             // if $prop (type string) is given, will only delete the file for that property.
@@ -199,7 +199,7 @@
                              AND `name`='$prop'";
             } else {
                 $query = "SELECT `pid`, `value` FROM `properties` 
-                           WHERE `oid`='$oid'";            
+                           WHERE `oid`='$oid'";         
             }
             $sql = mysql_query ($query) or die (mysql_error ());
             if (mysql_num_rows ($sql) > 0) { // at least one row represents existing property
@@ -213,12 +213,12 @@
                 }
             }
         }
-        
+     
         function SetProp ($prop, $val) {
             // wrap wrap wrap.
             return $this->SetPropsHelper (array ($prop=>$val));
         }
-        
+     
         function SetProps ($what) {
             // an extendable function.
             return $this->SetPropsHelper ($what);
@@ -231,8 +231,8 @@
                 ack_r3 ($what); // change all keys to lower case
 
                 foreach ($what as $name => $value) {
-                    $name = escape_data ($name);    
-                    // value is escaped later if prop is written into db                
+                    $name = escape_data ($name); 
+                    // value is escaped later if prop is written into db             
                     if (strlen ($value) > 256) { // 256 is the URL threshold
                         // delete previous property file
                         $this->DelPropFiles ($name);
@@ -262,28 +262,28 @@
                     }
                     $sql = mysql_query ($query) or die (mysql_error ());
                 }
-                
+             
                 // $this->cache['props'] = array_merge ($this->cache['props'], $what); // update cache
                 $this->cache['props'] = array (); // flush cache
                 return $sql;
             }
         }
-        
+     
         function DelProps ($what) {
             // global $mysql;
             // accepts an of names, e.g. array ('views','rating', 'status')
             // and deletes all properties with any of those names.
             $oid = $this->oid;
             if ($oid > 0) {
-            
+         
                 $query = "DELETE FROM `properties` WHERE `oid`='$oid' AND `name` IN (";
                 foreach ($what as $eh) {
-                    
+                 
                     $this->DelPropFiles ($eh); // delete all property files associated with this property
-    
+ 
                     $eh = escape_data ($eh);
                     $query .= "'$eh',";
-                    
+                 
                     // clear entry in cache
                     $this->cache['props'][$eh] = null;
                 }
@@ -299,16 +299,16 @@
             $oid = $this->oid;
             if ($oid > 0) {
                 $this->DelPropFiles (); // delete all property files associated with this object
-                
+             
                 $query = "DELETE FROM `properties`
                                  WHERE `oid`='$oid'";
                 $sql = mysql_query ($query) or die (mysql_error ());
-                
+             
                 $this->cache['props'] = null;
                 return $sql;
             }
         } function DelAllProps () { return $this->DelPropsAll (); }
-        
+     
         function GetChildren ($type_id = 0, $order_by = "`child_oid` ASC") {
             // returns all children object IDs associated with this one.
             // if $type_id is supplied, returns only children of that type.
@@ -338,15 +338,15 @@
             }
             return array (); // everything fails --> return empty array
         }
-        
+     
         function SetChildren ($what) {
             // appends a new parent-child relationship into the hierarchy table.
             // accepts array ('child1ID','child2ID',...)
-            
+         
             if (!is_array ($what)) {
                 $what = array ($what); // a string / int, convert it to string.
             }
-            
+         
             if (sizeof ($what) > 0) {
                 $oid = $this->oid;
                 if ($oid > 0) {
@@ -385,13 +385,13 @@
                 $sql = mysql_query ($query) or die ("Error 385: " . mysql_error () . " | " . $query);
                 return $sql;
             }
-        }        
-        
+        }     
+     
         function DelChild ($child_id) {
             // might as well
             $this->DelChildren (array ($child_id));
         }
-        
+     
         function GetParents ($type_id = 0, $order = "ORDER BY `parent_oid` ASC") {
             // there are no limits to the number of parents.
             // returns all parent objects associated with this one.
@@ -426,20 +426,20 @@
                 return array ();
             }
         }
-        
+     
         function SetParents ($what) {
             // appends a new parent-child relationship into the hierarchy table.
             // accepts array ('parent1::ID','parent2::ID',...)
             /*global $user;
-			if (isset ($user) && get_class ($user) == 'User' && 
-			    class_exists ('Auth') && function_exists ('CheckAuth')) {
-				// stop applies only if the auth library is used
-				if (!($user->GetChildren ($this->oid) || 
-				    CheckAuth ('administrative privilege', true))) {
-					// CustomException ("You just tried to move parentage of something you do not own.");
-					return false;
-				}
-			}*/
+            if (isset ($user) && get_class ($user) == 'User' && 
+                class_exists ('Auth') && function_exists ('CheckAuth')) {
+                // stop applies only if the auth library is used
+                if (!($user->GetChildren ($this->oid) || 
+                    CheckAuth ('administrative privilege', true))) {
+                    // CustomException ("You just tried to move parentage of something you do not own.");
+                    return false;
+                }
+            }*/
             if (sizeof ($what) > 0) {
                 $oid = $this->oid;
                 $this->cache['parents'] = array (); // flush cache
@@ -479,12 +479,12 @@
                 return $sql;
             }
         }
-        
+     
         function DelParent ($parent_id) {
             // might as well
             $this->DelParents (array ($parent_id));
         }
-        
+     
         function DelParentsAll () {
             // removes hierarchical data where this object is someone's child.
             // effectively removes all of the object's parents (orphanating?).
@@ -497,28 +497,28 @@
                 return $sql;
             }
         } function DelAllParents () { return $this->DelParentsAll (); }
-        
-        
+     
+     
 // PERIPHERAL FUNCTIONS
 
         function CreateObject ($type, $props = array ()) {
             // creates the object. different from the global CreateObject is how
             // this one auto-associates this object as the parent of the one
             // being created.
-            
+         
             $noid = CreateObject ($type, $props);
             if ($noid > 0) { // assumed success
                 $this->SetChildren (array ($noid));
                 return $noid;
             } else {
-                return null;            
+                return null;         
             }
         }
-        
+     
         function ChangeID ($nid) {
             // attempt to change the ID of this object to the new ID.
             // attempt to resolve all references to this object.
-            
+         
             $query = "SELECT * FROM `objects` WHERE `oid` = '$nid'";
             $sql = mysql_query ($query) or die (mysql_error ());
             if (mysql_num_rows ($sql) == 0) { // target ID does not exist
@@ -527,17 +527,17 @@
                              SET `oid` = '$nid' 
                            WHERE `oid` = '$pid'";
                 $sql = mysql_query ($query) or die (mysql_error ());
-        
+     
                 $query = "UPDATE `hierarchy` 
                              SET `parent_oid` = '$nid' 
                            WHERE `parent_oid` = '$pid'";
                 $sql = mysql_query ($query) or die (mysql_error ());
-    
+ 
                 $query = "UPDATE `hierarchy` 
                              SET `child_oid` = '$nid' 
                            WHERE `child_oid` = '$pid'";
                 $sql = mysql_query ($query) or die (mysql_error ());
-    
+ 
                 $query = "UPDATE `properties` 
                              SET `oid` = '$nid' 
                            WHERE `oid` = '$pid'";
@@ -547,46 +547,46 @@
                 die ("Failed to reallocate object");
             }
         }
-        
+     
         function Duplicate () {
             // creates a data-identical twin of this object.
             // the new twin will have the same parents and have the same children (!!)
             // the new twin WILL inherit URL_PROPs, but not duplicates of their values
             $new_object = new Thing (0 - $this->GetType ()); // create the object.
-            
+         
             $props = $this->GetProps ();
             $new_object->SetProps ($props); // duplicate properties.
-            
+         
             $parents = $this->GetParents ();
             $new_object->SetParents ($parents); // duplicate upper hierarchy.
-            
+         
             $children = $this->Children ();
             $new_object->SetChildren ($children); // duplicate lower hierarchy.
-            
+         
             return $new_object->oid; // return the object ID. Don't lose it!
         }
-        
+     
         function Destroy () {
             // removes an object from the database.
             // deletes the object, the relationship with parents, and their children.
             // children of this object will become orphans.
-			global $user;
-			if (isset ($user) && get_class ($user) == 'User' && 
-			    class_exists ('Auth') && function_exists ('CheckAuth')) {
-				// stop applies only if the auth library is used
-				if (!($user->GetChildren ($this->oid) || 
-				    CheckAuth ('administrative privilege', true))) {
-					// CustomException ("You just tried to delete something you do not own.");
-					return false;
-				}
-			}
-			$oid = $this->oid;
-			$query = "DELETE FROM `objects`
-							 WHERE `oid`='$oid'";
-			$sql = mysql_query ($query) or die (mysql_error ()); // delete object first
-			$this->DelParentsAll (); // then the properties and stuff (no orphaning on crash)
-			$this->DelPropsAll ();
+            global $user;
+            if (isset ($user) && get_class ($user) == 'User' && 
+                class_exists ('Auth') && function_exists ('CheckAuth')) {
+                // stop applies only if the auth library is used
+                if (!($user->GetChildren ($this->oid) || 
+                    CheckAuth ('administrative privilege', true))) {
+                    // CustomException ("You just tried to delete something you do not own.");
+                    return false;
+                }
+            }
+            $oid = $this->oid;
+            $query = "DELETE FROM `objects`
+                             WHERE `oid`='$oid'";
+            $sql = mysql_query ($query) or die (mysql_error ()); // delete object first
+            $this->DelParentsAll (); // then the properties and stuff (no orphaning on crash)
+            $this->DelPropsAll ();
         }
-        
+     
     }
 ?>

@@ -6,7 +6,7 @@
         // this file must be included.
         die ();
     }
-    
+ 
     function DefaultTo () {
         // successively checks all supplied variables and returns the
         // first one that isn't null or empty or false or not set
@@ -23,14 +23,14 @@
         }
         return (!isset ($wat) || $wat == '' || $wat == null) ? $wut : $wat;
     }
-    
+ 
     function is_assoc ($array) {
         // http://php.net/manual/en/function.is-array.php
-        return ((array) $arr !== $arr);    
+        return ((array) $arr !== $arr); 
     } function IsAssoc ($array) {
         return is_assoc ($array);
     }
-    
+ 
     function WriteAccessHash () {
         // this is actually a generic hashing algorithm.
         // add as many arguments as you like, and we will add them to the game.
@@ -41,7 +41,7 @@
         }
         return substr ($salt, 0, 8);
     }
-    
+ 
     function println($what, $hdng = 'p') {
         if ($hdng >= 1 && $hdng <= 6) {
             $heading = 'h' . $hdng;
@@ -49,7 +49,7 @@
             $heading = 'p';
         } else {
             $heading = $hdng;
-        }        
+        }     
         echo("<$heading>$what</$heading>\n");
     }
 
@@ -61,7 +61,7 @@
                              "', '", 
                              "'" . implode (chr (11), array_map ("addslashes", $arr)) . "'");
     }
-    
+ 
     function MergeFirst () {
         // first array takes precedence.
         // print_r (array ('thing'=>'2') + array ('thing'=>'3'));"
@@ -72,7 +72,7 @@
         }
         return $empty;
     }
-    
+ 
     function MergeLast () {
         // last array takes precedence.
         // print_r (array_merge (array ('thing'=>'2'), array ('thing'=>'3')));"
@@ -83,7 +83,7 @@
         }
         return $empty;
     }
-    
+ 
     function SingleFetch ($query, $column = '') {
         // used to fetch a single row or a single value from a query.
         // to get a single value, specify $column.
@@ -99,21 +99,21 @@
             return null;
         }
     }
-    
+ 
     function ColumnFetch ($query, $column, $key = '') {
         /* return all values from a single column:
             col[0]=1
             col[1]=4
             col[2]=9, ...
-            
+         
             => [1,4,9]
-            
+         
             if $key is given, values from that row will be used as key.
-            
+         
             col[john] = 1
             col[...
-            
-            
+         
+         
              */
         $sql = mysql_query ($query) or die (mysql_error ());
         if ($sql && mysql_num_rows ($sql) > 0) {
@@ -130,7 +130,7 @@
             return null;
         }
     }
-    
+ 
     function ack_r3 (&$array, $case=CASE_LOWER, $flag_rec=false) {
         // found here, no owner: http://php.net/manual/en/function.array-change-key-case.php
         $array = array_change_key_case ($array, $case);
@@ -151,7 +151,7 @@
             return null; // no ID for this type! you made it up.
         }
     }
-    
+ 
     function GetTypeName ($tid) {
         // enter a type ID (see above for what you've defined) and get its name.
         global $things_types;
@@ -162,11 +162,11 @@
             return "NULL";
         }
     }
-    
+ 
     function GetObjectByName ($name) {
         // you can't refer to an object by name because names can be duplicates.
     }
-    
+ 
     function GetObjectType ($oid) {
         // wrapper.
         $ob = new Thing ($oid);
@@ -218,13 +218,13 @@
             // die ("FindObject: you're doing it wrong");
         }
     }
-    
+ 
     function ObjectExists ($oid) {
         $query = "SELECT `oid` FROM `objects` WHERE `oid`='$oid'";
         $sql = mysql_query ($query) or die (mysql_error ());
         return (mysql_num_rows ($sql) >= 1);
     }
-    
+ 
     function ObjectTypeExists ($tid) {
         // enter a type ID to see if it is a valid Things type.
         // requires this script to get past the last line.
@@ -235,7 +235,7 @@
     function CustomException ($what = 'Something terrible happened.') {
         // likely the case that some serious shit has occurred and the page
         // needs to stop running
-        
+     
         die ('
         <html>
             <head>
@@ -283,65 +283,75 @@
         define ($name, $value);        // positive
         define ("NEW_$name", -$value); // new constants, negative
     }
-    
+ 
     function ObjectCompare () {
         // mod of http://stackoverflow.com/questions/124266/sort-object-in-php
         // in: object 1, object 2, property 1, property 2, ... property n
-		//     property comparisons have cascading precedence.
-		//     if an object has no such property, it is automatically compared
-		//         as smaller than the other.
+        //     property comparisons have cascading precedence.
+        //     if an object has no such property, it is automatically compared
+        //         as smaller than the other.
         // out: 1 if object 1 > object 2
         //      0 if object 1 = object 2
         //     -1 if object 1 < object 2
         $argv = func_get_args ();
         $argc = func_num_args ();
         $object_1 = $argv[0];
-		$object_2 = $argv[1];
-		for ($i = 2; $i < $argc; $i++) {
-			$arg = $argv[$i]; // property_$i
-			if (!property_exists ($object_1, $arg)) {
-				// object 1 does not have property --> object 2 is larger
-				return -1;
-			} elseif (!property_exists ($object_2, $arg)) {
-				// object 2 does not have property --> object 1 is larger
-				return 1;
-			} else {
-				if ($object_1->$arg !== $object_2->$arg) {
-        			if ($object_1->$arg > $object_2 ->$arg) {
-						return 1;
-					} elseif ($object_1->$arg > $object_2 ->$arg) {
-						return -1;
-					}
-				} else {
-					// continue looking until you get an unequal property
-				}
-			}
-		}
-		return 0; // if ultimately no match, declare the two objects equal 
-		          // (in terms of specified criteria)
+        $object_2 = $argv[1];
+        for ($i = 2; $i < $argc; $i++) {
+            $arg = $argv[$i]; // property_$i
+            if (!property_exists ($object_1, $arg)) {
+                // object 1 does not have property --> object 2 is larger
+                return -1;
+            } elseif (!property_exists ($object_2, $arg)) {
+                // object 2 does not have property --> object 1 is larger
+                return 1;
+            } else {
+                if ($object_1->$arg !== $object_2->$arg) {
+                    if ($object_1->$arg > $object_2 ->$arg) {
+                        return 1;
+                    } elseif ($object_1->$arg > $object_2 ->$arg) {
+                        return -1;
+                    }
+                } else {
+                    // continue looking until you get an unequal property
+                }
+            }
+        }
+        return 0; // if ultimately no match, declare the two objects equal 
+                  // (in terms of specified criteria)
     }
-    
+ 
     function SortObjects () {
         // mod of http://stackoverflow.com/questions/124266/sort-object-in-php
         // in: array_of_objects, property 1, property 2, ... property n
-		//     property comparisons have cascading precedence.
+        //     property comparisons have cascading precedence.
         // out: array_of_sorted_objects
         $argv = func_get_args ();
         $argc = func_num_args ();
         $objects = $argv[0];
-		if (sizeof ($objects) <= 1) {
-			return $objects; // if there is 0 or 1 objects, 
-		}
-		usort ($objects, 'ObjectCompare');
-		return $objects;
-	}
+        if (sizeof ($objects) <= 1) {
+            return $objects; // if there is 0 or 1 objects, 
+        }
+        usort ($objects, 'ObjectCompare');
+        return $objects;
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
+    function FindObjectByPermalink ($link) {
+        $things = new Things (ALL_OBJECTS);
+        // $things->FilterByPreg ('permalink', '/.+/'); // "has a url"
+        $things->FilterByProp ('permalink', $link);
+        $found = $things->GetObjects ();
+        if (sizeof ($found) == 0) {
+            return null;
+        } else {
+            return $found[0]; // the function is clearly not plural.
+        }
+    }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 ?>

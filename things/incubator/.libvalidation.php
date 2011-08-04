@@ -18,9 +18,9 @@
     function isemail ($email) {
         //return !eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email);
         // this came from http://www.codewalkers.com/c/a/Miscellaneous/Email-Validation-with-PHP/1/
-		//   /[a-z0-9_\-]+@[a-z0-9_\-\.]+\.[a-z]{0,7}/i
+        //   /[a-z0-9_\-]+@[a-z0-9_\-\.]+\.[a-z]{0,7}/i
         // if (eregi("^[a-zA-Z0-9_]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$]", $email)) {
-		if (!preg_match ("/[a-z0-9_\-]+@[a-z0-9_\-\.]+\.[a-z]+/i",$email)) {
+        if (!preg_match ("/[a-z0-9_\-]+@[a-z0-9_\-\.]+\.[a-z]+/i",$email)) {
             return false;
         } //if (eregi("^[a-zA-Z0-9_]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$]", $email))
         list($Username, $Domain) = explode ("@", $email);

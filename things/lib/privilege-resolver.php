@@ -1,6 +1,6 @@
 <?php
     // privilege resolver
-	// determines if an object has required privileges.
-	
-	
+    // determines if an object has required privileges.
+ 
+ 
 ?>

@@ -4,15 +4,15 @@
         // it uses variables only available from post-ui.php.
         die ("Wrong");
     }
-	    
+     
     echo ("
-		<p><a href='../tickets'>Back to all tickets</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href='" . WEBROOT . "new/ticket/" . $id . "'>New &quot;See also&quot; ticket</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href='" . WEBROOT . "delete/ticket/" . $id . "'>Delete ticket</a></p>
-	");
+        <p><a href='../tickets'>Back to all tickets</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href='" . WEBROOT . "new/ticket/" . $id . "'>New &quot;See also&quot; ticket</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href='" . WEBROOT . "delete/ticket/" . $id . "'>Delete ticket</a></p>
+    ");
 
-	$a = new AjaxField ($id);
-	$tobj = new Ticket ($id);
+    $a = new AjaxField ($id);
+    $tobj = new Ticket ($id);
 ?>
     <div class="ticket">
         <h2><?php 
@@ -50,7 +50,7 @@
                 echo ('<li><a href="<!--root-->ticket/' . $child->oid . '">' . $child->GetProp ('name') . '</a></li>');
             }
             echo ("</ul><hr />");
-            
+         
             $a->NewDropdownField (array (
                 'prop' => 'priority',
                 'friendlyname' => 'Priority (1~5)', 
@@ -70,21 +70,21 @@
             echo ("<br />");
             $a->NewTextAreaField ('description', 'Description', false, 'width: 78%; height: 120px;');
             echo ("<br /><hr />");
-            
+         
             $a->NewTextAreaField ('requirements', 'Requirements', false, 'width: 78%; height: 120px;');
             echo ("<br />");
             $a->NewTextField ('requirements_signoff', 'Sign-off', false, 'width: 78%');
             echo ("<br />");
-            
+         
             $a->NewTextAreaField ('designs', 'Design/Tests', false, 'width: 78%; height: 120px;');
             echo ("<br />");
             $a->NewTextField ('designs_signoff', 'Sign-off', false, 'width: 78%');
             echo ("<br /><hr />");
-    
+ 
             $a->NewTextAreaField ('files_changed', 'Files changed', false, 'width: 78%; height: 120px;');
             echo ("<br />");
-            
+         
             $a->NewTextField ('time_needed', 'Time tracker', false, '', 'number');
             echo (" hours");
-        ?>      
+        ?>   
     </div>

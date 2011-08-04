@@ -11,7 +11,7 @@
             println ("Saved template preference.", $win);
         }
     }
-        
+     
     // change password
     if ($gp->Has ('cp1') && $gp->Has ('np1') && $gp->Has ('np2')) {  //change password
         if ($gp->Get ('np1') != $gp->Get ('np2') ||             //two new passes mismatch
@@ -36,7 +36,7 @@
             }  
         }
     }
-    
+ 
     // deactivate account
     if ($gp->Has ('deactivateme')) { //user clicks something on the deactivation form
         if ($gp->Get ('yes')) { //user clicks yes
@@ -122,7 +122,7 @@
                 print_r ($props);
                 echo("</pre>");
             }
-            
+         
             if ($user->CheckPrivilege('change_setting_raw')) {  
         ?>
                 <form method="post" action="">
@@ -134,7 +134,7 @@
                         <input type='hidden' name='changesettings' value='sorta' />
                         <input type="submit" name="submit" value="Save" />
                     </fieldset>
-                </form>         
+                </form>      
         <?php
             }
         ?>
@@ -152,7 +152,7 @@
                     </tr><tr>
                         <td>New password: </td>
                         <td><input type='password' name='np1' id='np1' /></td>
-                    </tr><tr>   
+                    </tr><tr>
                         <td>New password again: </td>
                         <td><input type='password' name='np2' id='np2' /></td>
                     </tr>

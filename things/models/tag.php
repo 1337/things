@@ -1,13 +1,13 @@
 <?php
     require_once (PROOT . 'models/thing.php');
-    
+ 
     class Tag extends Thing {
-    
+ 
         function GetPosts () {
             // returns all posts with this tag.
             return $this->GetParents (POST, "ORDER BY `parent_oid` DESC");
         }
-    
+ 
         function TagCount () {
             // finds the number of times this tag has appeared in the database.
             $otype = TAG;
@@ -20,5 +20,5 @@
                                      AND ub.`value` = '$name'",
                                  "count");
         }
-    }    
+    } 
 ?>

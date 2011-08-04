@@ -3,7 +3,7 @@
     //    ob_start();  // failsafing?
     //}
     //buffer will be compressed, then shortened with template-engine
-    
+ 
     // require_once('.conf.php'); //all the table definition is in here
 
     // importing other functions
@@ -18,8 +18,8 @@
     // require_once ('.libcompress.php');
     // require_once ('.libvalidation.php');
 
-    // @include_once('.jquery.php'); //optional    
-    
+    // @include_once('.jquery.php'); //optional 
+ 
     // functions
     /* function println($what, $hdng = 'p') {
         //MVC version of println
@@ -30,7 +30,7 @@
         } else {
             $heading = $hdng;
         }
-        
+     
         //if jquery is present
         if (function_exists ('printinfo_jquery') && $hdng > 4) {
             if($hdng==5) {
@@ -42,7 +42,7 @@
             echo("<$heading>$what</$heading>\n");
         }
     }*/
-        
+     
     function page() {
         return $_SERVER['PHP_SELF'];
     }
@@ -53,7 +53,7 @@
 
     function txt2bin($w){for($i=0;$i<strlen($w);$i++){$k .=sprintf("%08d",decbin(ord($w[$i])));}return $k;}
     function bin2txt($w){for($i=0;$i<strlen($w);$i+=8){$k.=chr(bindec(mid($w,$i,8)));}return $k;}
-    
+ 
     /* function gvar($what) { //get-prioritised var
         if (isset ($_GET[$what])) {
             return $_GET[$what];
@@ -81,7 +81,7 @@
     function ixcape($str) {
         return htmlentities($str, ENT_NOQUOTES);
     }
-   
+
     if (!function_exists("stripos")) {
         // I love this function, but it's not in PHP4, so
         function stripos($str,$needle,$offset=0) {

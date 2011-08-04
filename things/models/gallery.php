@@ -7,12 +7,12 @@
                         photos = [url, url, url]
                         description = url
                      } */
-        
+     
         function AddPhoto ($url) {
             // adds a photo to the lowest-indexed photo[].
-            
+         
         }
-        
+     
         function AddPhotos ($urls) {
             // accepts an array of URLs and appends them to the list.
         }

@@ -3,7 +3,7 @@
         public $url;      // load from
         public $location; // save to
         public $contents; // of the file
-        
+     
         function __construct ($url = '', $loc = '') {
             // if nothing is given, nothing is done
             // if url is given, the url is saved, 
@@ -18,11 +18,11 @@
                 $this->Get ();
             }
         }
-        
+     
         function Downloader ($url = '', $loc = '') {
             return __construct ($url, $loc);
         }
-        
+     
         function Get () {
             // download the file. Call twice to download again.
             // returns the results, or you can get it later
@@ -38,7 +38,7 @@
                 return null;
             }
         }
-		
-		//function dl ($u,$d=''){$f=fopen($d?$d:basename($u),'w');fwrite($f,file_get_contents($u));fclose($f);}
+     
+        //function dl ($u,$d=''){$f=fopen($d?$d:basename($u),'w');fwrite($f,file_get_contents($u));fclose($f);}
     }
 ?>

@@ -2,7 +2,7 @@
     // http://www.lateralcode.com/remove-svn-php/
     header('Content-type: text/plain');
     function delTree($dir) {
-       
+    
        $files = glob($dir . '*', GLOB_MARK);
        foreach ($files as $file) {
            if (substr($file, -1) == '/')
@@ -11,12 +11,12 @@
                unlink($file);
        }
        if (is_dir($dir))
-           
+        
            rmdir($dir);
     }
     function removeSVN($dir) {
        echo "Searching: $dir\n\t";
-       
+    
        $flag = false;
        $svn = $dir . '.svn';
        if (is_dir($svn)) {
@@ -33,10 +33,10 @@
        $handle = opendir($dir);
        while (false !== ($file = readdir($handle))) {
            if ($file == '.' || $file == '..')
-               
+            
                continue;
            if (is_dir($dir . $file))
-               
+            
                removeSVN ($dir . $file . '/');
        }
     }

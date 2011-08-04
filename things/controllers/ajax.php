@@ -13,35 +13,35 @@
            that said, if items in your array contains ',' already, this library
            does not give a rat's buttock about that.
     */
-    
-	$import[] = "things.config.mysql_connect,
-	             things.models.thing,
-				 things.lib.core";
-	
+ 
+    $import[] = "things.config.mysql_connect,
+                 things.models.thing,
+                 things.lib.core";
+ 
     require_once ('.things.php');
-    
+ 
     /* if (isset ($_GET)) {
         $args = $_GET; // heh, just giving it a name
     } else { 
         $args = $_POST; // POST-compatible?
     }*/
     /* $args = array_merge ($_GET, $_POST);
-    
+ 
     $oid  = (isset ($args['oid']))  ? $args['oid']  : ''; // object id
     $prop = (isset ($args['prop'])) ? $args['prop'] : ''; // what the client is requesting
     $val  = (isset ($args['val']))  ? $args['val']  : ''; // anything the client wants to specify
     $key  = (isset ($args['key']))  ? $args['key']  : ''; // access key (currently used for writes)
     */
-	$oid  = $gp->Get('oid'); // object id
+    $oid  = $gp->Get('oid'); // object id
     $prop = $gp->Get('prop'); // what the client is requesting
     $val  = $gp->Get('val'); // anything the client wants to specify
     $key  = $gp->Get('key'); // access key (currently used for writes)
-    
+ 
     header('Content-Type: text/html; charset=UTF-8'); 
     header('Cache-Control: no-cache, must-revalidate');
     header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // IE bug: caches JSON
     header('Content-type: application/json'); // you return JSON 
-    
+ 
     if (isset ($oid) && $oid > 0) { 
         if (isset ($prop) && strlen ($prop) > 0) { // specify property
             if (ObjectExists ($oid)) {

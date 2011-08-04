@@ -16,7 +16,7 @@
                     }
                     #results tr td, #results tr th {
                         padding: 5px;
-                    }   
+                    }
                     #header {
                         padding: 0 0 30px 0;
                         font-size: 10px;
@@ -32,12 +32,12 @@
                     Tests run <?php echo (date ('H:i:s', time ())); ?>
                 </div>
                 <?php
-				    if (!is_array ($unit_test_classes)) {
-						// array type needed for foreach later
-						$unit_test_classes = array ($unit_test_classes);
-					}
-					foreach ($unit_test_classes as $unit_test_class) {
-				?>
+                    if (!is_array ($unit_test_classes)) {
+                        // array type needed for foreach later
+                        $unit_test_classes = array ($unit_test_classes);
+                    }
+                    foreach ($unit_test_classes as $unit_test_class) {
+                ?>
                     <h2>Class 
                         <?php
                             echo (get_class ($unit_test_class));
@@ -77,8 +77,8 @@
                         ?>
                     </table>
                 <?php
-					}
-				?>
+                    }
+                ?>
             </body>
         </html>
 <?php

@@ -3,7 +3,7 @@
         simulates outputs of various wordpress theme functions.
         this is not compatible with wordpress, wordpress themes, 
         or sparta's templating engine.
-        
+     
         to write:
         the_ID();
         the_permalink();
@@ -19,14 +19,14 @@
         written:
         query_posts('cat='.$cat->cat_ID); 
     */
-    
+ 
     require_once ('.functions.php');
     require_once ('.quicksql.php');
-    
+ 
     // you can do that?!
     //public function api(/* polymorphic */) {
     //  $args = func_get_args();*/
-    
+ 
     function query_posts_by_id ($id, $order='ua.`id` ASC', $count=10) {
         global $stories_table, $story_tags_table, $tags_table;
         $n = "SELECT * 
@@ -70,7 +70,7 @@
                LIMIT $count"; 
         return asql ($n);
     }
-    
+ 
     function query_categories ($order='ua.category_name ASC', $count=10) {
         //defaults to sort alphabetically
         global $categories_table;

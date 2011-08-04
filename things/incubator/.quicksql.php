@@ -2,10 +2,10 @@
     /*  QuickSQL library
         Perform highly inefficient SQL queries very easily.
     */
-    
+ 
     require_once('.functions.php');
     require_once('.connect.php');
-    
+ 
     /*  quick sql
         - Might not return anything (INSERT, DELETE, UPDATE)
         - Returns only the first row (SELECT)
@@ -40,7 +40,7 @@
              [ ... ]
              [ ... ]
            ]
-        */    
+        */ 
         $q = mysql_query ($query);
         if ($q) {
             $results = array();
@@ -63,5 +63,5 @@
             }
         }
     }
-    
+ 
 ?>

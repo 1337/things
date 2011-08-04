@@ -3,14 +3,14 @@
     if (!isset ($_SESSION)) {
         $_SESSION = array (); // what are the chances of SESSION not getting started?
     }
-    
+ 
     class GPVar {
     // $_GET and $_POST wrappers.
         var $key_cache;
         function GPVar () {
             $key_cache = array ();
         }
-    
+ 
         function Get ($index = false) {
             // priority: SESSION > POST > GET
             // defaults to returning the entire $_GET or $_POST.
@@ -39,12 +39,12 @@
                 return $this->key_cache;
             }
         }
-        
+     
         function Has ($index) {
             // checks if $key_cache has the key $index.
             return array_key_exists ($index, $this->key_cache);
         }
-        
+     
         function Check ($index, $expected) {
             // returns true if $key_cache[$index] == $expected value.
             if (array_key_exists ($index, $this->key_cache)) {
@@ -52,7 +52,7 @@
             }
             return false;
         }
-        
+     
         function Set ($what, $session_only = true) {
             // accepts an array of (name=>val)s and puts it in $_SESSION ONLY.
             if (sizeof ($what) > 0) {
@@ -78,7 +78,7 @@
                 $this->key_cache = array_merge ($this->key_cache, $what); // add to cache
             }
         }
-        
+     
         function Flush () {
             // removes ALL client-side data.
             foreach (array ($_GET, $_POST, $_REQUEST) as $lgp) {
@@ -103,16 +103,16 @@
                     } catch (Exception $e) {}
                 }
             } catch (Exception $e) {}
-            
+         
             /*var_dump ($_GET);
             var_dump ($_POST);
             var_dump ($_COOKIE);
             var_dump ($_REQUEST);
             die ();*/
-            
+         
             header ('location: ' . WEBROOT); // return to home page
         }
     }
-    
+ 
     $gp = new GPVar (); // used globally
 ?>

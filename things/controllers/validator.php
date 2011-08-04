@@ -8,23 +8,23 @@
                        );
         */
         public $methods;
-        
+     
         function Validator ($methods = array ()) {
             $this->methods = $methods;
         }
-        
+     
         function Add ($name, $val) {
             // add a validation criterion.
             $this->methods[$name] = $val;
         }
-        
+     
         function Remove ($name) {
             // remove a validation criterion, if it exists.
             if (array_key_exists ($name, $this->methods)) {
                 unset ($this->methods[$name]);
             }
         }
-        
+     
         function Test ($test_str, $test_all = true) {
             // apply all stored requirements to $test_str.
             // if $test_all = true, Test returns true if ALL tests pass
@@ -50,26 +50,26 @@
             }
             return $passed;
         }
-        
-        
-        
-        
-        
-        
-        
+     
+     
+     
+     
+     
+     
+     
         /*  VALIDATION HELPERS
             Inputs: test string, test criterion
             Outputs: boolean
-			
-			You can also call these separately from outside the class
+         
+            You can also call these separately from outside the class
         */
-        
+     
         function _required ($str, $param) {
             if ($param == true) {
                 return (strlen ($str) > 0);
             }
         }
-        
+     
         function _min ($str, $param) {
             return ($str >= $param);
         }
@@ -77,7 +77,7 @@
         function _max ($str, $param) {
             return ($str <= $param);
         }
-        
+     
         function _range ($str, $param) {
             // param is in the form of "0~10"
             $numbers = explode ("~", $param);
@@ -92,15 +92,15 @@
         function _minLength ($str, $param) {
             return (strlen ($str) >= $param);
         }
-        
+     
         function _maxLength ($str, $param) {
             return (strlen ($str) <= $param);
         }
-        
+     
         function _match ($str, $param) {
             return (preg_match ($param, $str) > 0);
         }
-        
+     
         function _email ($str, $param = null) {
             // param is optional. If you give one, we'll use it as regex.
             if (!is_null ($param)) {
@@ -108,7 +108,7 @@
             }
             return (preg_match ($param, $str) > 0);
         }
-        
+     
         function _time ($str, $param = null) {
             // param is optional. If you give one, we'll use it as regex.
             if (!is_null ($param)) {
@@ -117,7 +117,7 @@
             }
             return (preg_match ($param, $str) > 0);
         }
-        
+     
         function _url ($str, $param = null) {
             // param is optional. If you give one, we'll use it as regex.
             if (!is_null ($param)) {

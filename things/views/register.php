@@ -29,29 +29,29 @@
         $nmail = $_POST['nmail'];
         $ncapt = $_POST['ncapt'];
         $error = 0;
-        
+     
         if (strlen ($nname) == 0 || strlen ($npass) == 0 || 
             strlen ($nmail) == 0 || strlen ($ncapt) == 0) {
             println ("Form is not filled yet.", $fail);
             $error ++;
         }
-        
+     
         if (FindObject ($nname, USER) != null) {
             println ("User is taken.", $fail);
             $error ++;
         }
-        
+     
         $v = new Validator (array ('email'=>'1'));
         if (!$v->Test ($nmail)) {
             println ("Email is wrong.", $fail);
             $error ++;
         }
-        
+     
         if ($ncapt != '1' && $ncapt != 'one') {
             println ("You should check the math again.", $fail);
             $error ++;
         }
-        
+     
         if ($error == 0) {
             $user = new User (NEW_USER);
             $auth = new Auth ();
@@ -62,7 +62,7 @@
             ));
             println ("User created! You can now <a href='/menu'>log in</a>.", $win);
         }
-        
+     
     }
 ?>
     <form method="post">
@@ -73,11 +73,11 @@
                    if (isset ($nname)) { echo ("value='$nname'"); }
                ?> />
         <br />
-        
+     
         <label for="npass">Password:</label>
         <input type="password" name="npass" id="npass" required="required" placeholder="Enter a password" />
         <br />
-        
+     
         <label for="nmail">Email:</label>
         <input type="email" name="nmail" id="nmail" required="required" placeholder="(no spam)" />
         <br />

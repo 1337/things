@@ -1,6 +1,6 @@
 <?php
     // Example tests.
-    
+ 
     require_once ('UnitTestClass.class.php');
     require_once ('UnitTestClass.view.php');
     require_once ('.things.php');
@@ -8,7 +8,7 @@
 
     class PHPTest extends UnitTestClass {
         // detection of features (requires 'disable_classes' and 'disable_functions' to be off
-    
+ 
         function test_php_version () {
             $this->assertNotEqual (strlen (phpversion ()), 0);
         }
@@ -100,7 +100,7 @@
             $this->assertEqual (get_magic_quotes_runtime (), 0);
         }
     } $e = new PHPTest ();
-    
+ 
     class ThingTest extends UnitTestClass {
         public $dummy;
         function setup () {
@@ -114,7 +114,7 @@
                     $x->Destroy (); 
                 }
             }
-            
+         
             // make a new one for this test
             $this->dummy = new Thing (NEW_DUMMY);
         }
@@ -146,12 +146,12 @@
             $this->dummy->SetProps (array ($prop3 => $val3, $prop2 => $val2));
             $this->assertEqual ($this->dummy->GetProp ($prop3), $val3);
             $this->assertEqual ($this->dummy->GetProp ($prop2), $val2);
-            
+         
             $props = $this->dummy->GetProps ();
-            
+         
             $this->assertEqual ($props[$prop3], $val3);
             $this->assertEqual ($props[$prop2], $val2);
-                
+             
         }
         function test_save_long_props () {
             $k = '';
@@ -183,11 +183,11 @@
         function setup () {
             // echo ("Let me get the testing environment ready...");
             $this->dummy = new Thing (NEW_DUMMY);
-            
+         
             $this->dummy->SetProp ('prop1', 'val1');
-            
+         
             $this->things = new Things (DUMMY);
-        }       
+        }    
         function teardown () {
             $this->dummy->Destroy ();
         }
@@ -207,19 +207,19 @@
             );
             $b->Destroy ();
         }
-        
+     
         function test_filter () {
             $this->things = new Things (POST);
         }
-		
-		function test_sort () {
-			$b = new Things (TICKET);
-			$orio = sizeof ($b->GetObjects ());
-			$b->SetObjectsRaw ($b->Sort ($b->GetObjects (), 'time_needed'));
-			$orin = sizeof ($b->GetObjects ());
-			$this->assertEqual ($orio, $orin);
-		}
-        
+     
+        function test_sort () {
+            $b = new Things (TICKET);
+            $orio = sizeof ($b->GetObjects ());
+            $b->SetObjectsRaw ($b->Sort ($b->GetObjects (), 'time_needed'));
+            $orin = sizeof ($b->GetObjects ());
+            $this->assertEqual ($orio, $orin);
+        }
+     
     } $b = new ThingsTest ();
 
     class CoreTest extends UnitTestClass {
@@ -246,12 +246,12 @@
             );
         }
     } $c = new CoreTest ();
-    
+ 
     class PrivTest extends UnitTestClass {
-        
+     
         public $usr;
         public $priv;
-        
+     
         function setup () {
             $grp = new Things (USER);
             $usrs = $grp->GetObjects ();
@@ -261,17 +261,17 @@
             $privs = $grp->GetObjects ();
             $this->priv = new Privilege ($privs[0]); // pick a privilege
         }
-        
+     
         function test_setup_succeeded () {
             $this->assertIsA($this->usr, 'User');
             $this->assertIsA($this->priv, 'Privilege');
         }
-        
+     
         function test_give_priv () {
             $this->usr->SetChildren (array ($this->priv->oid)); // give user this priv
             $this->assertTrue (in_array ($this->priv->oid, $this->usr->GetChildren (PRIVILEGE)));
         }
-        
+     
         function test_test_priv () {
             $this->assertTrue ($this->usr->CheckPrivilege ($this->priv->oid));
             $this->assertTrue ($this->usr->CheckPrivileges (array ($this->priv->oid)));
@@ -279,12 +279,12 @@
             // supposed to fail, CheckPrivilege does not handle type string
             $this->assertTrue ($this->usr->CheckPrivilege ($priv_name));
         }
-        
+     
         function test_auth () {
             // CheckAuth uses local $user and can't be tested
         }
-                
+             
     } $d = new PrivTest (); 
-    
+ 
     showResults (array ($a, $b, $c, $d, $e));
 ?>

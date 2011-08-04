@@ -49,12 +49,11 @@
     $ticket_ids = $user->GetChildren (TICKET, "`child_oid` DESC");
     $kal = new Things ();
     $ticket_ids = array_reverse ($kal->Sort ($ticket_ids, 'status'));
-	if (!$gp->Has ('showall')) {
-    	$kal->SetObjectsRaw ($ticket_ids);
-    	$kal->FilterByPreg ('status', '/[^1]/'); // closed. hide closed ones
-    	$ticket_ids = $kal->GetObjects ();
-	}
- 
+    if (!$gp->Has ('showall')) {
+        $kal->SetObjectsRaw ($ticket_ids);
+        $kal->FilterByPreg ('status', '/[^1]/'); // closed. hide closed ones
+        $ticket_ids = $kal->GetObjects ();
+    }
     if (sizeof ($ticket_ids) > 0) {
         ?><ul class='tickets'><?php
         foreach ($ticket_ids as $tid) {
@@ -76,10 +75,8 @@
                     <p class='task'><?php 
                         $icon = GetIcon ($tobj);
                         echo ("<img src='$icon' />&nbsp;&nbsp;");
- 
                         echo ("<a href='<!--root-->ticket/" . $tobj->oid . "'>" . htmlspecialchars ($tobj->GetProp ('name')) . 
                             "</a> (" . $ticket_statuses[$tobj->GetProp ('status')] . ")");
- 
                         // list subtasks (provided that there are subtasks
                         if (sizeof ($tobj->GetChildren (TICKET)) > 0) {
                             echo ("<ul class='subtasks'>");

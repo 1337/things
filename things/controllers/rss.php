@@ -2,7 +2,7 @@
     // RSS Feed Module
     // For external news services
     // Brian Lai
-    
+ 
     /*  Structure
         <channel>
             <title>
@@ -28,7 +28,7 @@
                 <description>ohai</description>
                 <atom:link href='http://ohai.ca' rel='self' type='application/rss+xml' />
                 <pubDate>" . date(DATE_RSS,time()) . "</pubDate>");
-    
+ 
     $og = new Things (POST);
     // foreach ($og->GetObjects () as $post_id) {
     $tp = new Tag (FindObject ('home', TAG));

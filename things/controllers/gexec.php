@@ -1,12 +1,12 @@
 <?php
     require_once('.things.php');
     CheckAuth (3);
-    
+ 
     if(($_POST && isset ($_POST['submit']) && isset ($_POST['q'])) || isset ($_GET['q'])) {
-        
+     
         $q1 = isset ($_POST['q']) ? $_POST['q'] : $_GET['q'];
         $q1 = stripslashes($q1); //causing problems before
-        
+     
         if ($qx1=mysql_query($q1)) {
             println("Success: " . $q1,$win);
             if($qx1 && stripos($q1,"SELECT")==0) {

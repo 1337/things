@@ -1,10 +1,10 @@
-<?php    
+<?php 
     class Category extends Thing {
-        
+     
         function GetTags () {
             return $this->GetChildren (TAG);
         }
-        
+     
         function GetPosts () {
             // returns all posts 'in this category'.
             // actually just looks at the tags and say "give me all the posts".
@@ -17,7 +17,7 @@
             }
             return $myposts;
         }
-        
+     
         function TagCount () {
             // finds the number of tags in this category
             $otype = TAG;

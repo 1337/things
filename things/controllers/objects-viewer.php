@@ -81,20 +81,20 @@
             <th>Props</th>
             <th>Parents / Children</th>
 <?php
-    
+ 
     if (isset ($_POST['hierarchy_add'])) {
         $a = $_POST['parent_oid'];
         $b = $_POST['child_oid'];
         if ($a > 0 && $b > 0) {
             $aobj = new Thing ($a);
             if (isset ($_POST['delete']) && $_POST['delete'] == 1) {
-                var_dump ($aobj->DelChildren (array ($b)));                
+                var_dump ($aobj->DelChildren (array ($b)));             
             } else {
                 var_dump ($aobj->SetChildren (array ($b)));
             }
         }
     }
-    
+ 
     if (isset ($_POST['new_object'])) {
         $a = $_POST['name'];
         $b = $_POST['type'];
@@ -109,7 +109,7 @@
             die ($e->getMessage());
         }
     }
-    
+ 
     if (isset ($_POST['delete_property'])) {
         $a = $_POST['oid'];
         $b = $_POST['prop'];
@@ -126,7 +126,7 @@
             $aobj->Destroy (); // boom...
         }
     }
-    
+ 
     if (isset ($_POST['set_property'])) {
         $a = $_POST['oid'];
         $b = $_POST['prop'];
@@ -137,18 +137,18 @@
             var_dump ($aobj);
         }
     }
-	
+ 
     $a = new Things ();
     $a->SetType (ALL_OBJECTS);
-	$stuff = $a->SetObjects ('ORDER BY `oid` DESC');
-	
-	$page = new Paginate (array (
-		'objects' => $stuff,
-		'page_size' => 50
-	));
-    
-	echo ($page->Bar ()); // throw the bar out
-		
+    $stuff = $a->SetObjects ('ORDER BY `oid` DESC');
+ 
+    $page = new Paginate (array (
+        'objects' => $stuff,
+        'page_size' => 50
+    ));
+ 
+    echo ($page->Bar ()); // throw the bar out
+     
     foreach ($page->GetObjects () as $b) {
         $bobj = new Thing ($b);
         $btype = GetTypeName ($bobj->GetType ());
@@ -162,18 +162,18 @@
         if (sizeof ($p) > 0) {
             echo ("<td>");
             foreach ($p as $name=>$value) {
-                
+             
                 // $value = first (htmlspecialchars ($value));
                 $value = first (htmlspecialchars ($value));
                 echo ("<b>$name</b>: $value<br />");
-                
+             
                 /* $a = new AjaxField ($bobj->oid);
                 $a->NewTextareaField ($name);
                 echo ("<br />"); */
             }
             echo ("</td>");
         }
-        
+     
         echo ("<td><b>Parents: </b>");
         $c = $bobj->GetParents ();
         if (sizeof ($c) > 0) {
@@ -195,7 +195,7 @@
         </tr>
 <?php
     }
-        
+     
     /* $ffg = "User";
     $ffh = new $ffg(5); */
 ?>

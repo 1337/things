@@ -34,11 +34,8 @@ echo '</p>';
 // Recursive finder
 function RecursiveFolder($sHOME) {
   global $BOMBED, $WIN;
-  
   $win32 = ($WIN == 1) ? "\\" : "/";
-  
   $folder = dir($sHOME);
-  
   $foundfolders = array();
   while ($file = $folder->read()) {
     if($file != "." and $file != "..") {
@@ -51,7 +48,6 @@ function RecursiveFolder($sHOME) {
     }
   }
   $folder->close();
-  
   if(count($foundfolders) > 0) {
     foreach ($foundfolders as $folder) {
       RecursiveFolder($folder, $win32);
