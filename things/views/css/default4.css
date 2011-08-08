@@ -1,0 +1,122 @@
+body {
+    background: #444 url('/styles/grid4.png');
+    margin:0; padding:0;
+}
+#container {
+    width: 720px;
+    margin: 0 auto;
+}
+#header {
+    font: normal 12px 'Verdana';
+    background: #921;
+    color: #fff;
+    display: block;
+    height: 70px;
+    overflow: hidden;
+    padding: 0; }
+    #header #logo {
+        float: left;
+        padding: 5px 0 0 23px;
+        width: 150px; }
+        #header #logo a, #header #logo a img {
+            border: 0; }
+    #header #headermore {
+        float: right; 
+        padding: 45px 0 0 0;
+        width: 520px; }
+    #header a {
+        font-weight: bold;
+        color: #fff;
+        text-decoration: none; }
+        #header a:hover { 
+            text-decoration: underline; }
+    #header ul {
+        margin: 0;
+        padding: 0; }
+        #header ul li {
+            margin: 0 0 8px 0;
+            list-style: none; }
+            #header ul li a {
+                display:block; }
+        #header ul li:first-child {
+            margin-bottom: 20px; }
+.col3 {
+    float: left;
+    width: 33%; }
+.col4 {
+    float: left;
+    width: 25%; }       
+#main {
+    background: #fff;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: smaller;
+    line-height: 1.5em;
+    min-height: 300px;
+    padding: 30px; }
+    #main #sidebar {
+        background: #eee;
+        border-radius: 0 0 0 10px;
+        float: right;
+        margin: -30px -20px 20px 20px;
+        padding: 30px 10px;
+        width: 200px; }
+    #main h1, #main h2, #main h3, #main h4, #main h5, #main h6, #main p, #main ol, #main ul {
+        margin-bottom: 24px; }
+    #main h1 {
+        text-align: center;
+        font-size: 1.5em; /* 24px --> 24 ÃƒÂ· 16 = 1.5 */
+        line-height: 1em; /* 24px --> 24 ÃƒÂ· 24 = 1 */
+    }
+    #main h2 {
+        font-size: 1.375em; /* 22px --> 22 ÃƒÂ· 16 = 1.375 */
+        line-height: 1.0909em; /* 24px --> 24 ÃƒÂ· 22 = 1.090909(09) */
+    }
+    #main h3 {
+        font-size: 1.25em; /* 20px --> 20 ÃƒÂ· 16 = 1.25 */
+        line-height: 1.2em; /* 24px --> 24 ÃƒÂ· 20 = 1.2 */
+    }
+    #main h4 {
+        font-size: 1.125em; /* 18px --> 18 ÃƒÂ· 16 = 1.125 */
+        line-height: 1.333em; /* 24px --> 24 ÃƒÂ· 18 = 1.3333333(3) */
+    }
+    #main h5, #main h6 {
+        font-size: 1em; /* 16px --> 16 ÃƒÂ· 16 = 1 */
+        line-height: 1.5em; /* 24px --> 24 ÃƒÂ· 16 = 1.5 */
+    }
+    #main a {
+        color: #900;
+        text-decoration: none; }
+        #main a:hover { 
+            text-decoration: underline;
+    }
+    #main b, #main strong {
+        font-weight: bold;
+    }
+    #main blockquote {
+        padding: 30px;
+        margin:auto;
+        width:60%;
+        border-radius:5px;
+        background: #fffff0;
+        font: italic 25px Garamomd, 'Times New Roman', serif;
+        text-align: center;
+    }
+    #main li {
+        margin-left:20px;
+    }
+    #main pre {
+        background-color: rgba(50,50,50,0.1);
+        font-family: menlo, monaco, consolas, monospace;
+        padding: 6px;
+        max-height: 200px;
+        overflow: auto;
+    }
+    #main ul {
+        list-style: none;
+	    margin-left: 0;
+	    padding-left: 1em;
+	    text-indent: -1em;
+    }
+    #main .tags img {
+        vertical-align: middle;
+}

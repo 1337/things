@@ -25,7 +25,7 @@
             <td style="width:50%">
 <?php
                 println ("Your Posts", 2);
-                println ('<a href="' . WEBROOT . 'new/post">Write a new post</a>');
+                println ('<a href="<!--root-->new/post">Write a new post</a>');
                 $posts = new Paginate (array (
                     'objects' => $user->GetChildren (POST, "`child_oid` DESC"),
                     'control_suffix' => '_post'
@@ -35,7 +35,7 @@
                     foreach ($posts->GetObjects () as $post_id) {
                         $post = new Post ($post_id);
                         printf ("<li>
-                            <a href='/edit/post/%s'>%s</a>
+                            <a href='<!--root-->edit/post/%s'>%s</a>
                         </li>",
                         $post->oid,
                         $post->GetTitle ());
@@ -63,7 +63,7 @@
                     foreach ($tickets->GetObjects () as $ticket_id) {
                         $ticket = new Ticket ($ticket_id);
                         printf ("<li>
-                                <a href='/edit/ticket/%s'>%s</a>
+                                <a href='<!--root-->edit/ticket/%s'>%s</a>
                             </li>",
                             $ticket->oid,
                             htmlspecialchars ($ticket->GetProp ('name'))

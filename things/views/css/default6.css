@@ -1,0 +1,132 @@
+body {
+    background: #202020;
+    color: #ccc;
+    font-family: Abel, SolexRegular, Solex, Arial, sans-serif;
+    font-size:larger;
+    letter-spacing: 1px;
+}
+#container {
+    width: 900px;
+    margin: 0 auto;
+}
+#header {}
+    #header #logo {
+        text-align: right;
+        padding: 36px 42px; }
+        #header #logo a, #header #logo a img {
+            border: 0; }
+#redline {
+    background: #ae2029;
+    height: 8px;
+    border-radius: 8px 0 8px 0;
+}
+#main {
+    font-size: smaller;
+    line-height: 1.5em;
+    min-height: 300px;
+    text-align: right;
+    padding: 30px 20px; }
+    #main #menu {
+        width: 150px;
+        float: right; }
+        #main #menu ul, #main #menu li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-align: left;
+            line-height: 2em; }
+        #main #menu a {
+            text-decoration: none; }
+    #main #maincontent {
+        padding-right: 170px;
+        max-width: 900px;
+        text-align: left;
+    }
+    #main h1, #main h2, #main h3, #main h4, #main h5, #main h6, #main p, #main ol, #main ul {
+        margin-bottom: 24px; }
+    #main h1 {
+        text-align: center;
+        font-size: 1.5em; /* 24px --> 24 ÃƒÂ· 16 = 1.5 */
+        line-height: 1em; /* 24px --> 24 ÃƒÂ· 24 = 1 */
+    }
+    #main h2 {
+        font-size: 1.375em; /* 22px --> 22 ÃƒÂ· 16 = 1.375 */
+        line-height: 1.0909em; /* 24px --> 24 ÃƒÂ· 22 = 1.090909(09) */
+    }
+    #main h3 {
+        font-size: 1.25em; /* 20px --> 20 ÃƒÂ· 16 = 1.25 */
+        line-height: 1.2em; /* 24px --> 24 ÃƒÂ· 20 = 1.2 */
+    }
+    #main h4 {
+        font-size: 1.125em; /* 18px --> 18 ÃƒÂ· 16 = 1.125 */
+        line-height: 1.333em; /* 24px --> 24 ÃƒÂ· 18 = 1.3333333(3) */
+    }
+    #main h5, #main h6 {
+        font-size: 1em; /* 16px --> 16 ÃƒÂ· 16 = 1 */
+        line-height: 1.5em; /* 24px --> 24 ÃƒÂ· 16 = 1.5 */
+    }
+    #main a {
+        color: #fff;
+        text-decoration: none; }
+        #main a:hover { 
+            text-decoration: underline;
+    }
+    #main b, #main strong {
+        font-weight: bold;
+    }
+    #main blockquote {
+        padding: 30px;
+        margin:auto;
+        width:60%;
+        border-radius:5px;
+        background: #fffff0;
+        font: italic 25px Garamomd, 'Times New Roman', serif;
+        text-align: center;
+    }
+    #main form {
+        vertical-align:top;
+    }
+    #main fieldset {
+        border: 1px solid silver;
+        border-radius: 3px;
+        padding: 10px;
+    }
+    #main label {
+        margin: 3px;
+    }
+    #main input, #main select, #main textarea {
+        background: rgba(255,255,255,0.5);
+        border: 1px solid silver;
+        border-radius: 3px;
+        padding: 3px;
+        margin: 3px;
+    }
+    #main li {
+        margin-left:20px;
+    }
+    #main pre {
+        background-color: rgba(50,50,50,0.1);
+        font-family: menlo, monaco, consolas, monospace;
+        padding: 6px;
+        max-height: 200px;
+        overflow: auto;
+    }
+    #main ul {
+        /*list-style: none; why would you do that?
+        margin-left: 0; 
+        padding-left: 1em;
+        text-indent: -1em; */
+    }
+    #main .tags img {
+        vertical-align: middle;
+    }
+    #main .ticket .task {
+        margin-bottom: 10px; 
+    }
+    #main .ticket .subtasks li {
+        font-size: smaller;
+}
+
+.paginate_bar a {
+    color: #666 !important;
+}

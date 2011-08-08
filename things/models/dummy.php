@@ -1,5 +1,5 @@
 <?php
-    require_once (PROOT . 'models/thing.php');
+    require_once ('.things.php');
  
     class Dummy extends Thing {
         // it does nothing.

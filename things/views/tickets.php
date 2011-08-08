@@ -40,12 +40,17 @@
         }
         return $icon;
     }
+    
+    if ($gp->Has ('showall')) {
+        println ("All your tasks", 1);
+    } else {
+        println ("Your open tasks", 1);
+    }
 ?>
-    <p><a href="<!--root-->new/ticket">New Task</a> &nbsp; | &nbsp;
-       <a href="<!--root-->tickets?showall">Show all</a></p>
+    <p><a href="<!--root-->new/ticket">New Task</a> &nbsp; | &nbsp; Show: 
+       <a href="<!--root-->tickets?showall">all</a> / 
+       <a href="<!--root-->tickets">active</a></p>
 <?
-    println ("Your Tasks", 1);
-
     $ticket_ids = $user->GetChildren (TICKET, "`child_oid` DESC");
     $kal = new Things ();
     $ticket_ids = array_reverse ($kal->Sort ($ticket_ids, 'status'));
