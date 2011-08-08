@@ -15,31 +15,9 @@
     $tobj = new Ticket ($id);
 ?>
 <div class="ticket">
-    <h2><?php
-        switch ($tobj->GetProp ('priority')) {
-                case 1: // 1 = highest priority
-                    $icon = $styles_dir . 'red.png';
-                    break;
-                case 2:
-                    $icon = $styles_dir . 'orange.png';
-                    break;
-                case 3:
-                    $icon = $styles_dir . 'yellow.png';
-                    break;
-                case 4:
-                    $icon = $styles_dir . 'green.png';
-                    break;
-                case 5: // 5 = lowest priority
-                    $icon = $styles_dir . 'blue.png';
-                    break;
-                default: // unassigned
-                       $icon = $styles_dir . 'grey.png';
-                    break;
-            }
-            // echo ($tobj->GetProp ('name'));
-            $a->NewTextField ('name', null, false, 'font-size:20px;border:0;width: 95%;', 'text');
-    ?></h2>
     <?php
+        $a->NewTextField ('name', null, false, 'font-size:20px;border:0;width: 95%;', 'text');
+
         echo ("<p><b>See also:</b></p><ul>");
         foreach ((array) $a->GetParents (TICKET) as $parent_oid) {
             $parent = new Ticket ($parent_oid);

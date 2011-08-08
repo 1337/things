@@ -3,6 +3,7 @@
     CheckAuth (); // require a login. --> $user is available to you.
 
     function GetIcon ($tobj) {
+        global $ticket_statuses;
         /*switch ($tobj->GetProp ('priority')) {
             case 1: // 1 = highest priority
                 $icon = $styles_dir . 'red.png';
@@ -24,7 +25,7 @@
                 break;
         }*/
         $styles_dir = WEBROOT . 'styles/images/';
-        switch ($tobj->GetProp ('status')) {
+        switch (array_value_key ($ticket_statuses, $tobj->GetProp ('status'))) {
             case 1: // 1 = closed
                 $icon = $styles_dir . 'green.png';
                 break;
@@ -56,7 +57,7 @@
     $ticket_ids = array_reverse ($kal->Sort ($ticket_ids, 'status'));
     if (!$gp->Has ('showall')) {
         $kal->SetObjectsRaw ($ticket_ids);
-        $kal->FilterByPreg ('status', '/[^1]/'); // closed. hide closed ones
+        $kal->FilterByPreg ('status', '/[^Closed]/'); // closed. hide closed ones
         $ticket_ids = $kal->GetObjects ();
     }
     if (sizeof ($ticket_ids) > 0) {
@@ -81,7 +82,7 @@
                         $icon = GetIcon ($tobj);
                         echo ("<img src='$icon' />&nbsp;&nbsp;");
                         echo ("<a href='<!--root-->ticket/" . $tobj->oid . "'>" . htmlspecialchars ($tobj->GetProp ('name')) .
-                            "</a> (" . $ticket_statuses[$tobj->GetProp ('status')] . ")");
+                            "</a> (" . $tobj->GetProp ('status') . ")");
                         // list subtasks (provided that there are subtasks
                         if (sizeof ($tobj->GetChildren (TICKET)) > 0) {
                             echo ("<ul class='subtasks'>");
@@ -91,7 +92,7 @@
                                 // defaults have already been set when they were Tobjs
                                 echo ("<li><img src='$icon' />&nbsp;&nbsp;<a href='<!--root-->ticket/" .
                                        $child_ticket->oid . "'>" . htmlspecialchars ($child_ticket->GetProp ('name')) . "</a>
-                                       (" . $ticket_statuses[$child_ticket->GetProp ('status')] . ")</li>");
+                                       (" . $child_ticket->GetProp ('status') . ")</li>");
                             }
                             echo ("</ul>");
                         }

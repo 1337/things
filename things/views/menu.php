@@ -80,8 +80,18 @@
         </tr>
     </table>
     <h2>Options</h2>
-    <!-- controls.Text.template, name="Custom template" -->
+    <!-- //controls.Text.template, name="Custom template" -->
 <?php 
+    $templates = glob (THINGS_TEMPLATE_DIR . '*');
+    foreach ((array) $templates as $temp) {
+        $templates_2[] = basename ($temp);
+    }
+    $a->NewDropdownField (array (
+        'friendlyname' => 'Choose a theme',
+        'choices' => $templates_2,
+        'prop' => 'template'
+    ));
+    
     render (array (
         'title' => 'Menu'
     ));

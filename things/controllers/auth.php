@@ -84,7 +84,7 @@
  
 
 
-    function CheckAuth ($required_privs = array (), $from = '', $to = '/login', $redirect = true) {
+    function CheckAuth ($required_privs = array (), $from = '', $to = 'login', $redirect = true) {
         // call CheckAuth () to provide login functionality for that specific page.
         // if user is not logged in, it will be redirected to the $to page if $redirect is true.
         // if user is logged in, privileges will be checked for this page's access.
@@ -104,7 +104,7 @@
                     $from = $_SERVER['SCRIPT_NAME'];
                 }
                 if ($redirect) {
-                    header ("location: $to?from=$from");
+                    header ("location: " . WEBROOT . "$to?from=$from");
                 }
             }
             return false;

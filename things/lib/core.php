@@ -26,9 +26,19 @@
  
     function is_assoc ($array) {
         // http://php.net/manual/en/function.is-array.php
-        return ((array) $arr !== $arr); 
+        return ((array) $array !== $array); 
     } function IsAssoc ($array) {
         return is_assoc ($array);
+    }
+    
+    function array_value_key ($array, $lookup) {
+        // given a 1-to-1 dictionary, find the index of $value.
+        foreach ($array as $key => $value) {
+            if ($value == $lookup) {
+                return $key;
+            }
+        }
+        return null;
     }
  
     function WriteAccessHash () {

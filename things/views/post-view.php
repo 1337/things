@@ -24,9 +24,9 @@
              $post->GetProp ('body'),
              date("F j, Y", $post->GetPostTime ()),
              $author,
-             $auth->IsLoggedIn () ? " [<a href='" . WEBROOT . "edit/post/" . $id . "'>Edit</a>]": '',
-             $post->GetProp ('permalink'),
-             $post->GetProp ('permalink'));
+             $auth->IsLoggedIn () ? " [<a href='<!--root-->edit/post/" . $id . "'>Edit</a>]": '',
+             WEBROOT . substr ($post->GetProp ('permalink'),1),
+             WEBROOT . substr ($post->GetProp ('permalink'),1));
 ?>
     <div id="disqus_thread"></div>
     <script type="text/javascript">
