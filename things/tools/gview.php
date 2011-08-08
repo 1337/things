@@ -1,6 +1,6 @@
 <?php
     require_once(".things.php"); // "require login" implementation
-    CheckAuth ();
+    CheckAuth ("administrative privilege");
  
     $dbn="blland_canadensis";
     $q2 = "SHOW TABLES FROM " . $dbn;

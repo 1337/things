@@ -3,7 +3,7 @@
     <head>
         <base href="<!--root-->" />
         <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
-        <link rel='stylesheet' href='<!--root-->css/reset,core,default6,dde,mce' type='text/css' />
+        <link rel='stylesheet' href='<!--root-->css/reset,core,abel,dde,mce' type='text/css' />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="keywords" content="Brian Lai, Waterloo, KGV" />
         <meta name="description" content="Ohai: Brian Lai from the University of Waterloo." />
@@ -28,6 +28,7 @@
                     <ul>
                         <li><a href="<!--root-->">Home</a></li>
                         <li><a href="<!--root-->blog">Blog</a></li>
+                        <li><a href="<!--root-->kgv">KGV</a></li>
                         <li><a href="<!--root-->goodies">Projects</a></li>
                         <li>&nbsp;</li>
                         <li>-</li>

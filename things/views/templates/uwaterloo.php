@@ -55,7 +55,7 @@
                 <!-- end #clfbar -->
              
                 <div id="wordmark">
-                    <h1><a href="/menu"><!--self.title--></a></h1>
+                    <h1><a href="<!--root-->menu"><!--self.title--></a></h1>
                 </div>
                 <!-- end #wordmark --> 
              

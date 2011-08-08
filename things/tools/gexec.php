@@ -1,6 +1,6 @@
 <?php
     require_once('.things.php');
-    CheckAuth (3);
+    CheckAuth ("administrative privilege");
  
     if(($_POST && isset ($_POST['submit']) && isset ($_POST['q'])) || isset ($_GET['q'])) {
      
