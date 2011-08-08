@@ -1,4 +1,4 @@
-<?php 
+<?php
     if (count(get_included_files()) <= 1) {
         // this file must be called by the login.php controller.
         // it uses variables only available from login.php.
@@ -19,20 +19,20 @@
                         padding:10px;'>ohai</div>
             <form method='post'>
                 <label for='loginName'>User name: </label><br />
-                <input id='loginName' name='loginName' type='text' 
-                    <?php 
-                        if (isset ($_POST['loginName'])) { 
+                <input id='loginName' name='loginName' type='text'
+                    <?php
+                        if (isset ($_POST['loginName'])) {
                             echo (' value="' . $_POST['loginName'] . '"');
                         }
-                    ?> 
+                    ?>
                 /><br />
                 <label for='loginPassword'>Password: </label><br />
                 <input id='loginPassword' name='loginPassword' type='password'
-                    <?php 
-                        if (isset ($_POST['loginPassword'])) { 
+                    <?php
+                        if (isset ($_POST['loginPassword'])) {
                             echo (' value="' . $_POST['loginPassword'] . '"');
                         }
-                    ?> 
+                    ?>
                 /><br />
                 <br />
                 <input type='submit' value='Log in' />

@@ -68,7 +68,7 @@ body {
     #main a {
         color: #fff;
         text-decoration: none; }
-        #main a:hover { 
+        #main a:hover {
             text-decoration: underline;
     }
     #main b, #main strong {
@@ -113,7 +113,7 @@ body {
     }
     #main ul {
         /*list-style: none; why would you do that?
-        margin-left: 0; 
+        margin-left: 0;
         padding-left: 1em;
         text-indent: -1em; */
     }
@@ -121,7 +121,7 @@ body {
         vertical-align: middle;
     }
     #main .ticket .task {
-        margin-bottom: 10px; 
+        margin-bottom: 10px;
     }
     #main .ticket .subtasks li {
         font-size: smaller;

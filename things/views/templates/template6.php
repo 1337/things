@@ -41,7 +41,7 @@
             <div id="footer">
             </div>
         </div> <!--! end of #container -->
-        <script type="text/javascript"> 
+        <script type="text/javascript">
             var sc_project=4446854;var sc_invisible=1;var sc_partition=55;var sc_click_stat=1;var sc_security="74785e80";
         </script>
         <script type="text/javascript" src="http://www.statcounter.com/counter/counter_xhtml.js"></script>

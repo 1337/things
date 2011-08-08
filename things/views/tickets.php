@@ -40,15 +40,15 @@
         }
         return $icon;
     }
-    
+
     if ($gp->Has ('showall')) {
         println ("All your tasks", 1);
     } else {
         println ("Your open tasks", 1);
     }
 ?>
-    <p><a href="<!--root-->new/ticket">New Task</a> &nbsp; | &nbsp; Show: 
-       <a href="<!--root-->tickets?showall">all</a> / 
+    <p><a href="<!--root-->new/ticket">New Task</a> &nbsp; | &nbsp; Show:
+       <a href="<!--root-->tickets?showall">all</a> /
        <a href="<!--root-->tickets">active</a></p>
 <?
     $ticket_ids = $user->GetChildren (TICKET, "`child_oid` DESC");
@@ -77,10 +77,10 @@
                 // doing this because I don't want a bigass list of tasks that are actually subtasks
 ?>
                 <li class="ticket">
-                    <p class='task'><?php 
+                    <p class='task'><?php
                         $icon = GetIcon ($tobj);
                         echo ("<img src='$icon' />&nbsp;&nbsp;");
-                        echo ("<a href='<!--root-->ticket/" . $tobj->oid . "'>" . htmlspecialchars ($tobj->GetProp ('name')) . 
+                        echo ("<a href='<!--root-->ticket/" . $tobj->oid . "'>" . htmlspecialchars ($tobj->GetProp ('name')) .
                             "</a> (" . $ticket_statuses[$tobj->GetProp ('status')] . ")");
                         // list subtasks (provided that there are subtasks
                         if (sizeof ($tobj->GetChildren (TICKET)) > 0) {
@@ -89,7 +89,7 @@
                                 $child_ticket = new Ticket ($child_ticket_oid);
                                 $icon = GetIcon ($child_ticket);
                                 // defaults have already been set when they were Tobjs
-                                echo ("<li><img src='$icon' />&nbsp;&nbsp;<a href='<!--root-->ticket/" . 
+                                echo ("<li><img src='$icon' />&nbsp;&nbsp;<a href='<!--root-->ticket/" .
                                        $child_ticket->oid . "'>" . htmlspecialchars ($child_ticket->GetProp ('name')) . "</a>
                                        (" . $ticket_statuses[$child_ticket->GetProp ('status')] . ")</li>");
                             }

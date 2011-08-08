@@ -3,7 +3,7 @@ html {
     font-size: 0.8em;
     /* background: url('/styles/grid-01.png') center top repeat-y #fff; */
     /* background: url('/styles/grid-24.png') center -6px repeat-y #fff; */
-    /* width: 940px;*/ 
+    /* width: 940px;*/
 }
 
 body {
@@ -70,7 +70,7 @@ pre {
 }
 #nav {
     margin: 24px 0 48px 0;
-}   
+}
 #wrapper {
     width: 650px;
     margin: 0 auto;
@@ -115,13 +115,13 @@ pre {
         padding: auto 5px auto 5px;
     }
     #content table tr:nth-child(odd) {
-        background-color:#f0f0f0; 
+        background-color:#f0f0f0;
 }*/
 #foot {
     padding: 12px;
     font-size: smaller;
 }
-.invisibl { 
+.invisibl {
     position: fixed;
     width: 0; top: 0;
     height: 0;
