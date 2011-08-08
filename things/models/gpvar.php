@@ -3,6 +3,11 @@
     if (!isset ($_SESSION)) {
         $_SESSION = array (); // what are the chances of SESSION not getting started?
     }
+    
+    define ('GP_SESSION', 1);
+    define ('GP_POST', 2);
+    define ('GP_GET', 4);
+    define ('GP_COOKIE', 8);
  
     class GPVar {
     // $_GET and $_POST wrappers.
@@ -53,13 +58,14 @@
             return false;
         }
      
-        function Set ($what, $session_only = true) {
+        // function Set ($what, $session_only = true) {
+        function Set ($what, $components = GP_SESSION) {
             // accepts an array of (name=>val)s and puts it in $_SESSION ONLY.
             if (sizeof ($what) > 0) {
                 foreach ($what as $name=>$val) {
                     // echo ($name);
                     // echo ($val);
-                    try {
+                    /*try {
                         $_SESSION[$name] = $val;
                         // echo ("Session win");
                     } catch (Exception $e) { 
@@ -72,7 +78,28 @@
                         $_POST[$name] = $val;
                         $_GET [$name] = $val;
                         setcookie ($name, $val, time()+60*60*24*30, '/'); // expire in a month
-                    }
+                    }*/
+                    try {
+                        if ($components === false) {
+                            $components = 15; // compatibility with existing code
+                        }
+                        if ($components >= GP_COOKIE) {
+                            setcookie ($name, $val, time()+60*60*24*30, '/'); // expire in a month
+                            $components -= GP_COOKIE;
+                        }
+                        if ($components >= GP_GET) {
+                            $_GET[$name] = $val;
+                            $components -= GP_GET;
+                        }
+                        if ($components >= GP_POST) {
+                            $_POST[$name] = $val;
+                            $components -= GP_POST;
+                        }
+                        if ($components >= GP_SESSION) {
+                            $_SESSION[$name] = $val;
+                            $components -= GP_SESSION;
+                        }
+                    } catch (Exception $e) {}
                 }
                 // $this->key_cache = array (); // flush cache
                 $this->key_cache = array_merge ($this->key_cache, $what); // add to cache

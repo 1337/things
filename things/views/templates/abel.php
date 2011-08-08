@@ -32,6 +32,8 @@
                         <li><a href="<!--root-->goodies">Projects</a></li>
                         <li>&nbsp;</li>
                         <li>-</li>
+                        <li><a href="<!--root-->hire">Freelancing</a></li>
+                        <li><a href="<!--root-->tickets">Issue tracker</a></li>
                         <li><a href="<!--root-->menu">Login</a></li>
                     </ul>
                 </div>

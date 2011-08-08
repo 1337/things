@@ -12,6 +12,7 @@
     $ticket_statuses = array (
         'Open',
         'Closed',
+        'Resolved',
         'Will not fix',
         'In Progress'
     );

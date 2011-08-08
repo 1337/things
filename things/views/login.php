@@ -16,7 +16,7 @@
                     height:190px;margin-top:-115px;text-align:center;
                     padding:20px;border:1px solid silver;'>
             <div style='color:#999;font-size:3em;
-                        padding:10px;'>ohai</div>
+                        padding:10px 10px 20px 10px;'>Login</div>
             <form method='post'>
                 <label for='loginName'>User name: </label><br />
                 <input id='loginName' name='loginName' type='text'

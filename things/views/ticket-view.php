@@ -25,8 +25,8 @@
                 echo ("</ul><hr />");
             }
         ?>
-        <p class="col2"><b>Priority</b>: <?php echo ($ticket_priorities[$tobj->GetProp ('priority')]); ?></p>
-        <p class="col2"><b>Status</b>: <?php echo ($ticket_statuses[$tobj->GetProp ('status')]); ?></p>
+        <p class="col2"><b>Priority</b>: <?php echo ($tobj->GetProp ('priority')); ?></p>
+        <p class="col2"><b>Status</b>: <?php echo ($tobj->GetProp ('status')); ?></p>
         <p><b>Time spent / needed</b>: <?php echo ($tobj->GetProp ('time_needed')); ?> hours</p>
      
         <?php if (strlen ($tobj->GetProp ('description')) > 0) { ?>

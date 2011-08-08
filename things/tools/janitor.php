@@ -79,6 +79,21 @@
                 }
             }
         }
+        
+        function purge_orphan_properties () {
+            // checks inside the property folder and deletes anything
+            // that doesn't correspond to a property.
+            foreach (glob (THINGS_PROPS_DIR . "*.{txt,htm,inc,obj}", GLOB_BRACE) as $fn) {
+	            $fn = basename ($fn);
+	            $sql = "SELECT * FROM `properties` WHERE `value` LIKE '%$fn%'";
+	            $res = mysql_query ($sql) or die (mysql_error ());
+	            if (mysql_num_rows ($res) == 0) {
+	                unlink (THINGS_PROPS_DIR . $fn);
+	                echo ("deleted $fn\n");
+	            }
+	        }
+	        echo ("done\n");
+        }
      
         function compress_ids ($start = 1, $end = 2) {
             // compresses IDs from $start to $end.

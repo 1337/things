@@ -13,6 +13,14 @@
 
     $a = new AjaxField ($id);
     $tobj = new Ticket ($id);
+    
+    /*$users = new Things (USER);
+    $users2 = $users->GetRealObjects (); // this just loads $users with some good information
+    $users = array ();
+    foreach ($users2 as $user3) {
+        $users[] = $user3->GetProp ('name');
+    }*/
+
 ?>
 <div class="ticket">
     <?php

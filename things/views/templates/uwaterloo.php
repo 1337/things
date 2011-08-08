@@ -80,7 +80,7 @@
                         Waterloo, Ontario, Canada N2L 3G1<br />
                         519 888 4567<br />
                         <br />
-                        <a href="<!--root-->login">Login</a> | <a href="<!--root-->logout">Logout</a> | <a href="http://ohai.ca">http://ohai.ca</a><br />
+                        <a href="<!--root-->login">Login</a> | <a href="<!--root-->logout">Logout</a> | <a href="http://ohai.ca">http://uwaterloo.ca</a><br />
                     </p>
                 </div>
             </div>

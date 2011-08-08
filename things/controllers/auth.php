@@ -2,14 +2,8 @@
     @session_start ();
     require_once (PROOT . 'models/gpvar.php'); // just in case
     require_once (PROOT . 'models/user.php'); // just in case
-    // responsible for handling the $gp from gpvar.php.
-
-    /*
-    function Get ($index = false)
-    // priority: SESSION > POST > GET; gets var[$index] if specified
-    function Set ($what, $session_only = true) {
-    // accepts an array of (name=>val)s and puts it in $_SESSION ONLY.
-    */
+	require_once (PROOT . 'models/gpvar.php'); // just in case
+    
     class Auth {
         function SuperSecureHash ($what) {
             // returns a hash of $what. Feel free to modify this function
@@ -75,7 +69,7 @@
             }
             return null;
         }
-     
+             
         function Logout () {
             global $gp;
             $gp->Flush ();
@@ -89,7 +83,9 @@
         // if user is not logged in, it will be redirected to the $to page if $redirect is true.
         // if user is logged in, privileges will be checked for this page's access.
         // returns true (logged in) and false (not logged in).
-        $auth = new Auth ();
+		global $gp;
+        
+		$auth = new Auth ();
         $user = $auth->WhoIsLoggedIn ();
         // $user = $this->WhoIsLoggedIn ();
      
@@ -101,7 +97,7 @@
             // user is not logged in
             if (strlen ($to) > 0) {
                 if (strlen ($from) == 0) {
-                    $from = $_SERVER['SCRIPT_NAME'];
+                    $from = $gp->Get('redirected_from');//$_SERVER['SCRIPT_NAME'];
                 }
                 if ($redirect) {
                     header ("location: " . WEBROOT . "$to?from=$from");
@@ -149,8 +145,7 @@
         }
         return $allow;
     }*/
- 
+
     $auth = new Auth ();
     $auth->IsLoggedIn (); // this just logs the user in (if form was sent)
-
 ?>

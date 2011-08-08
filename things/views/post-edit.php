@@ -10,6 +10,7 @@
     $aliasstr = '';
     $idstr    = '';
     $tags     = '';
+    
     if ($id > 0 && strlen ($edit) > 0) { // existing post
         $post = new Post ($id);
         $titlestr = "value='" . htmlspecialchars ($post->GetTitle (), ENT_QUOTES) . "'";

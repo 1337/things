@@ -27,13 +27,16 @@
         $styles_dir = WEBROOT . 'styles/images/';
         switch (array_value_key ($ticket_statuses, $tobj->GetProp ('status'))) {
             case 1: // 1 = closed
+                $icon = $styles_dir . 'yellow.png';
+                break;
+            case 2: // 2 = resolved
                 $icon = $styles_dir . 'green.png';
                 break;
-            case 2: // 2 = won't fix
+            case 3: // 3 = won't fix
                 $icon = $styles_dir . 'blue.png';
                 break;
-            case 3: // 3 = in progress
-                $icon = $styles_dir . 'yellow.png';
+            case 4: // 4 = in progress
+                $icon = $styles_dir . 'orange.png';
                 break;
             default: // unassigned or 0 = open
                    $icon = $styles_dir . 'red.png';

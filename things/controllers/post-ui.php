@@ -1,23 +1,22 @@
 <?php
     require_once ('.things.php');
- 
     $new = $gp->Get('new');
     $edit = $gp->Get('edit');
     $id = $gp->Get('id');
-    $body = $gp->Get ('body');
+	$body = $gp->Get ('body');
     $title = $gp->Get ('title');
     $alias = $gp->Get ('alias');
     $tagstr = $gp->Has ('tags') ? $gp->Get ('tags') : '';
 
-    if (isset ($id)) {
+    if (isset ($id) && $id > 0) {
+        // print_r ($id);
         // no matter what, don't give me an invalid ID.
         if (GetObjectType ($id) != POST) {
             println ("The requested post was not found.", $fail);
-            exit ();
         }
     }
 
-    if (isset ($_POST['submit']) || $new == 1 || $edit == 1) {
+    if ($gp->Has('submit') || $new == 1 || $edit == 1) {
         CheckAuth (); // require a login. --> $user is available to you.
     } else {
         // view doesn't require privileges.

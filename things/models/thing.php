@@ -167,6 +167,16 @@
                 return null;
             }
         }
+        
+        function GetRandomString ($len = 6) {
+            $chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            $charl = strlen ($chars);
+            $buffer = '';    
+            for ($i = 0; $i < $len; $i++) {
+                $buffer .= $chars[rand (0, $charl)];
+            }
+            return $buffer;
+        }
      
         function GetPropFile ($propurl = '', $ext = 'txt') {
             // if no propurl is provided, find an available, writable file.
@@ -180,7 +190,8 @@
          
             if (strlen ($propurl) == 0) {
                 do {
-                    $randchars = substr (md5(time().rand()), 0, 10); // pick random string
+                    // $randchars = substr (md5(time().rand()), 0, 10); // pick random string
+                    $randchars = $this->GetRandomString ();
                     $filename = "$randchars.$ext";
                 } while (file_exists ($filename) == true);
                 return $filename; // '' => prop://dcea2b9e04.txt
@@ -206,8 +217,8 @@
                 while ($temp_row = mysql_fetch_assoc ($sql)) {
                     if (substr ($temp_row['value'], 0, strlen (URL_PROP)) == URL_PROP) {
                         $filename = $this->GetPropFile ($temp_row['value']);
-                        if (strlen ($filename) > 0 && file_exists (THINGS_PROPS_DIR . $filename)) {
-                            unlink (THINGS_PROPS_DIR . $filename); // try to remove expired property files for this property
+                        if (strlen ($filename) > 0 && file_exists ($filename)) {
+                            unlink ($filename); // try to remove expired property files for this property
                         }
                     }
                 }
@@ -238,7 +249,7 @@
                 foreach ($what as $name => $value) {
                     $name = escape_data ($name); 
                     // value is escaped later if prop is written into db             
-                    if (strlen ($value) > 256) { // 256 is the URL threshold
+                    if (strlen ($value) > THINGS_DATA_THRESHOLD) { // 2048?
                         // delete previous property file
                         $this->DelPropFiles ($name);
                         // store this inside a text file instead...
