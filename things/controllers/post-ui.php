@@ -13,6 +13,8 @@
         // no matter what, don't give me an invalid ID.
         if (GetObjectType ($id) != POST) {
             println ("The requested post was not found.", $fail);
+			render ();
+			exit ();
         }
     }
 

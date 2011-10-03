@@ -1,5 +1,7 @@
 <?php
-    require_once ('../../.things.php');
+    require_once ('.things.php');
+    require_once ('../controllers/validator.php');
+    
     if ($auth->IsLoggedIn()) {
         header ('location: /login');
     }

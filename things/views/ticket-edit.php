@@ -42,7 +42,7 @@
             'friendlyname' => 'Priority (1~5)',
             'readonly' => false,
             'style' => '',
-            'choices' => $ticket_priorities,
+            'choices' => $tobj->ticket_priorities,
             'items' => 1
         ));
         $a->NewDropdownField (array (
@@ -50,7 +50,7 @@
             'friendlyname' => 'Status',
             'readonly' => false,
             'style' => '',
-            'choices' => $ticket_statuses,
+            'choices' => $tobj->ticket_statuses,
             'items' => 1
         ));
         echo ("<br />");

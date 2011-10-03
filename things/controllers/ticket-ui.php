@@ -1,21 +1,18 @@
 <?php
     require_once ('.things.php');
-
+	require_once (PROOT . 'models/ticket.php');
+	
     $styles_dir = WEBROOT . 'styles/images/';
     $new = $gp->Get('new');
     $edit = $gp->Get('edit');
     $id = $gp->Get('id');
-    // $ownstr = $gp->Has ('owners') ? $gp->Get ('owners') : '';
- 
-    // CheckAuth (); // require a login. --> $user is available to you.
  
     if ($new == 1 && !$id) { // new ticket, no ID specified
         $ticket = new Ticket (NEW_TICKET);
         $nid = $ticket->oid;
         $ticket->SetParents (array ($user->oid));
         $ticket->SetProps (array (
-            'name' => "Untitled ticket",
-            'status' => 0
+            'name' => "Untitled ticket"
         ));
         // created the ticket, now go to it
         header ("location: " . WEBROOT . "ticket/" . $nid);

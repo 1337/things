@@ -1,8 +1,6 @@
 <?php
-    $import[] = "things.lib.core,
-                 things.models.thing";
     require_once ('.things.php');
-  
+	
     /* 
         Recommended stylesheet for this object
   
@@ -109,7 +107,7 @@
                     onKeyPress="event.returnValue = (event.keyCode != 13);"
                     rel="<?php echo ($this->node); ?>" 
                     key="<?php echo ($this->key); ?>"
-                    value="<?php echo ($this->val); ?>" />
+                    value="<?php echo (htmlspecialchars ($this->val)); ?>" />
             <?php } else { // if read-only ?>
                 <label for="df_<?php echo ($this->fn); ?>" class="datafield-label">
                     <?php echo ($this->fn); ?>:

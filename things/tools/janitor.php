@@ -80,7 +80,22 @@
             }
         }
         
-        function purge_orphan_properties () {
+		function find_lost_properties () {
+            // checks database to see if any property begins with URL_PROP (meaning the file is no longer there)
+            $a = new Things (ALL_OBJECTS);
+			foreach ($a->GetRealObjects () as $obj) {
+				foreach ($obj->GetProps () as $prop => $val) {
+					// print ($val);
+					if (substr ($val, 0, strlen (URL_PROP)) == URL_PROP) {
+						$oid = $obj->oid;
+						echo ("<p><a href='../../object/$oid'>#$oid.$prop -> $val</a></p>");
+					}
+				}
+			}
+			echo ("done\n");
+        }
+
+		function find_orphan_properties ($return = false) {
             // checks inside the property folder and deletes anything
             // that doesn't correspond to a property.
             foreach (glob (THINGS_PROPS_DIR . "*.{txt,htm,inc,obj}", GLOB_BRACE) as $fn) {
@@ -88,19 +103,40 @@
 	            $sql = "SELECT * FROM `properties` WHERE `value` LIKE '%$fn%'";
 	            $res = mysql_query ($sql) or die (mysql_error ());
 	            if (mysql_num_rows ($res) == 0) {
-	                unlink (THINGS_PROPS_DIR . $fn);
-	                echo ("deleted $fn\n");
+	                $items[] = $fn;
 	            }
 	        }
+			if ($return) {
+	            return $fn;
+			} else {
+				foreach ((array) $items as $item) {
+					echo ("<p><a href='../props/$item'>$item</a></p>");
+				}
+			}
+        }
+		
+        function purge_orphan_properties () {
+            // checks inside the property folder and deletes anything
+            // that doesn't correspond to a property.
+            foreach ($this->find_orphan_properties (true) as $fn) {
+				unlink (THINGS_PROPS_DIR . $fn);
+				echo ("deleted $fn\n");
+            }
 	        echo ("done\n");
         }
      
-        function compress_ids ($start = 1, $end = 2) {
+        function compress_ids ($start = 2, $end = 2) {
             // compresses IDs from $start to $end.
             // for example, if DB object IDs go like 1,2,5,1000000, then
             // new IDs will be 1,2,3,4.
          
             // !! will make like a billion database calls.
+			if ($start < 2) {
+			    die ("Minimum is 2");
+			}
+			if ($end <= $start) {
+				die ("Param 2 must be larger than param 1");
+			}
             $i = $start;
             while (true) {
                 if (ObjectExists ($i) && !ObjectExists ($i - 1)) {

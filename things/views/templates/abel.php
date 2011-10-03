@@ -27,7 +27,7 @@
                 <div id="menu">
                     <ul>
                         <li><a href="<!--root-->">Home</a></li>
-                        <li><a href="<!--root-->blog">Blog</a></li>
+                        <!--li><a href="<!!--root->->blog">Blog</a></li-->
                         <li><a href="<!--root-->kgv">KGV</a></li>
                         <li><a href="<!--root-->goodies">Projects</a></li>
                         <li>&nbsp;</li>

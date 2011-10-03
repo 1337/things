@@ -1,5 +1,7 @@
 <?php
     require_once ('.things.php');
+	require_once (PROOT . 'models/ticket.php');
+	
     CheckAuth (); // require a login. --> $user is available to you.
  
     println ("Your Basic Information", 2);
@@ -28,6 +30,7 @@
                 println ('<a href="<!--root-->new/post">Write a new post</a>');
                 $posts = new Paginate (array (
                     'objects' => $user->GetChildren (POST, "`child_oid` DESC"),
+					'page_size' => 5,
                     'control_suffix' => '_post'
                 ));
                 if (sizeof ($posts) > 0) {
@@ -55,7 +58,7 @@
 <?php
                 $tickets = new Paginate (array (
                     'objects' => $user->GetChildren (TICKET, "`child_oid` DESC"),
-                    // 'page_size' => 5,
+                    'page_size' => 5,
                     'control_suffix' => '_ticket'
                 ));
                 if (sizeof ($tickets) > 0) {

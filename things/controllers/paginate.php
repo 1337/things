@@ -22,7 +22,7 @@
  
     class Paginate {
         // houses the filtered objects.
-        private $objects, $start, $page_size, $control_suffix;
+        private $objects, $start, $page_size, $control_suffix, $link_prefix;
      
         // traps << < 1 2 3 ... 8 9 10 > >>
         function __construct ($options = array ()) {
@@ -32,16 +32,21 @@
                     'start' => the item index from which the list will start
                     'objects' => the array of objects that will be paged.
                                  note that this class will not display the list for you.
+                    'link_base' => with what all the generate links will begin.
                  
             */
             $defaults = array (
                 'objects' => array (),
                 'start' => 0,
                 'page_size' => 10,
-                'control_suffix' => ''
+                'control_suffix' => '',
+                // 'link_base' => $_SERVER['SCRIPT_NAME']
+                // changed this because php handles redirects now
+                'link_base' => CurrentPage ()
             );
             $options = array_merge ($defaults, $options); // if setting is not present, use defaults
             $this->control_suffix = $options['control_suffix'];
+            $this->link_base = $options['link_base'];
             $this->start = $options['start'];
             if (isset ($_GET['start' . $this->control_suffix])) {
                 $this->start = $_GET['start' . $this->control_suffix]; // automatically assign
@@ -65,10 +70,12 @@
         function Bar () {
             // generate the << < 1 2 3 ... 8 9 10 > >> thing.
             // get number of pages needed under this setup.
+            
+            
             $buffer = '<div class="paginate_bar">';
             $num_pages = ceil (sizeof ($this->objects) / $this->page_size);
             $links = array ();
-            $link_prefix = $_SERVER['SCRIPT_NAME'] . '?start' . $this->control_suffix . '=';
+            $link_prefix = $this->link_base . '?start' . $this->control_suffix . '=';
          
             if ($num_pages ==1) {
                 return ''; // only one page? show nothing at all.

@@ -33,7 +33,7 @@
                     </div>
                     <div class="col4">
                         <ul>
-                            <li><a href="<!--root-->new/page">New page</a></li>
+                            <li><a href="<!--root-->new/ticket">New task</a></li>
                         </ul>
                     </div>
                     <div class="col4">

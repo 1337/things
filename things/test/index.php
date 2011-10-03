@@ -130,7 +130,7 @@
         function test_auto_objects_by_reference () {
             $a = new Thing ($this->dummy->oid);
             $b = new Thing ($this->dummy->oid);
-            $this->assertReference($a, $b);
+            $this->assertCopy ($a, $b);
         }
         function test_SaveProp () {
             $prop = 'prop1';
@@ -255,11 +255,11 @@
         function setup () {
             $grp = new Things (USER);
             $usrs = $grp->GetObjects ();
-            $this->usr = new User ($usrs[0]); // pick a user
+            $this->usr = new User ($usrs[1]); // pick a user
 
             $grp = new Things (PRIVILEGE);
             $privs = $grp->GetObjects ();
-            $this->priv = new Privilege ($privs[0]); // pick a privilege
+            $this->priv = new Privilege ($privs[1]); // pick a privilege
         }
      
         function test_setup_succeeded () {

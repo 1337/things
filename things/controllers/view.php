@@ -13,7 +13,7 @@
         function View ($special = '') {
             $this->__construct ($special);
         }
-     
+        
         function __construct ($special = '') {
             // if $special (file name) is specified, then that template will be used instead.
             // note that user pref take precedence over those in page, post, etc.
@@ -56,7 +56,7 @@
                     return THINGS_TEMPLATE_DIR . $t;
                 }
             }
-         
+            
             // if site has a setting, use it
             if (file_exists (THINGS_TEMPLATE_DIR . THINGS_SITE_TEMPLATE)) {
                 return THINGS_TEMPLATE_DIR . THINGS_SITE_TEMPLATE;
@@ -103,7 +103,7 @@
                          
                             // replace tags in this contents with that contents
                             $this->contents = preg_replace (
-                                '/<!--\s*inherit\s+file\s*=\s*"' . $filename . '"\s*-->/', 
+                                '/<!--\s*inherit\s+file\s*=\s*"' . addslashes ($filename) . '"\s*-->/', 
                                 $nv->contents, 
                                 $this->contents
                             );

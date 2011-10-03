@@ -1,6 +1,6 @@
 <?php
-    $import[] = 'things.lib.datetime';
     require_once ('.things.php');
+	require_once (PROOT . 'lib/datetime.php');
 
     /*  if no cookies set, make cookie, give 15 minutes, pass
         if cookie is set, check time
