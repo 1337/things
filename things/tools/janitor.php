@@ -64,6 +64,28 @@
                 }
             }
         }
+
+        function replace_tabs ($path = '.', $verbose = false) {
+            // replaces all tabs found in php files in a given folder.
+            require_once (dirname (dirname (__FILE__)) . '/controllers/filesearch.class.php'); // local import
+
+            $a = new FileSearch ();
+            $files = $a->FileNameSearch ('.php', $path);
+            if (sizeof ($files) > 0) {
+                foreach ($files as $file) {
+                    $fc = file_get_contents ($file);
+                    if (strlen ($fc) > 0) {
+                        if (strpos ($fc, chr (9)) !== false) {
+                            $fc = str_replace (chr (9), '    ', $fc);
+                            // file_set_contents ($file, $fc);
+                            if ($verbose) {
+                                echo ("processed $file\n");
+                            }
+                        }
+                    }
+                }
+            }
+        }
      
         function purge_backup_files ($path = '.', $verbose = false) {
             // delete all files named error_log in the specified folder.

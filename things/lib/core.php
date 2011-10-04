@@ -283,17 +283,6 @@
         </html>');
     }
 
-    // define types. before this, no Things objects can be initiated.
-    $things_types = ColumnFetch ("SELECT * FROM `types`", 'tid', 'name');
-    $things_types['all_objects'] = 9001;
-    foreach ($things_types as $name=>$value) {
-        define ($name, $value);        // positive
-        define ("NEW_$name", -$value); // new constants, negative
-        $name = strtoupper ($name);
-        define ($name, $value);        // positive
-        define ("NEW_$name", -$value); // new constants, negative
-    }
- 
     function ObjectCompare () {
         // mod of http://stackoverflow.com/questions/124266/sort-object-in-php
         // in: object 1, object 2, property 1, property 2, ... property n
@@ -358,10 +347,14 @@
         }
     }
  
- 
- 
- 
- 
- 
- 
+    // define types. before this, no Things objects can be initiated.
+    $things_types = ColumnFetch ("SELECT * FROM `types`", 'tid', 'name');
+    $things_types['all_objects'] = 9001;
+    foreach ($things_types as $name=>$value) {
+        define ($name, $value);        // positive
+        define ("NEW_$name", -$value); // new constants, negative
+        $name = strtoupper ($name);
+        define ($name, $value);        // positive
+        define ("NEW_$name", -$value); // new constants, negative
+    }
 ?>

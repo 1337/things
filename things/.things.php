@@ -46,6 +46,7 @@
 	
 	// load modules that you will likely use.
 	require_once (PROOT . 'config/environment.php');
+	require_once (PROOT . 'config/mysql_connect.php');
 	require_once (PROOT . 'lib/core.php');
 	require_once (PROOT . 'lib/strings.php');
 	require_once (PROOT . 'lib/datetime.php');
