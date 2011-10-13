@@ -4,7 +4,7 @@
         // it uses variables only available from post-ui.php.
         die ("Wrong");
     }
-	    
+        
     if (isset ($_GET['id'])) {
         $page_id = $_GET['id'];
         if ($page_id > 0 && GetObjectType ($page_id) == POST) {
@@ -20,7 +20,7 @@
                      <div>%s</div>
                      <p>Last edited %s by %s</p>",
                      $page->GetTitle(),
-					 $page->GetProp ('body'),
+                     $page->GetProp ('body'),
                      date("F j, Y", $page->GetPostTime ()),
                      $author);
 ?>

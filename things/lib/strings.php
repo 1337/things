@@ -99,11 +99,11 @@
         }
         return preg_match_all ($m, $w, $a);
     }
-	
-	function str_overlap ($string1, $string2) {
-		// http://stackoverflow.com/questions/2945446/built-in-function-to-combine-overlapping-string-sequences-in-php
-	    return substr_replace ($string1, $string2, strcspn ($string1, $string2));
-	}
+    
+    function str_overlap ($string1, $string2) {
+        // http://stackoverflow.com/questions/2945446/built-in-function-to-combine-overlapping-string-sequences-in-php
+        return substr_replace ($string1, $string2, strcspn ($string1, $string2));
+    }
  
     function is_good_path ($path) {
         // returns false if the path tries to traverse.

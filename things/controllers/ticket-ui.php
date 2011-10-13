@@ -1,7 +1,7 @@
 <?php
     require_once ('.things.php');
-	require_once (PROOT . 'models/ticket.php');
-	
+    require_once (PROOT . 'models/ticket.php');
+    
     $styles_dir = WEBROOT . 'styles/images/';
     $new = $gp->Get('new');
     $edit = $gp->Get('edit');

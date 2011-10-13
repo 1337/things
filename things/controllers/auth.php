@@ -2,7 +2,7 @@
     @session_start ();
     require_once (PROOT . 'models/gpvar.php'); // just in case
     require_once (PROOT . 'models/user.php'); // just in case
-	require_once (PROOT . 'models/gpvar.php'); // just in case
+    require_once (PROOT . 'models/gpvar.php'); // just in case
     
     class Auth {
         function SuperSecureHash ($what) {
@@ -83,9 +83,9 @@
         // if user is not logged in, it will be redirected to the $to page if $redirect is true.
         // if user is logged in, privileges will be checked for this page's access.
         // returns true (logged in) and false (not logged in).
-		global $gp;
+        global $gp;
         
-		$auth = new Auth ();
+        $auth = new Auth ();
         $user = $auth->WhoIsLoggedIn ();
         // $user = $this->WhoIsLoggedIn ();
      

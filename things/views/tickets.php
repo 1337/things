@@ -6,7 +6,7 @@
     <ul class='tickets'>
     <?php foreach ($ticket_ids as $tid) {
         // $tobj = new Ticket ($tid);
-		$tobj = new Ticket ($tid);
+        $tobj = new Ticket ($tid);
         // setting ticket defaults
         if ($tobj->GetProp ('status') == null) {
             $tobj->SetProp ('status', 0);
@@ -33,7 +33,7 @@
                             echo ("<ul class='subtasks'>");
                             foreach ((array) $tobj->GetChildren (TICKET) as $child_ticket_oid) {
                                 // $child_ticket = new Ticket ($child_ticket_oid);
-								$child_ticket = new Ticket ($child_ticket_oid);
+                                $child_ticket = new Ticket ($child_ticket_oid);
                                 $icon = $child_ticket->GetIcon ();
                                 // defaults have already been set when they were Tobjs
                                 echo ("<li><img src='$icon' />&nbsp;&nbsp;<a href='<!--root-->ticket/" .

@@ -1,6 +1,6 @@
 <?php
     require_once ('.things.php');
-	
+    
     /* 
         Recommended stylesheet for this object
   

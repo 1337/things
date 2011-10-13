@@ -3,7 +3,7 @@
     $new = $gp->Get('new');
     $edit = $gp->Get('edit');
     $id = $gp->Get('id');
-	$body = $gp->Get ('body');
+    $body = $gp->Get ('body');
     $title = $gp->Get ('title');
     $alias = $gp->Get ('alias');
     $tagstr = $gp->Has ('tags') ? $gp->Get ('tags') : '';
@@ -13,8 +13,8 @@
         // no matter what, don't give me an invalid ID.
         if (GetObjectType ($id) != POST) {
             println ("The requested post was not found.", $fail);
-			render ();
-			exit ();
+            render ();
+            exit ();
         }
     }
 

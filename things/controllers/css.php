@@ -20,7 +20,7 @@
             /* for security reasons, this function must only
                be valid for .css files, and this limits it */
             $file = THINGS_CSS_DIR . $file . ".css";
-			if (file_exists ($file)) {
+            if (file_exists ($file)) {
                 echo (css_compress (join ('', file ($file))));
             }
         }

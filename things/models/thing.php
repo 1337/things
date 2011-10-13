@@ -240,12 +240,12 @@
             if (sizeof ($what) > 0) {
                 $oid = $this->oid;
                 
-				ack_r3 ($what); // change all keys to lower case
+                ack_r3 ($what); // change all keys to lower case
                 $what = array_merge (
-				    array ('obj_mtime' => time ()), 
-					$what
-				);
-				
+                    array ('obj_mtime' => time ()), 
+                    $what
+                );
+                
                 foreach ($what as $name => $value) {
                     $name = escape_data ($name); 
                     // value is escaped later if prop is written into db             

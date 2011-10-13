@@ -1,8 +1,8 @@
 <?php
     require_once ('.things.php');
     require_once (PROOT . 'models/ticket.php');
-	
-	CheckAuth (); // require a login. --> $user is available to you.
+    
+    CheckAuth (); // require a login. --> $user is available to you.
 
     if ($gp->Has ('showall')) {
         $title = "All your tasks";
