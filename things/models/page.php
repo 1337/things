@@ -1,6 +1,6 @@
 <?php
     class Page extends Thing {
-        private $body;
+        /*private $body;
      
         function GetBody () {
             // if the post has a "body" property, return it as body text.
@@ -40,7 +40,7 @@
          
             $this->SetProps (array ('bodyhref'=>$filename)); // set file name
             $this->DelProps (array ('body')); // because body is prioritised, it must be killed
-        }
+        }*/
      
     }
 ?>

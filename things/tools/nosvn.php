@@ -1,6 +1,8 @@
 <?php
     // http://www.lateralcode.com/remove-svn-php/
     header('Content-type: text/plain');
+    set_time_limit (600); // execute for 10 minutes ("way too much")
+    
     function delTree($dir) {
     
        $files = glob($dir . '*', GLOB_MARK);
@@ -14,6 +16,7 @@
         
            rmdir($dir);
     }
+    
     function removeSVN($dir) {
        echo "Searching: $dir\n\t";
     
@@ -40,5 +43,6 @@
                removeSVN ($dir . $file . '/');
        }
     }
+    
     removeSVN ('../../');
 ?>

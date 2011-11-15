@@ -15,7 +15,7 @@
     </head>
     <body>
     <?php
-        require_once ('../config/config.php');
+        require_once ('../config/environment.php');
         require_once ('../config/mysql_connect.php'); // or any other linking
      
         // add queries to the array
@@ -36,8 +36,29 @@ ENGINE=MyISAM DEFAULT CHARSET=utf8",
    `name` varchar(255) NOT NULL default '',
    `value` text NOT NULL,
 PRIMARY KEY  (`pid`)) 
-ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 DELAY_KEY_WRITE=1"
-);
+ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 DELAY_KEY_WRITE=1",
+"CREATE TABLE IF NOT EXISTS `types` (
+    `tid` int(8) unsigned NOT NULL auto_increment,
+    `name` varchar(100) NOT NULL COMMENT 'same as class name',
+    PRIMARY KEY  (`tid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16",
+"INSERT INTO `types` (`tid`, `name`) VALUES
+    (1, 'user'),
+    (2, 'group'),
+    (3, 'privilege'),
+    (4, 'post'),
+    (5, 'tag'),
+    (6, 'category'),
+    (7, 'site'),
+    (8, 'section'),
+    (9, 'setting'),
+    (10, 'page'),
+    (11, 'gallery'),
+    (12, 'validator'),
+    (13, 'ajaxfield'),
+    (14, 'ticket'),
+    (15, 'dummy')"
+        );
         $random_queries = array (
             'SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";',
             'CREATE DATABASE `blland_canadensis` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;',

@@ -12,10 +12,7 @@
         if (sizeof ($var_props)) {
             echo ("<div style='overflow:hidden'>");
             foreach ($var_props as $k=>$v) {
-                /*printf ("<b>%s</b>: %s<br />",
-                    strtoupper ($k),
-                    $v
-                );*/
+
                 $oaj->NewTextField (array (
                     'prop' => $k,
                     'friendlyname' => $k,

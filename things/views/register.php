@@ -59,9 +59,9 @@
             $auth = new Auth ();
             $user->SetProps (array (
                 'name'=>$nname,
-                'password'=> $auth->SuperSecureHash ($npass),
                 'email'=>$nmail
             ));
+            $user->SetPassword ($npass);
             println ("User created! You can now <a href='/menu'>log in</a>.", $win);
         }
      

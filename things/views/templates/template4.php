@@ -30,25 +30,19 @@
                         <ul>
                             <li><a href="about/">About me</a></li>
                             <li><b>Brian Lai</b><br />
-                                brian.lai@uwaterloo.ca<br />
-                                tel: 519-888-4567</li>
-                            <!--li><a href="http://ca.linkedin.com/in/goodtogo">LinkedIn</a></li>
-                            <li><a href="http://facebook.com/fristpsot">Facebook</a></li>
-                            <li><a href="http://twitter.com/type_boy">Twitter</a></li-->
+                                brian@ohai.ca</li>
                         </ul>
                     </div>
                     <div class="col3">
                         <ul>
                             <li><a href="/goodies">Freeware</a></li>
                             <li><a href="http://github.com/1337">Github</a></li>
-                            <li><a href="http://download.cnet.com/windows/thinc/3260-20_4-6280037.html">CNET profile</a></li>
-                            <li><a href="http://planet-source-code.com/vb/authors/ShowBio.asp?lngAuthorId=22110576871&amp;lngWId=1">Planet Source Code</a></li>
                         </ul>
                     </div>
                     <div class="col3">
                         <ul>
                             <li><a href="/blog">Blog</a></li>
-                            <li><a href="/archives">Archives</a></li>
+                            <li><a href="/archive">Archive</a></li>
                             <li><a href="/search">Search</a></li>
                             <li>&nbsp;</li>
                             <li><a href="/login">Login</a></li>

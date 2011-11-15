@@ -1,24 +1,17 @@
 <?php
     require_once ('.things.php');
     require_once (PROOT . 'lib/strings.php');
-    // CheckAuth ("Administrative privilege"); // require a login. --> $user is available to you.
-                                       // $gp   is available to you.
+    CheckAuth ("administrative privilege"); // require a login. --> $user is available to you.
+                                            // $gp   is available to you.
     $headers = '
     <style type="text/css">
-        html {
-            font-family: sans-serif;
-        }
-        body *, table, table th, table tr, table td {
-            font-size: 12px;
-        }
         fieldset {
             border: 0;
+            margin-bottom: 24px;
         }
-        table td {
-            border: 1px silver solid;
-        }
-        table td {
-            padding-bottom:18px;
+        table td, table th {
+            border: 1px solid #ddd;
+            padding: 3px;
             vertical-align:top;
         }
     </style>';
@@ -56,30 +49,13 @@
             <input type="submit" value="Go" />
         </fieldset>
     </form>
-    <form method="post">
-        <fieldset>
-            <input type="hidden" name="delete_property" value="1" />
-            Delete property named
-            <input type="text" name="prop" value="<?php echo($gp->Get('prop')); ?>" />
-            of object #
-            <input type="text" name="oid" value="<?php echo($gp->Get('oid')); ?>" />
-            <input type="submit" value="Go" />
-        </fieldset>
-    </form>
-    <form method="post">
-        <fieldset>
-            <input type="hidden" name="delete_object" value="1" />
-            Delete object #
-            <input type="text" name="oid" value="<?php echo($gp->Get('oid')); ?>" />
-            <input type="submit" value="Go" />
-        </fieldset>
-    </form>
-    <table>
+    <table style="width:100%">
         <tr>
             <th>ID</th>
             <th>Type</th>
             <th>Props</th>
             <th>Parents / Children</th>
+            <th>&nbsp;</th><!-- delete -->
 <?php
  
     if (isset ($_POST['hierarchy_add'])) {
@@ -110,17 +86,17 @@
         }
     }
  
-    if (isset ($_POST['delete_property'])) {
-        $a = $_POST['oid'];
-        $b = $_POST['prop'];
+    if (isset ($_REQUEST['delete_property'])) {
+        $a = $_REQUEST['oid'];
+        $b = $_REQUEST['prop'];
         if ($a > 0) {
             $aobj = new Thing ($a);
             $aobj->DelProps (array($b)); // boom...
         }
     }
 
-    if (isset ($_POST['delete_object'])) {
-        $a = $_POST['oid'];
+    if (isset ($_REQUEST['delete_object'])) {
+        $a = $_REQUEST['oid'];
         if ($a > 0) {
             $aobj = new Thing ($a);
             $aobj->Destroy (); // boom...
@@ -162,14 +138,10 @@
         if (sizeof ($p) > 0) {
             echo ("<td>");
             foreach ($p as $name=>$value) {
-             
-                // $value = first (htmlspecialchars ($value));
                 $value = first (htmlspecialchars ($value));
-                echo ("<b>$name</b>: $value<br />");
-             
-                /* $a = new AjaxField ($bobj->oid);
-                $a->NewTextareaField ($name);
-                echo ("<br />"); */
+                echo ("<a href='<!--root-->objects/?delete_property=1&oid=$b&prop=$name'
+                ><img src='http://i.imgur.com/X6hvV.gif' 
+                alt='Delete property' /></a><b>$name</b>: $value<br />");
             }
             echo ("</td>");
         }
@@ -192,14 +164,18 @@
         }
 ?>
             </td>
+            <td>
+                <a href="<!--root-->objects/?delete_object=1&oid=<?php echo $b; ?>"
+                ><img src="http://i.imgur.com/X6hvV.gif" alt="Delete object" /></a>
+            </td>
         </tr>
 <?php
     }
-     
-    /* $ffg = "User";
-    $ffh = new $ffg(5); */
 ?>
     </table>
 <?php
-    render (array ('headers'=>$headers));
+    render (array (
+        'headers'=> $headers,
+        'title' => 'Objects Viewer'
+    ));
 ?>

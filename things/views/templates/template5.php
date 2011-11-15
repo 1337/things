@@ -7,7 +7,6 @@
         <meta name="keywords" content="Brian Lai, Waterloo, KGV" />
         <meta name="description" content="Ohai: Brian Lai from the University of Waterloo." />
         <title><!--self.title--> | ohai.ca</title>
-        <!--base href="http://ohai.ca" /-->
         <!--self.headers-->
         <!--self.userheaders-->
     </head>

@@ -14,10 +14,6 @@
            does not give a rat's buttock about that.
     */
  
-    $import[] = "things.config.mysql_connect,
-                 things.models.thing,
-                 things.lib.core";
- 
     require_once ('.things.php');
  
     /* if (isset ($_GET)) {

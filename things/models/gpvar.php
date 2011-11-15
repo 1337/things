@@ -25,12 +25,14 @@
                 // fetch keys only if the cache is empty
                 // $this->key_cache = array_merge ($_SESSION, $_REQUEST);
                 try {
-                     // manual order; also handles errors if SESSION is disabled.
-                    $this->key_cache = array_merge ($_SESSION, $_POST, $_GET, $_COOKIE);
+                    // manual order; also handles errors if SESSION is disabled.
+                    // $this->key_cache = array_merge ($_SESSION, $_POST, $_GET, $_COOKIE);
+                    $this->key_cache = array_merge ($_SESSION, $_POST, $_GET); // cookies removed for now
                 } catch (Exception $e) {
-                    $this->key_cache = array_merge ($_POST, $_GET, $_COOKIE);
+                    // $this->key_cache = array_merge ($_POST, $_GET, $_COOKIE);
+                    $this->key_cache = array_merge ($_POST, $_GET); // cookies removed for now
                 }
-                if (get_magic_quotes_gpc ()) { // if magic quotes is turned on (O\'Reilly)
+                if (get_magic_quotes_gpc ()) { // if magic quotes is turned on
                     $this->key_cache = array_map ('stripslashes', $this->key_cache);
                 }
             }
@@ -62,31 +64,15 @@
         function Set ($what, $components = GP_SESSION) {
             // accepts an array of (name=>val)s and puts it in $_SESSION ONLY.
             if (sizeof ($what) > 0) {
-                foreach ($what as $name=>$val) {
-                    // echo ($name);
-                    // echo ($val);
-                    /*try {
-                        $_SESSION[$name] = $val;
-                        // echo ("Session win");
-                    } catch (Exception $e) { 
-                        // can sort of mean "I did nothing to SESSION"
-                        $session_only = false;
-                        // echo ("Session fail");
-                    }
-                    if (!$session_only) { // if you think it makes sense...
-                        // die ("'" . $name . "," . $val . "'");
-                        $_POST[$name] = $val;
-                        $_GET [$name] = $val;
-                        setcookie ($name, $val, time()+60*60*24*30, '/'); // expire in a month
-                    }*/
+                foreach ($what as $name => $val) {
                     try {
                         if ($components === false) {
                             $components = 15; // compatibility with existing code
                         }
-                        if ($components >= GP_COOKIE) {
+                        /*if ($components >= GP_COOKIE) {
                             setcookie ($name, $val, time()+60*60*24*30, '/'); // expire in a month
                             $components -= GP_COOKIE;
-                        }
+                        } cookies removed for now (insecure) */
                         if ($components >= GP_GET) {
                             $_GET[$name] = $val;
                             $components -= GP_GET;
@@ -130,16 +116,10 @@
                     } catch (Exception $e) {}
                 }
             } catch (Exception $e) {}
-         
-            /*var_dump ($_GET);
-            var_dump ($_POST);
-            var_dump ($_COOKIE);
-            var_dump ($_REQUEST);
-            die ();*/
-         
+
             header ('location: ' . WEBROOT); // return to home page
         }
     }
- 
+
     $gp = new GPVar (); // used globally
 ?>

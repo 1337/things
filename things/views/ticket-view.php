@@ -6,7 +6,7 @@
     }
  
     // $tobj = new Ticket ($id);
-    $tobj = new Thing ($id);
+	$tobj = new Thing ($id);
 ?>
 <div class="ticket">
     <h1><?php echo (htmlspecialchars ($tobj->GetProp ('name'))); ?></h1>

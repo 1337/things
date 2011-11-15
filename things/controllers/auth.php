@@ -12,8 +12,30 @@
         }
      
         function RemoteWriteHash ($user) {
-            // $user can represent both the name of a site or a user.
-         
+            // $user can represent both the name of a site or a user.      
+        }
+        
+        function CheckPassword ($pw, $custom_user = null) {
+            // returns true if password is correct.
+            global $gp, $user;
+            if ($custom_user == null) {
+                $custom_user = $user; // default user to the one logged in, I guess
+            }
+            
+            if ($custom_user == null) {
+                die (); // must validate with user
+            }
+            
+            if ($custom_user->GetProp ('salt') == null) {
+                $deterministic_salt = $custom_user->GetProp ('salt');
+            } else {
+                // salt won't eat itself; if server version is too old
+                // for salting, this will make sure backward compatibility with older accounts.
+                $deterministic_salt = '';
+            }
+            
+            $pw_hash = $this->SuperSecureHash ($pw . $deterministic_salt);
+            return $custom_user->GetProp ('password') == $pw_hash;
         }
      
         function IsLoggedIn () {
@@ -28,10 +50,8 @@
                     // if loginPassword exists, it must be from a login page.
                     // user is trying to log in.
                     $pwhash = $this->SuperSecureHash ($vars['loginPassword']);
-                    // die ("I can has $pwhash");
                     $gp->Set (array ('loginPWHash'=>$pwhash), false); // false means "save to cookie too"
                     $vars = $gp->Get (); // get again
-                    // return true;
                 }
                 if (array_key_exists ('loginPWHash', $vars)) {
                     // if there is already a hash, that means the user is already
@@ -57,7 +77,7 @@
             }
             return false; // all other cases = flop
         }
-     
+    
         function WhoIsLoggedIn () {
             // returns the active $user object.
             global $gp;
@@ -75,8 +95,6 @@
             $gp->Flush ();
         }
     }
- 
-
 
     function CheckAuth ($required_privs = array (), $from = '', $to = 'login', $redirect = true) {
         // call CheckAuth () to provide login functionality for that specific page.
@@ -87,7 +105,6 @@
         
         $auth = new Auth ();
         $user = $auth->WhoIsLoggedIn ();
-        // $user = $this->WhoIsLoggedIn ();
      
         if (!is_array ($required_privs)) {
             $required_privs = array ($required_privs); // convert to array if given just a name
@@ -97,7 +114,7 @@
             // user is not logged in
             if (strlen ($to) > 0) {
                 if (strlen ($from) == 0) {
-                    $from = $gp->Get('redirected_from');//$_SERVER['SCRIPT_NAME'];
+                    $from = $gp->Get('redirected_from');
                 }
                 if ($redirect) {
                     header ("location: " . WEBROOT . "$to?from=$from");
@@ -110,8 +127,7 @@
                 $has_privs = $user->CheckPrivileges ($required_privs);
                 if (!$has_privs) {
                     if ($redirect) {
-                        // reject request
-                        header ("location: $to?from=$from");
+                        header ("location: $to?from=$from"); // reject request
                     }
                     return false; // and give a false if no redirect.
                 }
@@ -119,32 +135,6 @@
             return $has_privs; // by now, $has_privs must be true
         }
     }
- 
-    /*function CheckPrivilege ($privids = array ()) {
-        // checks the user (required) for privileges.
-        // $privnames can be both a string (the privilege name)
-        // or an array (many privilege names)
-        global $user;
-     
-        $allow = true; // default to allow
-     
-        if (isset ($user) && sizeof ($privids) > 0) {
-            foreach ($privids as $privid) {
-                if (!is_int ($privid)) {
-                    $privid = FindObject ($privid, PRIVILEGE); // find the ID for the name
-                }
-                if (!is_null ($privid)) {
-                    $has_priv = $user->CheckPrivilege ($privid);
-                    if (!$has_priv) {
-                        return false;
-                    } else {
-                        $allow = $allow && true;
-                    }
-                }
-            }
-        }
-        return $allow;
-    }*/
 
     $auth = new Auth ();
     $auth->IsLoggedIn (); // this just logs the user in (if form was sent)

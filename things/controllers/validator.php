@@ -108,6 +108,15 @@
             }
             return (preg_match ($param, $str) > 0);
         }
+        
+        function _password ($str, $param = null) {
+            // param is optional. If you give one, we'll use it as regex.
+            if (!is_null ($param)) {
+                // http://regexhero.net/library/35/strong-password
+                $param = '^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{6,50}$';
+            }
+            return (preg_match ($param, $str) > 0);            
+        }
      
         function _time ($str, $param = null) {
             // param is optional. If you give one, we'll use it as regex.
@@ -124,6 +133,12 @@
                 $param = '/^(?:(?:https?:\/\/)?((?:[\w\-]+\.)+[A-Za-z]{2,})|(?:(?:[012]?\d{1,2}\.){3}[012]?\d{1,3}))(?::\d+)?(?:[?#\/]|$)/i';
             }
             return (preg_match ($param, $str) > 0);
+        }
+        
+        function _charset ($str, $param = 'UTF-8') {
+            // checks if $str is allowed in the specified character set.
+            // see mb_check_encoding
+            return mb_check_encoding ($str, $param);
         }
     }
 ?>

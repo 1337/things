@@ -19,7 +19,7 @@
  
 <?php
     println ("More about you", 2);
-    $a->NewTextareaField ('aboutme', 'Introduce yourself', false, 'width:100%;max-width:450px;height:100px;');
+    $a->NewTextareaField ('aboutme', 'Introduce yourself', false, 'width:100%;max-width:522px;height:100px;');
 ?>
     <hr />
     <table style="width:100%">
@@ -31,6 +31,7 @@
                 $posts = new Paginate (array (
                     'objects' => $user->GetChildren (POST, "`child_oid` DESC"),
                     'page_size' => 5,
+                    'link_base' => 'menu', // from here
                     'control_suffix' => '_post'
                 ));
                 if (sizeof ($posts) > 0) {
@@ -52,13 +53,14 @@
 ?>
             </td>
             <td style="width:50%">
-                <h2><a href='<!--root-->tickets'>Your Tasks</a></h2>
+                <h2>Your Tasks</h2>
                 <p><a href="<!--root-->new/ticket">File a new task</a> | 
                    <a href="<!--root-->tickets">View all</a></p>
 <?php
                 $tickets = new Paginate (array (
                     'objects' => $user->GetChildren (TICKET, "`child_oid` DESC"),
                     'page_size' => 5,
+                    'link_base' => 'menu', // from here
                     'control_suffix' => '_ticket'
                 ));
                 if (sizeof ($tickets) > 0) {
@@ -82,19 +84,7 @@
             </td>
         </tr>
     </table>
-    <h2>Options</h2>
-    <!-- //controls.Text.template, name="Custom template" -->
 <?php 
-    $templates = glob (THINGS_TEMPLATE_DIR . '*');
-    foreach ((array) $templates as $temp) {
-        $templates_2[] = basename ($temp);
-    }
-    $a->NewDropdownField (array (
-        'friendlyname' => 'Choose a theme',
-        'choices' => $templates_2,
-        'prop' => 'template'
-    ));
-    
     render (array (
         'title' => 'Menu'
     ));

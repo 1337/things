@@ -1,6 +1,6 @@
 <?php
     require_once ('.things.php');
-    
+	
     /* 
         Recommended stylesheet for this object
   
@@ -103,7 +103,7 @@
                     style="<?php echo ($style); ?>"
                     type="<?php echo ($type); ?>"
                     onFocus="this.select ();"
-                    onBlur="<? echo ($this->GetAjaxFn ()); ?>"
+                    onBlur="<?php echo ($this->GetAjaxFn ()); ?>"
                     onKeyPress="event.returnValue = (event.keyCode != 13);"
                     rel="<?php echo ($this->node); ?>" 
                     key="<?php echo ($this->key); ?>"
@@ -152,7 +152,7 @@
                     class="datafield" 
                     style="<?php echo ($style); ?>"
                     onFocus="this.select ();"
-                    onBlur="<? echo ($this->GetAjaxFn ()); ?>"
+                    onBlur="<?php echo ($this->GetAjaxFn ()); ?>"
                     rel="<?php echo ($this->node); ?>" 
                     key="<?php echo ($this->key); ?>">
                     <?php 
@@ -210,7 +210,7 @@
                     class="datafield" 
                     style="<?php echo ($style); ?>"
                     onFocus="this.select ();"
-                    onBlur="<? echo ($this->GetAjaxFn ()); ?>"
+                    onBlur="<?php echo ($this->GetAjaxFn ()); ?>"
                     onKeyPress="if (event.keyCode == 13) {this.value += String.fromCharCode (13);event.returnValue = false;}"
                     rel="<?php echo ($this->node); ?>" 
                     key="<?php echo ($this->key); ?>"
@@ -241,7 +241,7 @@
                     style="<?php echo ($style); ?>"
                     type="checkbox"
                     onClick="this.value = (this.checked) ? 1:0;
-                        <? echo ($this->GetAjaxFn ()); ?>"
+                        <?php echo ($this->GetAjaxFn ()); ?>"
                     rel="<?php echo ($this->node); ?>" 
                     key="<?php echo ($this->key); ?>"
                     <?php echo (($this->val) > 0 ? "checked='checked'" : ""); ?> />

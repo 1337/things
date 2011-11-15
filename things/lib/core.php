@@ -33,15 +33,22 @@
     
     function array_value_key ($array, $lookup) {
         // given a 1-to-1 dictionary, find the index of $value.
-        foreach ($array as $key => $value) {
+        foreach ((array) $array as $key => $value) {
             if ($value == $lookup) {
                 return $key;
             }
         }
         return null;
     }
- 
-    function WriteAccessHash () {
+	
+	function array_remove_values ($array, $values) {
+		if (!is_array ($values)) {
+			$values = array ($values);
+		}
+		return array_diff ($array, $values);
+    }
+    
+	function WriteAccessHash () {
         // this is actually a generic hashing algorithm.
         // add as many arguments as you like, and we will add them to the game.
         $vars = func_get_args ();
@@ -52,24 +59,13 @@
         return substr ($salt, 0, 8);
     }
  
-    function println($what, $hdng = 'p') {
+    function println ($what, $hdng = 'p') {
         if ($hdng >= 1 && $hdng <= 6) {
             $heading = 'h' . $hdng;
-        } elseif (strlen($hdng) == 0) {
-            $heading = 'p';
         } else {
             $heading = $hdng;
         }     
         echo("<$heading>$what</$heading>\n");
-    }
-
-    function CollapseArray ($arr) {
-        // array (1,2, 'hello', "haha", '\'') --> '1','2','hello','haha','\''
-        // char 11 is used as a separator. It is device control 1.
-        // any modern string with that character is just plain stupid.
-        return str_replace (chr (11), 
-                             "', '", 
-                             "'" . implode (chr (11), array_map ("addslashes", $arr)) . "'");
     }
  
     function MergeFirst () {
@@ -92,53 +88,6 @@
             $empty = array_merge ($empty, $arg);
         }
         return $empty;
-    }
- 
-    function SingleFetch ($query, $column = '') {
-        // used to fetch a single row or a single value from a query.
-        // to get a single value, specify $column.
-        $sql = mysql_query ($query) or die (mysql_error ());
-        if ($sql && mysql_num_rows ($sql) > 0) {
-            $tmp = mysql_fetch_assoc ($sql);
-            if (strlen ($column) > 0) {
-                return $tmp[$column];
-            } else {
-                return $tmp; // if not specified, return whole row.
-            }
-        } else {
-            return null;
-        }
-    }
- 
-    function ColumnFetch ($query, $column, $key = '') {
-        /* return all values from a single column:
-            col[0]=1
-            col[1]=4
-            col[2]=9, ...
-         
-            => [1,4,9]
-         
-            if $key is given, values from that row will be used as key.
-         
-            col[john] = 1
-            col[...
-         
-         
-             */
-        $sql = mysql_query ($query) or die (mysql_error ());
-        if ($sql && mysql_num_rows ($sql) > 0) {
-            $buffer = array ();
-            while ($tmp = mysql_fetch_assoc ($sql)) {
-                if (array_key_exists ($key, $tmp)) {
-                    $buffer[$tmp[$key]] = $tmp[$column];
-                } else {
-                    $buffer[] = $tmp[$column];
-                }
-            }
-            return $buffer;
-        } else {
-            return null;
-        }
     }
  
     function ack_r3 (&$array, $case=CASE_LOWER, $flag_rec=false) {
@@ -183,6 +132,18 @@
         return $ob ->GetType ();
     }
 
+    function escape_data ($data) { 
+        global $slink;
+        if (ini_get('magic_quotes_gpc')) {
+            $data = stripslashes($data);
+        }
+		if ($slink) {
+            return mysql_real_escape_string (trim ($data), $slink);
+		} else {
+			return addslashes (trim ($data));
+		}
+    }
+
     function CreateObject ($type_id, $props = array ()) {
         // creates an object in the database. $type does nothing in this generic class.
         // if $props (name=>val, name=>val...) is specified, the object will 
@@ -209,32 +170,30 @@
         $name = escape_data ($name);
         $type = escape_data ($type);
         if (strlen ($name) > 0 && strlen ($type) > 0 ) {
-            $query = "SELECT ua.`oid` FROM `objects` as ua, `properties` as ub
-                       WHERE ua.`type`='$type'
-                         AND ua.`oid`=ub.`oid`
-                         AND ub.`name`='name'
-                         AND ub.`value`='$name'
-                       LIMIT 1";
-            $sql = mysql_query ($query) or die (mysql_error ());
-            if ($sql && mysql_num_rows ($sql) > 0) {
-                $tmp = mysql_fetch_assoc ($sql);
-                return $tmp['oid']; // return object ID.
-            } else {
-                return null; // no object found
-            }
-        } else {
-            // searching for an impossible value --> NOTHING.
-            return null;
-            // die ("FindObject: you're doing it wrong");
-        }
+			$stuff = new Things ($type);
+			$stuff->FilterByProp ('name', $name);
+			$objects = $stuff->GetObjects ();
+			if (sizeof ($objects) > 0) {
+    			return $objects[0];
+			}
+		}
+		return null;
     }
  
     function ObjectExists ($oid) {
-        $query = "SELECT `oid` FROM `objects` WHERE `oid`='$oid'";
+        /*$query = "SELECT `oid` FROM `objects` WHERE `oid`='$oid'";
         $sql = mysql_query ($query) or die (mysql_error ());
-        return (mysql_num_rows ($sql) >= 1);
+        return (mysql_num_rows ($sql) >= 1);*/
+		// removing SQL-dependent code
+		if (class_exists ('Things') && class_exists ('Thing')) {
+			$group = new Things (ALL_OBJECTS);
+			if (in_array ($oid, $group->GetObjects ())) {
+				return true;
+			}
+		}
+		return false; // either class definition or object not found
     }
- 
+
     function ObjectTypeExists ($tid) {
         // enter a type ID to see if it is a valid Things type.
         // requires this script to get past the last line.
@@ -282,7 +241,7 @@
             </body>
         </html>');
     }
-
+ 
     function ObjectCompare () {
         // mod of http://stackoverflow.com/questions/124266/sort-object-in-php
         // in: object 1, object 2, property 1, property 2, ... property n
@@ -347,14 +306,74 @@
         }
     }
  
-    // define types. before this, no Things objects can be initiated.
-    $things_types = ColumnFetch ("SELECT * FROM `types`", 'tid', 'name');
-    $things_types['all_objects'] = 9001;
-    foreach ($things_types as $name=>$value) {
-        define ($name, $value);        // positive
-        define ("NEW_$name", -$value); // new constants, negative
-        $name = strtoupper ($name);
-        define ($name, $value);        // positive
-        define ("NEW_$name", -$value); // new constants, negative
+    function CurrentPage () {
+        // basically, that
+        global $request_uri;
+        if (isset ($request_uri) && strlen ($request_uri) > 0) {
+			// die ($request_uri); // /objects/?start=0
+			// echo (strpos ($request_uri, '?'));
+			// echo (substr ($request_uri, 0, strpos ($request_uri, '?')));
+            return substr ($request_uri, 0, strpos ($request_uri, '?'));
+        }
+        return $_SERVER['SCRIPT_NAME'];
     }
+ 
+	function RandomString ($len = 6) {
+		$chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+		$charl = strlen ($chars);
+		$buffer = '';    
+		for ($i = 0; $i < $len; $i++) {
+			$buffer .= $chars[rand (0, $charl - 1)];
+		}
+		return $buffer;
+	}
+     
+    function LoadPage ($request_uri) {
+		// I believe any function can call this and have a good time.
+		global $rules;
+		
+		ob_end_clean (); // start all over.
+		@ob_start (); // start again.
+		        
+		if (strlen ($request_uri) > 0) {
+			$object_id = FindObjectByPermalink ($request_uri);
+			if (!is_null ($object_id)) { // if an object had a permalink registered, show it immediately
+				$type = GetObjectType ($object_id);
+				// if object exists, replace permalink with its generic URL (e.g. /tickets/224)
+				$request_uri = '/' . strtolower (GetTypeName ($type)) . "/" . $object_id;
+			}
+			$short_webroot = substr (WEBROOT, 0, strlen (WEBROOT) -1); // WEBROOT without the last slash
+			foreach ($rules as $rule => $request_replacement) {
+				$dummy_array = array (); // must have something to pass as reference in next line
+				$matched = (preg_match_all ('#' . $rule . '#', $request_uri, $dummy_array) > 0);
+				$converted_url = preg_replace ('#' . $rule . '#', $request_replacement, $request_uri);
+				if ($converted_url != $request_uri) { // if something matched
+					$parsed = parse_url ($short_webroot . $converted_url);
+					if (array_key_exists ('query', $parsed)) {
+						// if query string exists (so $_GET)
+						$vars = array ();
+						parse_str ($parsed['query'], $vars);
+						foreach ($vars as $key => $val) {
+							// add detected keys to $_GET.
+							$gp->Set (array ($key => $val), GP_GET);
+						}
+					}
+					if (array_key_exists ('path', $parsed)) { // sometimes, stupid shit happens
+						$to_be_shown = $_SERVER['DOCUMENT_ROOT'] . $parsed['path'];
+						if (file_exists ($to_be_shown)) {
+							$gp->Set (array ('redirected_from' => $parsed['path'])); // for auth redirection purposes, mainly
+							
+							require ($to_be_shown); // show the page
+							
+							header('HTTP/1.1 200 OK'); 
+							exit (); // finish replacing (similar to the [L] behaviour in htaccess)
+						}
+					}
+				}
+			}
+		} else {
+			// I don't see how you can have a URL of 0 characters.
+		}
+		require (THINGS_404_PAGE); // Nothing else I can do for you ---> 404
+	}   
 ?>

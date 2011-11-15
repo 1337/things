@@ -60,11 +60,12 @@
      
         function MakeSEO ($alias) {
             // makes a "search engine friendly URL".
-            return preg_replace ('/[^a-z0-9_\-\.]/i', '', 
+            $proposed_alias = preg_replace ('/[^a-z0-9_\-]/i', '', 
                 str_replace (' ', '-', 
                     strtolower ("$alias.html")
                 )
             );
+            return $proposed_alias;
         }
     }
 ?>

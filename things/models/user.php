@@ -55,18 +55,18 @@
          
             return $good;
         }
-     
+        
         function CheckPassword ($pw) {
-            // returns true if password is correct.
             $temp_auth = new Auth ();
-            $pw_hash = $temp_auth->SuperSecureHash ($pw);
-            return $this->GetProp ('password') == $pw_hash;
+            return $temp_auth->CheckPassword ($pw, $this);
         }
 
         function SetPassword ($pw) {
             // returns true if password is correctly set.
             $temp_auth = new Auth ();
-            $pw_hash = $temp_auth->SuperSecureHash ($pw);
+            $deterministic_salt = RandomString (16); // generate a deterministic random salt
+            $this->SetProp ('salt', $deterministic_salt);
+            $pw_hash = $temp_auth->SuperSecureHash ($pw . $deterministic_salt);
             $this->SetProp ('password', $pw_hash);
             return $this->GetProp ('password') == $pw_hash;
         }
