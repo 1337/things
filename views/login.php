@@ -13,10 +13,10 @@
                  line-height:1.5em;font-size:0.8em;'>
         <div style='background-color:#fff;position:fixed;
                     left:50%;top:50%;width:260px;margin-left:-150px;
-                    height:190px;margin-top:-115px;text-align:center;
+                    height:145px;margin-top:-95px;text-align:center;
                     padding:20px;border:1px solid silver;'>
-            <div style='color:#999;font-size:3em;
-                        padding:10px 10px 20px 10px;'>Login</div>
+            <!-- div style='color:#999;font-size:3em;
+                        padding:10px 10px 20px 10px;'>Login</div -->
             <form method='post'>
                 <label for='loginName'>User name: </label><br />
                 <input id='loginName' name='loginName' type='text'
@@ -36,7 +36,7 @@
                 /><br />
                 <br />
                 <input type='submit' value='Log in' />
-                (or <a href="register">register</a>)
+                <!-- (or <a href="register">register</a>) -->
             </form>
         </div>
     </body>

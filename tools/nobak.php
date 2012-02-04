@@ -6,6 +6,6 @@
     $a = new Janitor ();
  
     if (!is_null ($a)) { // never
-        $a->purge_backup_files ('../../', true);
+        $a->purge_backup_files ('../../', true); // things root
     }
 ?>

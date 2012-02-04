@@ -1,7 +1,7 @@
 <?php
     require_once ('.things.php');
     
-    require_once (PROOT . 'controllers/options.php'); // <-- business logic
+    require_once (PROOT . 'controllers/options.php');
     
     CheckAuth (); // require a login. --> $user is available to you.
     
