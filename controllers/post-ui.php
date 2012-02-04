@@ -8,8 +8,7 @@
     $alias = $gp->Get ('alias');
     $tagstr = $gp->Has ('tags') ? $gp->Get ('tags') : '';
 
-    if (isset ($id) && $id > 0) {
-        // print_r ($id);
+    if (isset ($id) && $id > 0 || ($id == 0 && !($edit || $new))) {
         // no matter what, don't give me an invalid ID.
         if (GetObjectType ($id) != POST) {
             println ("The requested post was not found.", $fail);

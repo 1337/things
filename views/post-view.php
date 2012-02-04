@@ -4,7 +4,7 @@
         // it uses variables only available from post-ui.php.
         die ("Wrong");
     }
-	    
+	
     $post = new Post ($id);
     $post->SetProp ('views', $post->GetProp ('views') + 1); // what do you think that means?
     $authors = $post->GetParents (USER);
