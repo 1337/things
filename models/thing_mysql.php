@@ -557,6 +557,16 @@
                 die ("Failed to reallocate object");
             }
         }
+
+        function Export () {
+            // export this Thing to JSON format.
+            $vars = array_merge (
+                array('id' => $this->oid),
+                array('type' => GetTypeName($this->GetType())),
+                $this->getProps()
+            );
+            return json_encode ($vars);
+        }
      
         function Duplicate () {
             // creates a data-identical twin of this object.
