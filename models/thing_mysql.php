@@ -141,7 +141,7 @@
             /* array
               'name' => string 'Administrator' (length=13)
               'Password' => string '123456' (length=6)
-              'email' => string 'lpppppl@gmail.com' (length=17)
+              'email' => string 'brian@ohai.ca' (length=13)
               'type' => string '1' (length=1) */
             if (!isset ($this->cache['props']) || sizeof ($this->cache['props']) == 0) {
                 $props = $this->GetPropsRaw ();
